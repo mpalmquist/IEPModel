@@ -2,41 +2,41 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
 	xmlns="http://www.iepmodel.net">
 	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
-	<xs:element name="Appliance" type="ApplianceType"/>
-	<xs:complexType name="ApplianceType">
+	<xs:element name="appliance" type="appliance"/>
+	<xs:complexType name="appliance">
 		<xs:sequence>
-			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is simply a descriptive name, typically a common name used for the system</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="BuildingID" nillable="false" type="xs:IDREF">
+			<xs:element minOccurs="0" name="buildingId" nillable="false" type="xs:IDREF">
 				<xs:annotation>
 					<xs:documentation>This refers to the building that the appliance in contained in.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Type" type="ApplianceEnumType" minOccurs="0" maxOccurs="1">
+			<xs:element name="type" type="applianceEnum" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is specific list of appliances used to categorize the level of energy usage for any particular appliance. This is intended to be used as a simple description of the system and is suited for use with the SaveEnergy123 tool: https://saveenergy123.com/</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ApplianceDefinition" type="EquipmentDefinitionType" minOccurs="0"/>
-			<xs:element minOccurs="0" name="ApplianceEquipment" type="EquipmentInstanceType"/>
-			<xs:element name="SubType" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="applianceDefinition" type="equipmentDefinition" minOccurs="0"/>
+			<xs:element minOccurs="0" name="ApplianceEquipment" type="equipmentInstance"/>
+			<xs:element name="subType" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is used to provide more specifics on the type of system. This will likely be extended in the future.  For example: type of computer, type of TV, etc.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"
+			<xs:element name="systemProperties" type="commonSystemProperties" minOccurs="0"
 				maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="ApplianceEnumType">
+	<xs:simpleType name="applianceEnum">
 		<xs:annotation>
 			<xs:documentation>Enum exists to know specifically what equipment is being referenced as opposed to being a open description only.</xs:documentation>
 		</xs:annotation>

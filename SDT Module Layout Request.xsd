@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+    schema: SDT Module Layout Request.xsd
+    Author: Michael Palmquist, SolarNexus Inc
+    Description: blah blah TBD.
+    **************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+    version="2.0" xmlns="http://www.iepmodel.net" elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <xs:include schemaLocation="Common.xsd"/>
+    <xs:include schemaLocation="CommonSolar.xsd"/>
+    <xs:include schemaLocation="Building.xsd"/>
+    <xs:simpleType name="moduleOrientationStrategyEnum">
+        <xs:annotation>
+            <xs:documentation>ENUMs include: 
+1) PORTRAIT_ONLY - layout will be in portrait
+2) LANDSCAPE_ONLY - layout will be in landscape
+3) MAXIMIZE_HOMOGENOUS - layout will be either landscape or portrait
+</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PORTRAIT_ONLY"/>
+            <xs:enumeration value="LANDSCAPE_ONLY"/>
+            <xs:enumeration value="MAXIMIZE_HOMOGENEOUS"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="layoutTemplateStrategyEnum">
+        <xs:annotation>
+            <xs:documentation>ENUMs include:
+1) GRID_OPTIMIZED- rows and columns will be aligned.
+2) STAGGERED_OPTIMIZED (in development) - rows can be staggered. No columns
+3) GRID_CENTERED - (in development) - rows and columns will be aligned. The layout will be centered (so with hipped roofs, the layout will be symmetrical)
+4) STAGGERED_CENTERED - (in development) - rows and columns will be aligned. The layout will be centered (so with hipped roofs, the layout will be symmetrical)
+</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GRID_OPTIMIZED"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="orientationLineEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EAVE"/>
+            <xs:enumeration value="RIDGE"/>
+            <xs:enumeration value="SLOPE_LINE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="sizingMethodEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DC_TARGET"/>
+            <xs:enumeration value="AC_TARGET"/>
+            <xs:enumeration value="• MAXIMIZE_AVAILABLE_AREA• MAXIMIZE_AVAILABLE_AREA"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="roofFaceSpecificationType">
+        <xs:sequence>
+            <xs:element name="polygon2dSceneOrthoProjection" type="polygon2d" minOccurs="1"/>
+            <xs:element name="slope" minOccurs="1" type="angle">
+                <xs:annotation>
+                    <xs:documentation>Roof face slope, in degrees.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="orientationLineType" minOccurs="1" type="orientationLineEnum">
+                <xs:annotation>
+                    <xs:documentation>Orientation line is the edge of the roof face polygon from which azimuth is determined. Typically an Eave or Ridge from which the azimuth is perpendicular to. If no eave or ridge is available to determine the azimuth from, then can simply specify a slope line.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="orientationLine" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Defines the orientationLine used to determine roof face azimuth.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="point1" type="point2d"/>
+                        <xs:element name="point2" type="point2d"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="unskew" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>This feature squares up polygon sides that are close to perpendicular. Default assumption is TRUE for sloped roof faces, and FALSE for flat roof faces. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="name" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Descriptive name for the roof face.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="arrayAreaSpecificationOLD">
+        <xs:annotation>
+            <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element name="areaType" type="arrayAreaTypeEnum">
+                <xs:annotation>
+                    <xs:documentation>Classifies the defined area as a roof face or ground area.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="polygon2dSceneOrthoProjection" type="polygon2d" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="slope" minOccurs="0" type="angle">
+                <xs:annotation>
+                    <xs:documentation>If a roof face, this is the slope, in degrees, of the roof face. Slope is not defined for ground areas because the array's structure is assumed to compensate for irregularities.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="orientationLineType" minOccurs="1" type="orientationLineEnum">
+                <xs:annotation>
+                    <xs:documentation>Orientation line is the edge of the roof face polygon from which azimuth is determined. Typically an Eave or Ridge from which the azimuth is perpendicular to. If no eave or ridge is available to determine the azimuth from, then can simply specify a slope line.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="orientationLine" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Defines the orientationLine used to determine roof face azimuth.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="point1" type="point2d"/>
+                        <xs:element name="point2" type="point2d"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="unskew" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Tells SDT whether or not to force area polygon edges into right angles that are close to 90 deg. Default is TRUE (if not provided, TRUE is assumed).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="arrayAreaSpecification">
+        <xs:complexContent>
+            <xs:extension base="arrayArea">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="polygon2dSceneOrthoProjection" type="polygon2d">
+                        <xs:annotation>
+                            <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="orientationLineType" minOccurs="1" type="orientationLineEnum">
+                        <xs:annotation>
+                            <xs:documentation>Orientation line is the edge of the arrayArea polygon from which azimuth is determined. In case of a roof face, an Eave or Ridge is typically used to determine the azimuth (Azimuth direction is perpendicular to the eave or ridge). If no eave or ridge is available to determine the azimuth from, then can simply specify a slope line.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="orientationLine" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Defines the orientationLine used to determine the azimuth of the area.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="point1" type="point2d"/>
+                                <xs:element name="point2" type="point2d"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="unskew" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Tells SDT whether or not to force area polygon edges into right angles that are close to 90 deg. Default is TRUE (if not provided, TRUE is assumed).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="layoutSpecificationType">
+        <xs:sequence>
+            <xs:element name="moduleOrientationStrategy" type="moduleOrientationStrategyEnum"/>
+            <xs:element name="rowSpacing" type="xs:decimal"/>
+            <xs:element name="columnSpacing" type="xs:decimal"/>
+            <xs:element minOccurs="0" name="moduleTiersInRack" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>When array area is a flat roof or ground area, this element describes the number of tiers (or rows) of modules that the racking system will hold. Typical ballasted systems have a single module tier, while ground or pole mount racks have multiple tiers (or rows) on a single rack.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="layoutTemplateStrategy" type="layoutTemplateStrategyEnum"/>
+            <xs:element name="shadeMonth" minOccurs="0" type="calendarMonthEnum">
+                <xs:annotation>
+                    <xs:documentation>The sun's angle to the horizon varies by month. The calendar month used to evaluate spacing between rows of tilted modules. Winter months will require greater spacing between tilted up racking than summer months.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="arrayAzimuth" type="angle"/>
+            <xs:element name="arrayTilt" type="angle"/>
+            <xs:element maxOccurs="1" name="arrayAreaSpecification" type="arrayAreaSpecification"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="sdtModuleLayoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="settings">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="unitOfLength" type="dimensionUnitEnum" minOccurs="0"/>
+                            <xs:element minOccurs="0" name="setbacksByRoofEdgeType"
+                                type="roofEdgeSetbacks"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="site">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="address" type="address"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="designSpecification">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="moduleSpecification">
+                                <xs:annotation>
+                                    <xs:documentation>A choice of either providing the ID of a PV module in the Solar Design Tool database, or to provide your own PV Module definition. Note that if providing a PV module definition, Solar Design Tool will attempt to match its make and model to a PV module in its database, and if found, use the dimension data for the PV module from Solar Design Tool. If not found, Solar Design Tool will use the module dimension data provided in the PV module definition element.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:choice>
+                                        <xs:element name="id">
+                                            <xs:annotation>
+                                                <xs:documentation>This is the ID of a Solar Design Tool PV module.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="moduleDefinition"
+                                            type="pvModuleDefinition">
+                                            <xs:annotation>
+                                                <xs:documentation>This is a PV module definition, which includes the data about a particular make and model of a PV module and its attributes, particularly its dimensions.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:choice>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="sizingMethod" type="sizingMethodEnum"/>
+                            <xs:element name="target" type="xs:integer">
+                                <xs:annotation>
+                                    <xs:documentation>This is the target system size, in watts at standard test conditions (stc).</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="targetTolerance" type="xs:integer"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="layoutSpecifications">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="layoutSpecification"
+                                type="layoutSpecificationType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="exclusionAreas">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1"
+                                name="exclusionArea2dOrthoProjection" type="polygon2d"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

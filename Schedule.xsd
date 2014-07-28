@@ -3,7 +3,7 @@
 	<xs:annotation>
 		<xs:documentation>This is based on the gbxml Schedule classes</xs:documentation>
 	</xs:annotation>
-	<xs:simpleType name="hourIDType">
+	<xs:simpleType name="hourId">
 		<xs:annotation>
 			<xs:documentation>This is a number from 1 to 24</xs:documentation>
 		</xs:annotation>
@@ -12,64 +12,58 @@
 			<xs:minInclusive value="1"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="WeekScheduleType">
+	<xs:complexType name="weekSchedule">
 		<xs:annotation>
 			<xs:documentation>Set of day schedules all assigned to a unique particular period of the week using the day type attribute. Do not schedule conflicting day types to the same week schedule.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
-			<xs:element ref="Name" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="Description" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="Day" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string"/>
+			<xs:element ref="day" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
 		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
 	</xs:complexType>
-	<xs:simpleType name="DescriptionType">
-		<xs:restriction base="xs:string"/>
-	</xs:simpleType>
-	<xs:simpleType name="BeginDateType">
+	<xs:simpleType name="beginDate">
 		<xs:restriction base="xs:date"/>
 	</xs:simpleType>
-	<xs:simpleType name="EndDateType">
+	<xs:simpleType name="endDate">
 		<xs:restriction base="xs:date"/>
 	</xs:simpleType>
-	<xs:simpleType name="NameType">
-		<xs:restriction base="xs:string"/>
-	</xs:simpleType>
-	<xs:element name="Schedule" type="ScheduleType"/>
-	<xs:element name="ScheduleValue" type="ScheduleValueType"/>
-	<xs:complexType name="ScheduleType">
+	<xs:element name="schedule" type="schedule"/>
+	<xs:element name="scheduleValue" type="scheduleValue"/>
+	<xs:complexType name="schedule">
 		<xs:annotation>
 			<xs:documentation>List of year schedules that make up an entire calendar year.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
-			<xs:element ref="Name" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="Description" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="YearSchedule" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
+			<xs:element ref="yearSchedule" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
 		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
 	</xs:complexType>
-	<xs:complexType name="ScheduleValueType">
+	<xs:complexType name="scheduleValue">
 		<xs:annotation>
 			<xs:documentation>This is an extension of the original ScheduleValue in the </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="TimeBlockValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
+			<xs:element name="timeBlockValue" type="xs:decimal" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Value for one block of time. Divides a day evenly into number of ScheduleValue elements defined in DaySchedule. Example: If 12 ScheduleValue elements are defined, each will represent two hours</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="HourSpecified" type="hourIDType" minOccurs="0" maxOccurs="1">
+			<xs:element name="hourSpecified" type="hourId" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This would used in the case of changes to a specific hour(s). These would match the ScheduleValue</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BeginTime" type="xs:time" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="EndTime" type="xs:time" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="beginTime" type="xs:time" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="dayEnumType">
+	<xs:simpleType name="dayEnum">
 		<xs:restriction base="xs:NMTOKEN">
 			<xs:enumeration value="Weekday"/>
 			<xs:enumeration value="Weekend"/>
@@ -87,7 +81,7 @@
 			<xs:enumeration value="All"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="scheduleEnumType">
+	<xs:simpleType name="scheduleEnum">
 		<xs:annotation>
 			<xs:documentation>This is used to define the type of schedule used. 
 
@@ -113,14 +107,14 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:element name="YearSchedule" type="YearScheduleType"/>
-	<xs:complexType name="YearScheduleType">
+	<xs:element name="yearSchedule" type="yearSchedule"/>
+	<xs:complexType name="yearSchedule">
 		<xs:annotation>
 			<xs:documentation>Set of week schedules all assigned for a particular time period during the year defined by the begin and end date elements. These must not span more than one calendar year.</xs:documentation>
 		</xs:annotation>
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:element ref="Name" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
 			<xs:element ref="BeginDate" minOccurs="1" maxOccurs="1"/>
 			<xs:element ref="EndDate" minOccurs="1" maxOccurs="1"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="WeekScheduleId">
@@ -131,14 +125,14 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 		</xs:choice>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
 	</xs:complexType>
-	<xs:element name="WeekSchedule" type="WeekScheduleType"/>
-	<xs:simpleType name="DaylightSavingsType">
+	<xs:element name="weekSchedule" type="weekSchedule"/>
+	<xs:simpleType name="daylightSavings">
 		<xs:annotation>
 			<xs:documentation>Allows for including daylight savings time</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:boolean"/>
 	</xs:simpleType>
-	<xs:element name="Day">
+	<xs:element name="day">
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
@@ -152,17 +146,17 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="DaySchedule" type="DayScheduleType"/>
-	<xs:complexType name="DayScheduleType">
+	<xs:element name="daySchedule" type="daySchedule"/>
+	<xs:complexType name="daySchedule">
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
-			<xs:element ref="Name" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="Description" minOccurs="0" maxOccurs="1"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
 			<xs:element ref="ScheduleValue" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
 		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
 	</xs:complexType>
-	<xs:complexType name="DayType">
+	<xs:complexType name="day">
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
 				<xs:attribute name="dayScheduleIdRef" use="required" type="xs:IDREF">
@@ -192,10 +186,8 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 			<xs:enumeration value="All"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:element name="Name" type="xs:Name"/>
-	<xs:element name="BeginDate" type="BeginDateType"/>
-	<xs:element name="EndDate" type="EndDateType"/>
-	<xs:element name="Description" type="DescriptionType"/>
-	<xs:element name="hourID" type="hourIDType"/>
-	<xs:element name="DaylightSavings" type="DaylightSavingsType"/>
+	<xs:element name="beginDate" type="beginDate"/>
+	<xs:element name="endDate" type="endDate"/>
+	<xs:element name="hourId" type="hourId"/>
+	<xs:element name="daylightSavings" type="daylightSavings"/>
 </xs:schema>

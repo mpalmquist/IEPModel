@@ -6,38 +6,36 @@
 	</xs:annotation>
 	<xs:include schemaLocation="Common.xsd"/>
 	<xs:include schemaLocation="Schedule.xsd"/>
-	<xs:complexType name="ZoneType">
+	<xs:complexType name="zone">
 		<xs:annotation>
 			<xs:documentation>These are heat loads. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AdditionalLoad" type="PowerType" minOccurs="0" maxOccurs="1">
+			<xs:element name="additionalLoad" type="power" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This represents thermal load in addition to occupant and envelope.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CoolingSetPointSchedule" type="ScheduleType" minOccurs="0"
-				maxOccurs="1"/>
-			<xs:element name="HeatingSetPointSchedule" type="ScheduleType" minOccurs="0"
-				maxOccurs="1"/>
-			<xs:element name="FloorNo" type="xs:int" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Occupancy" type="xs:int" minOccurs="0" maxOccurs="1">
+			<xs:element name="coolingSetPointSchedule" type="schedule" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="heatingSetPointSchedule" type="schedule" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="floorNo" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="occupancy" type="xs:int" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is the maximum occupancy of the zone</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="OccupantSchedule" type="ScheduleType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="RefHVACSystemID" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="occupantSchedule" type="schedule" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="hvacSystemIdRef" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>ID for referencing a cooling system serving this zone.</xs:documentation>
 				</xs:annotation>

@@ -10,7 +10,7 @@
 	</xs:annotation>
 	<xs:include schemaLocation="Common.xsd"/>
 	<xs:include schemaLocation="EnergyConsumption.xsd"/>
-	<xs:simpleType name="MeteringTypesEnumType">
+	<xs:simpleType name="meteringTypesEnum">
 		<xs:annotation>
 			<xs:documentation>Master metered or individually metered.</xs:documentation>
 		</xs:annotation>
@@ -19,7 +19,7 @@
 			<xs:enumeration value="Master Metered"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="UtilityTransformerConnectionTypesEnumType">
+	<xs:simpleType name="utilityTransformerConnectionTypesEnum">
 		<xs:annotation>
 			<xs:documentation>The level at which the service connection is made to the utility's electrical services (primary, secondary, transmission).</xs:documentation>
 		</xs:annotation>
@@ -29,38 +29,38 @@
 			<xs:enumeration value="Primary"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="UtilityServiceType">
+	<xs:complexType name="utilityService">
 		<xs:annotation>
 			<xs:documentation>An energy service for a single fuel type. A utility typically provides this service, although a propane or heating oil provider can fit as well. Describes the customer's service attributes as well as utility bills based on metering of an energy service.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence maxOccurs="1" minOccurs="1">
-			<xs:element name="Energy" type="EnergyClassEnumType">
+			<xs:element name="energy" type="energyClassEnum">
 				<xs:annotation>
 					<xs:documentation>Names the energy fuel type.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="UtilityName" type="xs:string"/>
-			<xs:element maxOccurs="1" minOccurs="0" name="HostCustomerName" type="xs:string">
+			<xs:element minOccurs="0" name="utilityName" type="xs:string"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="hostCustomerName" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Customer name.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="AccountNumber" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="accountNumber" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Identifier assigned by the utility.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="ServiceId" type="xs:string">
+			<xs:element minOccurs="0" name="serviceId" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>An identifier provided by the utility.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="ExistingRateSchedule" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="existingRateSchedule" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>The utility's description of how it charges the customer for units of energy consumed.  This is the currently in effect rate schedule.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProposedRateSchedule">
+			<xs:element maxOccurs="1" minOccurs="0" name="proposedRateSchedule">
 				<xs:annotation>
 					<xs:documentation>The utility's description of how it charges the customer for units of energy consumed.  This is the proposed rate schedule in cases where the project includes a change of rate schedule.</xs:documentation>
 				</xs:annotation>
@@ -76,42 +76,49 @@
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="BlendedRate" type="MonetaryType">
+			<xs:element maxOccurs="1" minOccurs="0" name="blendedRate" type="monetary">
 				<xs:annotation>
 					<xs:documentation>Blended rate is an average per unit rate that may blend various rates based on tier, time of use and seasonal changes into a single rate. This will be in cents/kwh or dollars/therm</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="EnergyConsumption" type="EnergyRecordType">
+			<xs:element maxOccurs="1" minOccurs="0" name="energyConsumption" type="energyRecord">
 				<xs:annotation>
 					<xs:documentation>Multiple Energy Consumption elements are allowed in case of multiple revenue meters.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="UtilityMeterId" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="utilityMeterId" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Utility's identifier for the meter.
 
 Utiility interconnections may require meter number. Utility incentive programs may require meter id as well.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="unbounded" minOccurs="0" name="Space" type="xs:IDREF">
-				<xs:annotation>
-					<xs:documentation>A building consists of one or many spaces. This object provides a high level specification of the building space profile intended for use with Projects and simulations such as SaveEnergy123 and Portfolio Manager.
+			<xs:element minOccurs="0" name="spaces">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="space" type="xs:IDREF">
+							<xs:annotation>
+								<xs:documentation>A building consists of one or many spaces. This object provides a high level specification of the building space profile intended for use with Projects and simulations such as SaveEnergy123 and Portfolio Manager.
                 
                 https://saveenergy123.com/
                 
                 http://www.energystar.gov/index.cfm?c=evaluate_performance.bus_portfoliomanager</xs:documentation>
-				</xs:annotation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="Metering" type="MeteringTypesEnumType"/>
-			<xs:element maxOccurs="1" minOccurs="0" name="UtilityTransformerConnection"
-				type="UtilityTransformerConnectionTypesEnumType"/>
-			<xs:element minOccurs="0" name="ProvidesWaterHeating" type="xs:boolean">
+			<xs:element maxOccurs="1" minOccurs="0" name="metering" type="meteringTypesEnum"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="utilityTransformerConnection"
+				type="utilityTransformerConnectionTypesEnum"/>
+			<xs:element minOccurs="0" name="providesWaterHeating" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Value = true if this UtilityService is known to provide the energy used for heating water. </xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="RevenueMeterIdRef" type="xs:IDREF">
+		<xs:attribute name="id" type="xs:ID"/>
+		<xs:attribute name="revenueMeterIdRef" type="xs:IDREF">
 			<xs:annotation>
 				<xs:documentation>When UtilityService is used within a Project.xsd, this attribute can reference a defined meter instance in the ElectricalDistributionHierarchy, or within a PvSystem.</xs:documentation>
 			</xs:annotation>

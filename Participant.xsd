@@ -6,8 +6,8 @@
 		</xs:documentation>
 	</xs:annotation>
 	<xs:include schemaLocation="Common.xsd"/>
-	<xs:element name="Participant" type="ParticipantType"/>
-	<xs:complexType name="ParticipantType">
+	<xs:element name="participant" type="participant"/>
+	<xs:complexType name="participant">
 		<xs:annotation>
 			<xs:documentation>This is intended to cover all participants including Consumers, Service Providers, etc.
 
@@ -16,60 +16,118 @@ Why mailing address is outside the Contact?
 mailing addresses are closely associated with the role of the participant, not the individual contacts within a participant.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Organization" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="participantType" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The class (or type) of participant. Legal values should include Individual, Business, and Government. The tax status element provides more detailed information about the type of business (corporation, LLC, tax-exempt, etc).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="organization" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>If the Participant is an organization. Use this for the name of the organization</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Contact" type="ContactType" minOccurs="1" maxOccurs="unbounded"/>
-			<xs:element name="MailingAddress" type="AddressType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="TaxStatus" type="xs:string" minOccurs="0" maxOccurs="1">
+			<xs:element name="contacts">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contact" type="contact" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="adresses">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="address" type="address" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="taxStatus" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The participant's tax entity status.  For example, the Cal Solar Initiative program defines the following legal values: Corporation, Individual, LLC (Corporation), LLC (Non-Corporation), Partnership, Sole Proprietor, Tax Exempt.  This may hold other values depending on the needs of the user.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Sector" type="xs:string" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The sector in which the project is defined. The Cal Solar Initiative defines the following legal values: Commercial, Government, Non-Profit, Residential.  Other values can be used to support defined sectors used by other programs.</xs:documentation>
-				</xs:annotation>
+			<xs:element name="roles">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="role" type="participantRoleEnum" minOccurs="1"
+							maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A participant may have one or more roles with respect to a project.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="Role" type="ParticipantRoleEnumType" minOccurs="1"
-				maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>A participant may have one or more roles with respect to a project.</xs:documentation>
-				</xs:annotation>
+			<xs:element name="taxPayerId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element minOccurs="0" name="credentials">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="credential" type="credential" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="TaxPayerId" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Credential" type="CredentialType" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="LiabilityPolicy" type="LiabilityPolicyType" minOccurs="0"
-				maxOccurs="unbounded"/>
-			<xs:element name="ManufacturerAffiliation" type="ManufacturerAffiliationType"
-				minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="Service" type="ServiceType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" name="manufacturerAffiliations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="manufacturerAffiliation" type="manufacturerAffiliation"
+							minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="liabilityPolicies">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="liabilityPolicy" type="liabilityPolicy" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="services">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="service" type="service" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="Id" use="optional" type="xs:ID"/>
+		<xs:attribute name="id" use="optional" type="xs:ID"/>
 	</xs:complexType>
-	<xs:complexType name="ContactType">
+	<xs:complexType name="contact">
 		<xs:annotation>
 			<xs:documentation>This schema has been extended from one of the components in the Clean Power Research schema included in their PowerClerk schema. It's intended use is to define the contacts in a particular project for customers, contractors, service providers, etc.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="FirstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="MiddleName" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="LastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Title" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="PhoneNumber" type="PhoneNumberType" minOccurs="0"
-				maxOccurs="unbounded"/>
-			<xs:element name="EmailAddress" type="EmailAddressType" minOccurs="0"
-				maxOccurs="unbounded"/>
-			<xs:element name="SkypeAccount" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Website" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="PreferredContactMethod" type="PreferredContactMethodEnumType"
+			<xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="middleName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element minOccurs="0" name="phoneNumbers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="phoneNumber" type="phoneNumber" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="emailAddresses">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="emailAddress" type="emailAddress" minOccurs="1"
+							maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="skypeAccount" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="website" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="preferredContactMethod" type="preferredContactMethodEnum"
 				minOccurs="0" maxOccurs="1"/>
-			<xs:element name="BestTimeOfDayToReach" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="bestTimeOfDayToReach" type="xs:string" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="PreferredContactMethodEnumType">
+	<xs:simpleType name="preferredContactMethodEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Home Phone"/>
 			<xs:enumeration value="Work Phone"/>
@@ -77,7 +135,7 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:enumeration value="Email"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="ParticipantRoleEnumType">
+	<xs:simpleType name="participantRoleEnum">
 		<xs:annotation>
 			<xs:documentation>Host Customer - "utility account holder"</xs:documentation>
 			<xs:documentation>Customer - "The customer of the scope of work offered."</xs:documentation>
@@ -111,95 +169,94 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:enumeration value="Program Administrator"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="CredentialType">
+	<xs:complexType name="credential">
 		<xs:annotation>
 			<xs:documentation>Credential Validation describes a way for software and service developers using the IEP model to verify that a particular individual (typically a contractor, home energy rater, or similar professional) has a credential issued by a certifying authority (“CA”, such  as a contractor licensing board, HERS provider, or similar authority). It also specifies a way to describe credential metadata, such as status and dates.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="CAInternalID" type="xs:string" minOccurs="1" maxOccurs="1">
+			<xs:element name="caInternalId" type="xs:string" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Unique internal identifier from Certifying Authority
 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CAID" type="xs:int" minOccurs="1" maxOccurs="1">
+			<xs:element name="caId" type="xs:int" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Reference to Certifying  Authority
 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1">
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Credential short name</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Credential long name
 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DateConferred" type="xs:date" minOccurs="1" maxOccurs="1">
+			<xs:element name="dateConferred" type="xs:date" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Date credential first conferred </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DateExpires" type="xs:date" minOccurs="1" maxOccurs="1">
+			<xs:element name="dateExpires" type="xs:date" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Date credential expires (may be past)
 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Status" type="xs:string" minOccurs="1" maxOccurs="1">
+			<xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Status (valid, expired, etc,); varies by CA</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="LiabilityPolicyType">
+	<xs:complexType name="liabilityPolicy">
 		<xs:annotation>
 			<xs:documentation>
 This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Issuer" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="Number" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="issuer" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="number" type="xs:int" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="ServiceType">
+	<xs:complexType name="service">
 		<xs:annotation>
 			<xs:documentation>A Description of the types of services provided. For instance: Heating, cooling, (installation/repair), duct sealing, asbestos removal, etc.
 
 This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="ManufacturerAffiliationType">
+	<xs:complexType name="manufacturerAffiliation">
 		<xs:annotation>
 			<xs:documentation>This is for recording formal Manufacturer affiliations
 
 This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="PhoneNumberType">
+	<xs:complexType name="phoneNumber">
 		<xs:sequence>
-			<xs:element name="Number" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="Extension" type="xs:int" minOccurs="0" maxOccurs="1" nillable="true"/>
-			<xs:element name="Primary" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="PhoneNumberUse" type="PhoneNumberEnumType" minOccurs="0" maxOccurs="1"
-			/>
+			<xs:element name="number" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="extension" type="xs:int" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="primary" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="phoneNumberUse" type="phoneNumberEnum" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:simpleType name="PhoneNumberEnumType">
+	<xs:simpleType name="phoneNumberEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Business"/>
 			<xs:enumeration value="Business Fax"/>
@@ -210,27 +267,26 @@ This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)<
 			<xs:enumeration value="Skype"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="EmailAddressType">
+	<xs:complexType name="emailAddress">
 		<xs:sequence>
-			<xs:element name="Address" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Primary" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="EmailAddressUse" type="EmailAddressEnumType" minOccurs="0"
-				maxOccurs="1"/>
+			<xs:element name="address" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="primary" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="emailAddressUse" type="emailAddressEnum" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="EmailAddressEnumType">
+	<xs:simpleType name="emailAddressEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Work"/>
 			<xs:enumeration value="Home"/>
 			<xs:enumeration value="Alternate"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="CertifyingAuthority">
+	<xs:complexType name="certifyingAuthority">
 		<xs:sequence>
-			<xs:element name="CAID" type="xs:int" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="CAName" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="MailingAddress" type="AddressType" minOccurs="1" maxOccurs="1"/>
-			<xs:element name="Contact" type="ContactType" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="caId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="caName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="mailingAddress" type="address" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="contact" type="contact" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
