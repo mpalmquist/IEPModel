@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+	schema: Project.xsd
+	Authors:  Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
+	Description: Schema includes elements for defining an electrical system on a site.  Includes elements that describe the distribution of circuits, such as electric panels, wiring, wireways (conduit), over-current protection devices (OCPD), and disconnects.
+	**************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:include schemaLocation="Appliance.xsd"/>
+	<xs:include schemaLocation="Building.xsd"/>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="DistributionSystem.xsd"/>
+	<xs:include schemaLocation="CommonElectrical.xsd"/>
+	<xs:include schemaLocation="HVACSystem.xsd"/>
+	<xs:include schemaLocation="LightingSystem.xsd"/>
+	<xs:include schemaLocation="Participant.xsd"/>
+	<xs:include schemaLocation="PvSystem.xsd"/>
+	<xs:include schemaLocation="SolarThermalSystem.xsd"/>
+	<xs:include schemaLocation="UtilityService.xsd"/>
+	<xs:include schemaLocation="WaterHeatingSystem.xsd"/>
+	<xs:element name="Project" type="ProjectType"/>
+	<xs:complexType name="ConsumerFeedbackType">
+		<xs:sequence>
+			<xs:element name="ProductRating" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Comments" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Fair Good Great</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="EaseOfUse" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="QualityOfProduct" type="xs:string" minOccurs="0"
+							maxOccurs="1"/>
+						<xs:element name="SatisfactionLevel" type="xs:string" minOccurs="0"
+							maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Fair Good Excellent or 5 star rating?</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ServiceProviderRating" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BudgetSatisfaction" type="xs:string" minOccurs="0"
+							maxOccurs="1"/>
+						<xs:element name="Compliments" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="OverallSatisfaction" type="xs:string" minOccurs="0"
+							maxOccurs="1"/>
+						<xs:element name="QualityOfWork" type="xs:int" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="TimelinessSatisfaction" type="xs:string" minOccurs="0"
+							maxOccurs="1"/>
+						<xs:element name="Suggestions" type="xs:string" minOccurs="0" maxOccurs="1"
+						/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeLogType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Change" type="ChangeType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element minOccurs="0" name="ParticipantID" type="xs:IDREF"/>
+				<xs:element minOccurs="0" name="Author" type="xs:string"/>
+			</xs:choice>
+			<xs:element name="Date" type="xs:dateTime"/>
+			<xs:element name="Decsription" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OccupantConstraintType">
+		<xs:annotation>
+			<xs:documentation>This is an optional description of the feedback given to a specific contractor for the project</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ConstraintCategory" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Health"/>
+						<xs:enumeration value="Comfort"/>
+						<xs:enumeration value="EnergyEfficiency"/>
+						<xs:enumeration value="UpfrontCosts"/>
+						<xs:enumeration value="OperatingCosts"/>
+						<xs:enumeration value="CO2Reduction"/>
+						<xs:enumeration value="DollarSavings"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Health" minOccurs="0">
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>This is used to describe health constraints such as specific allergies</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Severity" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Priority" minOccurs="0">
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>Scale of 1 to 10. </xs:documentation>
+					</xs:annotation>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="PriorityLevel" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="PriorityType" type="xs:string" minOccurs="1" maxOccurs="1"
+						/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UpfrontCosts" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MaximumUpfrontCosts" type="xs:float" minOccurs="1"
+							maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EnergyEfficiency" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestedLevelOfEfficiency" type="xs:string" minOccurs="1"
+							maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Comfort" minOccurs="0">
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>This is used to describe specific comfort constraints in the building such as drafts, ventilation, hot and cold spots, etc.</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Severity" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OperatingCosts" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MaximumOperatingCosts" type="xs:float" minOccurs="1"
+							maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CO2Reduction" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestedCO2ReductionDesc" type="xs:string" minOccurs="1"
+							maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>This is a descriptive element and may be represented in several ways</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="RequestedCO2ReductionInTonsPerYear" type="xs:float"
+							minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DollarSavings" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExpectedTotalDollarSavingsInOperatingCosts"
+							type="xs:float" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="ProjectClassificationEnumType">
+		<xs:annotation>
+			<xs:documentation>This defines whether the project is New Construction or a Retrofit</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Retrofit"/>
+			<xs:enumeration value="New Construction"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RealEstateClassificationEnumType">
+		<xs:annotation>
+			<xs:documentation>This refers to the property type or what is sometimes referred to as real estate type. Commercial is synonymous with non-residential. 
+
+This is also used for PowerClerk/CSI program</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Commercial"/>
+			<xs:enumeration value="Residential"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PresenceOfUndergroundEntitiesEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Yes (location marked)"/>
+			<xs:enumeration value="Yes (location TBD)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GroundAreaType">
+		<xs:annotation>
+			<xs:documentation>A description of the ground area of a site.  Helps describe areas that may be used for ground mount PV Systems.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element minOccurs="0" name="ApproxArea" type="AreaType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="SoilCharacter" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Notes" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>User can capture info about other data fields, and/or describe special circumstances, such as: Types of buried lines and how marked, Equipment &amp;/or materials access issues, whether there is an existing professional soils report, if the site is in a biotic reserve (when applicable), &amp;/or whether an environmental impact report has been done</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="PresenceOfBuriedLines"
+				type="PresenceOfUndergroundEntitiesEnumType">
+				<xs:annotation>
+					<xs:documentation>Are there buried lines of any kind? In accompanying notes, user should include if mapped on some document.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="PresenceOfSepticTanksAndLeachFields"
+				type="PresenceOfUndergroundEntitiesEnumType">
+				<xs:annotation>
+					<xs:documentation>Is there a septic tank &amp;/or leach field in the vicinity? Auditor needs to clearly identify their location on a site schematic.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="TractorTrencherAccessible"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Can a tractor and/or trenching equipment access the ground location?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="SiteType">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="Location" type="AddressType">
+				<xs:annotation>
+					<xs:documentation>Describes the project's address, and geo location (lat / long / elevation).
+
+Note that if there are more than one street address, the model forces these to be separate Sites/Projects. If a Building on the project site has more than one street address, only one is required to identify the location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="AssessorsParcelNumber" type="xs:string"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="AuthorityHavingJurisdiction"
+				type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Also known as "AHJ."  This is the city, county, or other authority with jurisdiction over building permits and inspections.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="CustomerOwnsProperty" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Is the project buyer the owner of the site?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="CustomerRelationToPropertyOwner"
+				type="xs:string">
+				<xs:annotation>
+					<xs:documentation>If the project customer is not the owner of the site property, what is the relationship to the owner?  This is required for CSI incentive application.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="BroadbandInternetAccessible"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Does the site have, or can get broadband internet? Dial-up only probably won't work.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Building" type="BuildingType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This is a reference to all of the Building data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="GroundArea" type="GroundAreaType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProposedEquipmentLocation"
+				type="EquipmentLocationType">
+				<xs:annotation>
+					<xs:documentation>Description of a site location where one (or more) equipment items are being proposed for installation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ExistingWirewaySegment"
+				type="WirewaySegmentType">
+				<xs:annotation>
+					<xs:documentation>Used to describe existing conduit segments and/or wiring boxes anywhere on the site/bldg that could be used in implementation of one or more measures.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProposedWirewaySegment"
+				type="WirewaySegmentType">
+				<xs:annotation>
+					<xs:documentation>Used to capture site survey information about one or more proposed conduit segments or wireway boxes that would be used to support a new system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Weather" type="SiteWeatherDataType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExistingGenerationCapability"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Site has existing generation capability, including non-functioning &amp;/or emergency back-up? Required for CSI Rebate Reservation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExistingGenerationDescription"
+				type="xs:string">
+				<xs:annotation>
+					<xs:documentation>If site has existing generation, describe the technology. Required for CSI Rebate Reservation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="SolarDHWExists" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Site has existing Solar DHW system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Notes" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="LineItemType">
+		<xs:annotation>
+			<xs:documentation>We include costs at this level in order capture the costs that are applicable to multiple measures such as administrative costs</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Id" use="optional" type="xs:IDREF"/>
+		<xs:attribute name="SKU" type="xs:string"/>
+		<xs:attribute name="Provider" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>If a material, this is the manufacturer of the product. If a service or labor, this is the party providing it.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+		<xs:attribute name="Description" type="xs:string"/>
+		<xs:attribute name="Unit" type="xs:string"/>
+		<xs:attribute name="UnitCost" type="xs:float"/>
+		<xs:attribute name="Taxable" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>Will sales tax be applied to this item?</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Quantity" type="xs:float" use="required"/>
+		<xs:attribute name="MeasureRef">
+			<xs:annotation>
+				<xs:documentation>If this cost is attributable to a specific measure, this can be captured. Useful if separate costs must be attributed to separate measures.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ItemizedListType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="LineItem" type="LineItemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PriceBreakdownType">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="0" name="RetailPrice" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>The Price of the Scope of Work, before sales tax is applied.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="SalesTaxRate" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Local tax rate applied applied to the taxable items in the line items. Given as a decimal number (for example, use 0.032 for 3.2%)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="SalesTax" type="xs:float"/>
+			<xs:element name="RetailPriceWithTax" type="xs:float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is the total retail price for this Scope of Work, including sales tax.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="IncentivesToBeReceivedByContractor"
+				type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Amount that the contractor may deduct from the scope of work's retail price because the contractor will collect the incentive money rather than asking the customer to pay the contractor and acquire it themselves.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ContractPrice" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>The price that the contractor is quoting to the customer in exchange for completing the defined scope of work.  May be the the RetailPriceWithTax less any IncentivesToBeReceivedByContractor.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScopeOfWorkType">
+		<xs:annotation>
+			<xs:documentation>This defines a specific scope of work from a single service provider. Benefits for the work are calculated at this level instead of at the Measure level since multiple Measures may impact a single Benefit. For example putting in a new high efficiency furnace and sealing the ducts will have different impact than the benefit for each measure taken independently.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ServiceProvider" type="xs:IDREF" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The provider of the scope of work.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateProvided" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date scope of work was provided.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpirationDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Specify the date or time period after which this scope of work offer expires.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is a simple Name describing the Scope of Work such as 'HVAC upgrade'</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is a set of general descriptions of the work being done</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SalesStatus" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The currently known sales status of the Scope of Work. Some examples might be "Proposed", or "Sold." </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Measure" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A reference to the specific Measures taken for this Scope of Work</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ItemizedList" type="ItemizedListType">
+				<xs:annotation>
+					<xs:documentation>This is the typical list of Line Items presented in a scope of work to describe in detail what materials and labor will be delivered for the contract price.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="CustomerPrice" type="PriceBreakdownType"/>
+			<xs:element name="PlannedStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="PlannedFinishDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="TotalBenefits" type="BenefitType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Benefits obtained for all Measures combined in the Scope of Work. This does not necessarily reflect a direct rollup of all of the individual measure benefits as some combination of measures may impact measure benefits. Individual measure benefits may be expressed independent of other measures. 
+						
+						For example: The total benefit of a Lighting efficiency measure combined with a high efficiency HVAC measure would not equal  the sum of the measures benefit if implemented independently.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Transaction" type="TransactionType">
+				<xs:annotation>
+					<xs:documentation>Defines the type of transaction (sale, lease, etc) and its parameters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Extension">
+				<xs:annotation>
+					<xs:documentation>Element to allow inclusion of any other content within the Scope of Work as an extension. NOTE: Since most of the IEP model consists of optional elements, you will not find specific elements with an ANY available for extension.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="0" namespace="##any" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="ProgramMeasureCodeType">
+		<xs:annotation>
+			<xs:documentation>This is used to match to existing measure codes usually defined for the purposes of incentives such as the PG&amp;E measure codes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Provider" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the program, or organization.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The program provider's identifier for the measure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The textual name or description of the measure as defined by the program.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SystemChoiceType">
+		<xs:annotation>
+			<xs:documentation>This contains a list of the all of the accessible systems within the specification.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element minOccurs="1" name="Appliance" type="ApplianceType"/>
+			<xs:element form="unqualified" name="Distribution" type="DistributionSystemType"/>
+			<xs:element maxOccurs="1" name="ElectricalDistributionPanel"
+				type="ElectricalDistributionHierarchyType">
+				<xs:annotation>
+					<xs:documentation>Occasionally installation of a PV System will require a service panel upgrade.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Envelope" nillable="false" type="EnvelopeType"/>
+			<xs:element name="HVAC" type="HVACSystemType"/>
+			<xs:element name="Lighting" nillable="false" type="LightingSystemType"/>
+			<xs:element name="PhotovoltaicSystem" type="PvSystemType">
+				<xs:annotation>
+					<xs:documentation>A photovoltaic (PV) system.  Generates electrical energy from sunlight.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaterHeating" type="WaterHeatingSystemType"/>
+			<xs:element name="SolarThermalSystem" type="SolarThermalSystemType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="MeasureType">
+		<xs:annotation>
+			<xs:documentation>Measure is intended to define a single specific measure to be taken in a scope of work.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is intended to be the general description</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Details" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is used for more detailed descriptions of the measure, for instance, it may contain multiple steps</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Author" type="DataOriginatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is the original author or initiator of the measure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReasonForChange" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Why is the measure being implemented?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Goal" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>What are the intended goals to be achieved with this measure. This is optional as costs may be rolled up at the Scope of Work level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MeasureAction" type="MeasureActionType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is intended to define the actions to be taken on the system at a high level, either adding, removing or modifying the system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncentiveProgramCategory" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Used for filtering measures based on what incentive program category.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProgramMeasureCode" type="ProgramMeasureCodeType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Describes an incentive provider's codes corresponding to the defined measure.  For example, the PG&amp;E measure codes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Cost" type="CostType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This defines the Costs for this particular measure. This is optional as costs may be rolled up at the Scope of Work level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Benefit" type="BenefitType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Describes a benefit (or cost) associated with the described measure.  Typically used to described energy production, or savings, expected incentive payments, greenhouse gas savings, etc.  Can also be used to describe costs as negative benefits. 
+
+If BenefitsAnalysisOrder is defined, then benefits should be incremental relative to that order.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitsAnalysisOrder" type="xs:int" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is used when analyzing the impact of the measure benefits. Specific measures need to be processed in an order based on the load priority of the system, i.e. efficiency change of a furnace and then apply the leakage of the ducts.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id" type="xs:ID" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ReplacementType">
+		<xs:sequence>
+			<xs:element name="ExistingSystem" type="xs:IDREF"/>
+			<xs:element name="ProposedSystem" nillable="false" type="SystemChoiceType"/>
+			<xs:element name="CodeCompliantSystemReference" type="SystemChoiceType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is required here since the measure may be compared against a code compliant set of systems that is different from the existing baseline equipment. Specifically used for incentive calculations where incentives are only paid for incremental savings above code. For example: Building Energy code
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModificationType">
+		<xs:sequence>
+			<xs:element name="ExistingSystem" type="xs:IDREF"/>
+			<xs:element name="SystemModificationData" type="SystemChoiceType"/>
+			<xs:element name="CodeCompliantSystemReference" type="SystemChoiceType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MeasureActionType">
+		<xs:annotation>
+			<xs:documentation>Independent actions that make up a measure implementation (i.e. removing one piece of equipment, and adding another piece would be seperate MeasureActions within a single measure).</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="Addition" type="SystemChoiceType" maxOccurs="1" minOccurs="1"/>
+			<xs:element name="Modification" type="ModificationType" maxOccurs="1" minOccurs="1"
+				nillable="false"/>
+			<xs:element name="Removal" type="xs:IDREF" maxOccurs="1" minOccurs="1"/>
+			<xs:element name="Replacement" type="ReplacementType" maxOccurs="1" minOccurs="1"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TransactionType">
+		<xs:sequence>
+			<xs:element name="FinanceOption" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Common values include: cash, refinance, secured loan, unsecured loan, lease, PPA.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="DownPayment" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Dollar amount customer pays upfront.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Term" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Finance term in years.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="FinanceRate" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>Percentage rate of interest (APR) for a loan, or escalation in payment amounts (lease / PPA).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="InitialMonthlyPayment" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>The amount of the customer's initial monthly payment.  This amount may grow the next year in the case of a lease/PPA with an annual escalation rate.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="IssuanceCost" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>A transaction cost, in dollars. Some finance mechanisms charge a processing fee, for example, that the customer must pay upfront. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TerminationOption" type="TerminationOptionEnumType">
+				<xs:annotation>
+					<xs:documentation>Describes what happens at the end of the finance period.  The customer may PURCHASE the asset, RENEW the lease/PPA, or RETURN the asset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ResidualValue" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>When termination option is "purchase," this describes the purchase price at that time in the future.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Extension">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="0" namespace="##any" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TerminationOptionEnumType">
+		<xs:annotation>
+			<xs:documentation>Describes what happens at the end of the finance period.  The customer may PURCHASE the asset, RENEW the lease/PPA, or RETURN the asset.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="purchase"/>
+			<xs:enumeration value="renew"/>
+			<xs:enumeration value="return"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProjectType">
+		<xs:annotation>
+			<xs:documentation>Project is intended to consolidate at a high level all of the necessary information required to complete a project.
+
+Can be used for multiple use cases where data is passed between parties/tools, including: project leads, collection of site audit data, proposing a set of measures, proposing a scope of work based on defined measures, etc.
+
+Included reference to Utility Service here instead of in Building since Project encapsulates building</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is a simple descriptive name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A more general description of the project. Details are expected to be included at the Measure level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProjectClassification" type="ProjectClassificationEnumType"
+				minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RealEstateClassification" type="RealEstateClassificationEnumType"
+				maxOccurs="1" minOccurs="0"/>
+			<xs:element minOccurs="0" name="ChangeLog" type="ChangeType" maxOccurs="unbounded"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ApplicationReferenceId"
+				type="ApplicationIdType">
+				<xs:annotation>
+					<xs:documentation>ID of the object represented by this XML rewithin a  corresponding software application. Used by the software to identify its corresponding record within the application's database. AKA a primary key. Important if the data is passed from one application back to an originating application, for example.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="AssignedTo">
+				<xs:annotation>
+					<xs:documentation>Element identifies the assigned owner of this project, typically an employee. Use when pushing a project into another system and assigning it to a user. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="Id" type="xs:string"/>
+						<xs:element minOccurs="0" name="Name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Participant" type="ParticipantType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This references all of the consumers/customers</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProjectInitiator" type="DataOriginatorType" maxOccurs="1"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is intended to identify the participant who initially collected the project data. This could be a website as well as a person</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateInitiated" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The date that the project's definition was started (not it's actual implementation).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateCompleted" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is the date that the project was completed, i.e. signed off by the customer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LeadSource" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This defines from where the lead originally came.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ProjectTimeframe" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>A description of the timeframe in which the project will likely occur. Typically defined by the customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Goal" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This is intended to define the customers and service providers high level goals for the project. Detailed goals are expected to be recorded at the Measure level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OccupantConstraints" type="OccupantConstraintType" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="ConsumerFeedback" type="ConsumerFeedbackType" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="UtilityService" type="UtilityServiceType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This references the Utility company providing energy to the site.
+Included reference to Utility Service here instead of in Building since Project encapsulates building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Site" type="SiteType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The site element describes the property on which the project is being considered or implemented.  It describes ownership and jurisdictional information, as well as physical attributes. It inlcudes elements describing both buildings and grounds.  The Site element is particularly useful for capturing site audit data prior to defining specific measures, including relevant data about locations for where proposed energy system equipment can be placed. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Schedules">
+				<xs:annotation>
+					<xs:documentation>This is a container for all schedule definitions for the systems within the project.
+
+This design is modeled on the gbxml Schedule.
+
+The organization is consistent in many energy management systems and programable controllers. Typically schedules for these are created first by creating the Day schedule and then build Week schedules upon Day schedules and Year schedules built off of Week schedules.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" ref="DaySchedule"/>
+						<xs:element maxOccurs="unbounded" minOccurs="1" ref="WeekSchedule"/>
+						<xs:element maxOccurs="unbounded" minOccurs="1" ref="Schedule"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ExistingAppliance"
+				type="ApplianceType"/>
+			<xs:element name="ExistingDistributionSystem" type="DistributionSystemType"
+				minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" name="ExistingElectricalDistributionSystem"
+				type="ElectricalDistributionHierarchyType" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This defines the hierarchy of existing panels and their subpanels</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExistingHVAC" type="HVACSystemType" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="ExistingLighting" type="LightingSystemType" minOccurs="0"
+				maxOccurs="unbounded"/>
+			<xs:element name="ExistingPvSystem" nillable="false" minOccurs="0" maxOccurs="unbounded"
+				type="PvSystemType">
+				<xs:annotation>
+					<xs:documentation>An existing photovoltaic (PV) system on the site.  Generates electrical energy from sunlight.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExistingWaterHeatingSystem" type="WaterHeatingSystemType"
+				minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ExistingSolarThermalSystem"
+				type="SolarThermalSystemType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Measure" type="MeasureType">
+				<xs:annotation>
+					<xs:documentation>This is a list of requested and/or proposed and/or additional optional measures</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScopeOfWork" type="ScopeOfWorkType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>ScopeOfWork captures all the data about the proposed work to be done, inlcuding labor and materials, schedule, pricing, financing, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Extension">
+				<xs:annotation>
+					<xs:documentation>Element to allow inclusion of any other content within the Project as an extension. NOTE: Since most of the IEP model consists of optional elements, you will not find specific elements with an ANY available for extension.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="0" namespace="##any" processContents="lax"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProjectTimeframe" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A description of the timeframe in which the project will likely occur. Typically defined by the customer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,463 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>&lt;xs:include schemaLocation="\CommonQuantities.xsd"/&gt;
+&lt;xs:include schemaLocation="\Equipment.xsd"/&gt;
+
+The lighting system is a collection of lighting as defined by the user that illuminates one area.  Note that the area may encompass many rooms or a single physical space as the user desires.  However, if the user wishes to distinguish between different areas, multiple Lighting Systems should be defined.
+
+This object may represent a collection of different types of lighting or it may be convenient (and simpler) to only define one type of lighting in the system and use multiple Lighting Systems varying lighting types.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
+	<xs:include schemaLocation="Schedule.xsd"/>
+	<xs:element name="LightingSystem" type="LightingSystemType">
+		<xs:annotation>
+			<xs:documentation>
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="LightingSystemType">
+		<xs:annotation>
+			<xs:documentation>This is the high-level object that is istanced when one wants to define a lighting system.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Freeform for description of the lighting system and what it illuminates.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="LightingFixtureDefinition"
+				type="LightingFixtureDefintionType">
+				<xs:annotation>
+					<xs:documentation>This object defines a single type of light fixture. A light fixture consists of a combination of a lamps and ballasts (optional) as well as the container and mounting accessories.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="LightingZone"
+				type="LightingZoneType">
+				<xs:annotation>
+					<xs:documentation>This defines properties of light quality, level, demand and use in the zone.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="LightingControlGroup"
+				type="LightingControlGroupType">
+				<xs:annotation>
+					<xs:documentation>This object defines a group of light fixtures and the control/operating parameters of that group of fixtures. System properties are contained here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LightingFixtureDefintionType">
+		<xs:annotation>
+			<xs:documentation>This object defines a single type of light fixture. A light fixture consists of a combination of a lamps and ballasts (optional) as well as the container and mounting accessories.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentDefinitionType">
+				<xs:sequence minOccurs="1" maxOccurs="1">
+					<xs:element minOccurs="0" name="FixtureEfficiency">
+						<xs:annotation>
+							<xs:documentation>Fixture Efficiency
+The fraction of light created by the lamp and ballast combination that escapes the light fixture.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+								<xs:maxInclusive value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element minOccurs="0" name="FixtureUplight">
+						<xs:annotation>
+							<xs:documentation>Fixture Uplight
+The fraction of light that escapes the light fixture that escapes in the upward direction. Fixture uplight and fixture downlight should sum to 1.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+								<xs:maxInclusive value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element minOccurs="0" name="FixtureDownlight">
+						<xs:annotation>
+							<xs:documentation>Fixture Uplight
+The fraction of light that escapes the light fixture that escapes in the downward direction. Fixture uplight and fixture downlight should sum to 1.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+								<xs:maxInclusive value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="FixtureIESFile"
+						type="xs:string">
+						<xs:annotation>
+							<xs:documentation>This element has not been fully implemented at this time.
+
+The IES file is created by ____ and contains...
+
+In the future, this element may contain the actual IES file converted to a suitable format such as text or binary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LightingTechnology" type="LightingTechnologyEnumType"
+						minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The type of technology that is used to create light. This is also a general indication of the lamp type.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LampProperties" type="LampPropertiesType" minOccurs="0"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>These are common attributes of a lamp.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BallastProperties" type="BallastPropertiesType" minOccurs="0"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>These are attributes of the ballast. There doesn't need to be a ballast.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LightingControlGroupType">
+		<xs:annotation>
+			<xs:documentation>This object defines a group of light fixtures and the control/operating parameters of that group of fixtures. System properties are contained here.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Freeform for description of the lighting system and what it illuminates.  If the work plane is not obvious or intuitive, it should be defined here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefLightingZone" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is a reference to a defined/instanced lighting zone.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="SystemProperties" type="CommonSystemPropertiesType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="LightingFixture"
+				type="LightingFixtureGroupType">
+				<xs:annotation>
+					<xs:documentation>This object defines the fixtures in the Lighting Control Group. This involves specifying a reference to a Lighting Fixture Type defined in the Lighting System and a quantity of the Fixture Type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ControlProperties" type="LightingControlMethodType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This object defines how the fixtures in the Control Group are controled. This includes a schedule object, the impact on the operating hours if an automatic control type is defined, the way in which the fixtures are controled (auto, manual, etc.), and the switching method (the way that the light output is modulated - dimming, on/off, bi-level...).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="LightingControlGroup" type="LightingControlGroupType">
+				<xs:annotation>
+					<xs:documentation>This element allows for layered control of lighting. For example, a building may have all of its lighting on a timeclock that turns off power to all of the lighting system at night. In addition, the light fixtures in an open office area may be manually switched.  The light fixtures in another exterior office are may be on an occupancy and/or daylight sensor. In this example, some light fixtures have multiple layers of control.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="LampPropertiesType">
+		<xs:annotation>
+			<xs:documentation>This is a collection of common lamp attributes. Note that the lamp type is known from the LightingTypeEnum which is used in the LightingSystem element Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentDefinitionType">
+				<xs:sequence minOccurs="1" maxOccurs="1">
+					<xs:element name="CRI" type="xs:float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Color Rendering Index (CRI) of lamp. This value represents the quality to which the light source reproduces the visible light spectrum.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="QuantityPerFixture" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The number of lamps per fixture. Note that the definition of "fixture" is subject to the surveyor. This detail should be described included in the Description element of Lighting Fixture Type.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="WattsNominal" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Nominal wattage of the lamp (value listed on lamp label or nameplate). Note that this doesn't represent the actual input power of a ballasted fixture.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minExclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ColorTemperature" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The lamp color temperature as measured in Kelvin.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="InitialLumens" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Light output (in Lumens) when lamp is first powered.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="MeanLumens" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Average light output over the lifetime of the lamp.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SPRatio" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>SP Ratio.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BallastPropertiesType">
+		<xs:annotation>
+			<xs:documentation>A set of typical attributes associated with ballasts.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentDefinitionType">
+				<xs:sequence minOccurs="1">
+					<xs:element name="BallastTechnology" type="xs:string" minOccurs="0"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The type of ballast used.
+Examples:
+HID
+Induction
+LED
+Plasma
+Instant Start
+Rapid Start
+Program Start
+Program Start, Dimming
+Program Start, Bi-Level
+Program Start, Multi-Level
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BallastFactor" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Ballast factor indicates the power output of the ballast relative to a standard. This value typically varies from 0.5 to 1.5 and is typically falls 0.75 to 1.2.  A value of zero may indicate that no ballast is used.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="QuantityPerFixture" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The number of ballasts per fixture. Note that the definition of "fixture" is subject to the surveyor. This detail should be described included in the Description element of Lighting System.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PowerFactor" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>This is the power factor of the ballast. </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element minOccurs="0" name="THD">
+						<xs:annotation>
+							<xs:documentation>Total Harmonic Distortion</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:float">
+								<xs:minInclusive value="0"/>
+								<xs:maxInclusive value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="LightingTechnologyEnumType">
+		<xs:annotation>
+			<xs:documentation>This is an enumeration of common lighting technologies.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Incandescent"/>
+			<xs:enumeration value="Halogen"/>
+			<xs:enumeration value="Compact Fluorescent"/>
+			<xs:enumeration value="Linear Fluorescent"/>
+			<xs:enumeration value="High Intensity Discharge"/>
+			<xs:enumeration value="LED"/>
+			<xs:enumeration value="Induction"/>
+			<xs:enumeration value="Plasma"/>
+			<xs:enumeration value="Neon"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="LightingZoneType">
+		<xs:annotation>
+			<xs:documentation>This object defines the properties of the space/zone that is illuminated. This is where some details of a lighting survey are contained, such as light leve, lighting planes and space use type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="1">
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Freeform for description of the lighting system and what it illuminates.  If the work plane is not obvious or intuitive, it should be defined here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="IESNACategory" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Illuminating Engineering Society of North America (IESNA)
+http://www.iesna.org/
+
+The IESNA publishes a category set that describes the use case for lighting in a space. This listing can be found here:</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="LightLevels" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Observed or recommended light levels for the space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Dimensions" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Dimensions of the illuminated zone/space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Surfaces" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Important or key surfaces in the illuminated space that dictate the minimum or required light levels for the space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="LightingFixtureGroupType">
+		<xs:annotation>
+			<xs:documentation>This object defines a type of light fixture and the quantity of them.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentInstanceType">
+				<xs:sequence>
+					<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Freeform for description of the lighting system and what it illuminates.  If the work plane is not obvious or intuitive, it should be defined here.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="Quantity">
+						<xs:annotation>
+							<xs:documentation>This is the quantity of light fixtures in the group.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LightingControlMethodType">
+		<xs:annotation>
+			<xs:documentation>This object defines the way in which a group of light fixtures is controled.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Freeform for description of the lighting system and what it illuminates.  If the work plane is not obvious or intuitive, it should be defined here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ControlledFixtureQuantity">
+				<xs:annotation>
+					<xs:documentation>The number of fixtures that are controlled in this way.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Reduction">
+				<xs:annotation>
+					<xs:documentation>The (fraction) reduction in operating hours of the light fixture group, relative to the OperatingSchedule defined in SystemProperties, that results from the ControlMethod and SwitchingMethod.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ControlSchedule" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>A schedule (likely of fraction type) may be defined instead of "Reduction" to describe the impact of the ControlMethod and SwitchingMethod on the operation/operating-hours of the Fixtures.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SwitchingMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The way in which the fixtures are switched or modulated.
+Examples:
+Bi-level, two-step
+Bi-level, checkerboard
+Dimming
+Three Position Switch
+On/Off
+Other
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ControlMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The method by which the fixtures are controlled.
+Examples:
+Manual
+Auto-Occupancy
+Auto-Photocell
+Auto-Schedule
+Auto-Other
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

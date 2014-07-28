@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<!--**************************************************************************
+    schema: SolarThermalSystem.xsd
+    Author:  Michael Palmquist (SolarNexus Inc)
+    Description: Schema includes elements for defining a solar thermal system on a site.
+    Includes elements that describe a full system from an SRCC rating perspective,
+    including OG-300 system specs and associated OG-100 collector specs. 
+    **************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+    xmlns="http://www.iepmodel.net">
+    <xs:include schemaLocation="Common.xsd"/>
+    <xs:include schemaLocation="CommonSolar.xsd"/>
+    <xs:include schemaLocation="EnergyConsumption.xsd"/>
+    <xs:include schemaLocation="RoofPlane.xsd"/>
+    <xs:simpleType name="SystemOperationEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Direct Forced Circulation (DF)"/>
+            <xs:enumeration value="Direct Integral Collector Storage (DI)"/>
+            <xs:enumeration value="Direct Integral Collector Storage with Circulation (DG)"/>
+            <xs:enumeration value="Direct Self Pumped (DS)"/>
+            <xs:enumeration value="Direct Thermosyphon (DT)"/>
+            <xs:enumeration value="Indirect Forced Circulation (IF)"/>
+            <xs:enumeration value="Indirect Integral Collector Storage (II)"/>
+            <xs:enumeration value="Indirect Integral Collector Storage with Circulation (IG)"/>
+            <xs:enumeration value="Indirect Self Pumped (IS)"/>
+            <xs:enumeration value="Indirect Thermosyphon (IT)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="HeatExchangerConfigurationEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="External Supply Side, No Load Side"/>
+            <xs:enumeration value="External Supply Side, w/ Immersed Load Side"/>
+            <xs:enumeration value="External Supply Side, w/ External Load Side"/>
+            <xs:enumeration value="Immersed Supply Side, No Load Side"/>
+            <xs:enumeration value="Immersed Supply Side, w/ Immersed Load Side"/>
+            <xs:enumeration value="Immersed Supply Side, w/ External Load Side"/>
+            <xs:enumeration value="No Heat Exchangers"/>
+            <xs:enumeration value="No Supply Side, Immersed Load Side"/>
+            <xs:enumeration value="No Supply Side, External Load Side"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FluidOptionEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Indirect, Forced Circulation Glycol"/>
+            <xs:enumeration value="Drainback, Water"/>
+            <xs:enumeration value="Indirect, Forced Circulation Water"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TankConfigurationEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Solar and Auxiliary Storage are the same Tank"/>
+            <xs:enumeration value="Solar Storage and Auxiliary Tanks are separate"/>
+            <xs:enumeration value="Solar Storage with Tankless Auxiliary Water Heater"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="BackupFuelSourceEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Gas"/>
+            <xs:enumeration value="Electric"/>
+            <xs:enumeration value="Gas Tankless"/>
+            <xs:enumeration value="ElectricTankless"/>
+            <xs:enumeration value="Propane"/>
+            <xs:enumeration value="Propane Tankless"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CollectorOpticEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Tubular"/>
+            <xs:enumeration value="Glazed Flat-Plate"/>
+            <xs:enumeration value="Unglazed Flat-Plate"/>
+            <xs:enumeration value="Tracking Concentrator"/>
+            <xs:enumeration value="Integral Collector Storage"/>
+            <xs:enumeration value="Non-separable Thermosiphon"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="SolarCollectorDefinitionType">
+        <xs:complexContent>
+            <xs:extension base="EquipmentDefinitionType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="OpticType" type="CollectorOpticEnumType"/>
+                    <xs:element name="Fluid" minOccurs="0" type="xs:string"/>
+                    <xs:element name="GrossArea" minOccurs="0" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Units = Square Feet.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NetApertureArea" minOccurs="0" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Units = Square Feet.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FuidCapacity" minOccurs="0" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Units = Liters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Frame" minOccurs="0" type="xs:string"/>
+                    <xs:element name="OuterCover" minOccurs="0" type="xs:string"/>
+                    <xs:element name="InnerCover" minOccurs="0" type="xs:string"/>
+                    <xs:element name="AbsorberTube" minOccurs="0" type="xs:string"/>
+                    <xs:element name="AbsorberPlate" minOccurs="0" type="xs:string"/>
+                    <xs:element name="AbsorberCoating" minOccurs="0" type="xs:string"/>
+                    <xs:element name="SelectiveCoating" minOccurs="0" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="SideInsulation" type="xs:string"/>
+                    <xs:element minOccurs="0" name="BackInsulation" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TestFlowRate" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Units = ml/s</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="RatingReference" type="xs:string"/>
+                    <xs:element minOccurs="0" name="QuadYIntercept" type="xs:float"/>
+                    <xs:element minOccurs="0" name="QuadSlope" type="xs:float"/>
+                    <xs:element minOccurs="0" name="QuadSlope2" type="xs:float"/>
+                    <xs:element minOccurs="0" name="YIntercept" type="xs:float"/>
+                    <xs:element minOccurs="0" name="Slope" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Given in Btu/hr·ft·2°F units. Can be converted to/from W/m2·°C.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IncidentAngleModifier1" type="xs:float"/>
+                    <xs:element minOccurs="0" name="IncidentAngleModifier2" type="xs:float"/>
+                    <xs:element minOccurs="0" name="IncidentAngleModifier-LinFt" type="xs:float"/>
+                    <xs:element minOccurs="0" name="ClearAOrClearC" type="xs:float">
+                        <xs:annotation>
+                            <xs:documentation>Given in kBTU/ft2·day units. Can be converted to/from MJ/m2·day.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SolarThermalSystemType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ApplicationReferenceId"
+                type="ApplicationIdType"/>
+            <xs:element name="Manufacturer" type="xs:string"/>
+            <xs:element name="ModelNumber" type="xs:string"/>
+            <xs:element minOccurs="0" name="SystemName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>A brand name for the system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SystemOperation" type="SystemOperationEnumType" minOccurs="0"/>
+            <xs:element name="SrccOg300Listing" minOccurs="0" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>ID number assigned by the certifying laboratory for the SRCC-300 certification.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="SolarCollectorDefinition"
+                type="SolarCollectorDefinitionType">
+                <xs:annotation>
+                    <xs:documentation>Reference ID of the solar thermal collector equipment definition.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="SolarCollectorQuantity" type="xs:integer"/>
+            <xs:element minOccurs="0" name="TotalArea" type="AreaType">
+                <xs:annotation>
+                    <xs:documentation>Area assumed to be square feet.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="SeriesCollectorsInFlowPath" type="xs:integer"/>
+            <xs:element minOccurs="0" name="HeatExchangerConfiguration"
+                type="HeatExchangerConfigurationEnumType"/>
+            <xs:element minOccurs="0" name="HeatExchangerEffectiveness" type="xs:decimal"/>
+            <xs:element minOccurs="0" name="FlowRateCollectorToHeatExchanger" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Flow rate in kg/s between the collectors and the collector heat exchanger.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="FlowRatePreHeatTankToHeatExchanger" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Flow rate in kg/s between the pre-heat tank and the collector heat exchanger.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="FluidOption" type="FluidOptionEnumType"/>
+            <xs:element minOccurs="0" name="CollectorFluidHeatCapacitance" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Given in J / kg °C</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="TankConfiguration" type="TankConfigurationEnumType"/>
+            <xs:element minOccurs="0" name="TotalSolarStorageCapacity" type="xs:integer"/>
+            <xs:element minOccurs="0" name="SolarStorageTankQuantity" type="xs:integer"/>
+            <xs:element minOccurs="0" name="TotalBackupStorageCapacity" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Auxiliary backup volume in gallons.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="BackupTankQuantity" type="xs:integer"/>
+            <xs:element minOccurs="0" name="BackupFuelSource" type="BackupFuelSourceEnumType"/>
+            <xs:element minOccurs="0" name="BackupEfficiency" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Efficiency of the backup heater.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MaxBackupHeatCapacity" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>Given in kWh (1 therm = 29.3001111 kWh)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="SolarEnergyFactor" type="xs:float"/>
+            <xs:element minOccurs="0" name="InstallationStyle" type="ArrayInstallStyleEnumType">
+                <xs:annotation>
+                    <xs:documentation>Describes the installation style used for the array. The installation style categorizes the type of racking and mounting equipment used.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ArrayLocation" type="ArrayLocationType">
+                <xs:annotation>
+                    <xs:documentation>Describes where on the site that the array is located. It is a choice between referencing an existing RoofPlane element, an existing GroundArea element, or a text description.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SolarExposure" minOccurs="0">
+                <xs:complexType>
+                    <xs:choice>
+                        <xs:element name="ArraySpecificSolarExposure" type="SolarExposureType"/>
+                        <xs:element name="InheritRoofPlaneSolarExposure" type="xs:IDREF"/>
+                    </xs:choice>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="CollectorStandoff" type="xs:string"/>
+            <xs:element minOccurs="0" name="CollectorOrientation" type="PanelOrientationEnumType"/>
+            <xs:element minOccurs="0" name="MountingSystem" type="MountingSystemType"/>
+            <xs:element minOccurs="0" name="RoofPlane" type="RoofPlaneType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

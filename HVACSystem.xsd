@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>This schema defines the parameters associated with an HVAC system.  
+
+An HVAC system may contain any combination of the following: a heating system, a cooling system and ventilation system. Ventilation is defined here as a system that exchanges air in a conditioned zone with air outside the building.
+
+An HVAC system may also contain an instance of a distribution system, which is used to condition (transfer heat to or from) a space.  The distribution system consists (optionally) of prime movers (pumps or fans) and segments (segments of duct or pipe, etc.).  Note that there can be only one space-serving distribution system per instance of an HVAC system.  Therefore, if multiple distribution systems serve a space, multiple HVAC systems must be defined.
+
+An HVAC system serves a zone, however, zones reference the HVAC systems that serve them.
+
+Note that parameters associated with the transport and movement of air and water are captured in a Distribution System.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
+	<xs:include schemaLocation="DistributionSystem.xsd"/>
+	<xs:include schemaLocation="Schedule.xsd"/>
+	<xs:element name="HVACSystem" type="HVACSystemType">
+		<xs:annotation>
+			<xs:documentation>This schema defines the parameters associated with an HVAC system.  
+
+An HVAC system may contain any combination of the following: a heating system, a cooling system and ventilation properties. Ventilation is defined here as the exchange of air in the space/zone with air outside.
+
+An HVAC system references Distribution systems that serve one of three purposes:
+- deliver conditioning to a space/zone.
+- provide heat.
+- provide cold (a fluid to reject heat to).
+
+An HVAC system serves a zone, however, zones reference the HVAC systems that serve them.
+
+Note that parameters associated with the transport and movement of air and water are captured in a Distribution System.
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="HVACSystemType">
+		<xs:annotation>
+			<xs:documentation>This schema defines the parameters associated with an HVAC system.  
+
+An HVAC system may contain any combination of the following: a heating system, a cooling system and ventilation properties. Ventilation is defined here as the exchange of air in the space/zone with air outside.
+
+An HVAC system references Distribution systems that serve one of three purposes:
+- deliver conditioning to a space/zone.
+- provide heat.
+- provide cold (a fluid to reject heat to).
+
+An HVAC system serves a zone, however, zones reference the HVAC systems that serve them.
+
+Note that parameters associated with the transport and movement of air and water are captured in a Distribution System.
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CoolingSystem" type="CoolingSystemType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is to capture details relating to the operation and energy consumption of the cooling system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeatingSystem" type="HeatingSystemType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is to capture details relating to the operation and energy consumption of the heating system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="HVACEquipmentDefinition"
+				type="EquipmentDefinitionType"/>
+			<xs:element minOccurs="0" name="DeliverySystem" type="DeliverySystemType">
+				<xs:annotation>
+					<xs:documentation>This describes the details of the way in which the HVAC system delivers conditioning to the space it conditions. This allows the user to define ducting or piping etc. This includes an optional reference to a distribution system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="VentilationProperties"
+				type="VentilationPropertiesType"/>
+		</xs:sequence>
+		<xs:attribute form="unqualified" name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="CoolingSystemType">
+		<xs:annotation>
+			<xs:documentation>This describes the details of the cooling system, which may be one of many or the only component of the HVAC system. System properties are contained here.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CoolingMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This defines the method/way in which the cooling system makes cold (removes heat).
+Examples:
+Absorption
+Evaporative
+Refrigeration – Air Rejection
+Refrigeration – Water Rejection
+Hydronic Coils
+Refrigerant (Direct Expansion, DX) Coils</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemCoolSource"
+				type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is an optional reference to the distribution system to which heat is rejected (the cooling source). 
+Examples:
+- A geothermal heat pump may reference a water loop that cycles to a pond or to piping in the ground.
+- An air handler with chilled water coils would reference the chilled water loop that serves the coils.
+- A water-cooled chiller or condenser would reference a condenser water loop.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="CoolingInstance" nillable="false"
+				type="EquipmentInstanceType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HeatingSystemType">
+		<xs:annotation>
+			<xs:documentation>This describes the details of the heating system, which may be one of many or the only component of the HVAC system. System properties are contained here.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeatingMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This defines the method/way in which the heating system makes heat.
+Examples:
+Fuel Burning
+Electric Resistance
+Refrigeration – Air-Source
+Refrigeration – Water-Source
+Hydronic Coils</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemHeatSource"
+				type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is an optional reference to the distribution system, which is the source of heat.
+Examples:
+- A radiant heating system may consist of "radiators" and this references the hot water loop that serves it.
+- An air handler with hot water coils may reference the hot water loop that serves the coils.
+- A heat pump would reference the water loop from which it absorbs heat when it is in heating mode.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeatingEquipment" maxOccurs="unbounded" minOccurs="0" nillable="false"
+				type="EquipmentInstanceType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeliverySystemType">
+		<xs:annotation>
+			<xs:documentation>This describes the details of the way in which the HVAC system delivers conditioning to the space it conditions. This allows the user to define ducting or piping etc. This includes an optional reference to a distribution system.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeliveryMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This defines the way in which the HVAC system delivers conditioning to the space.
+Examples:
+Radiant
+Natural Convection
+Forced Convection</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystem" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is an (optional) reference to the distribution system that the HVAC system uses to provide conditioning to the space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VentilationPropertiesType">
+		<xs:annotation>
+			<xs:documentation>This describes the properties of ventilation. 
+
+Ventilation in the IEP model is defined as the exchange (inlet or exhaust) of air with the environment outside of the building. Since Delivery System defines the way in which air is transported, this object simply defines how, when and what portion of that air is inlet from or exhausted to outside.
+
+It is not necessary to define a Delivery System in order to define ventilation. This is particularly true when the ventilation type is natural.
+
+Ventilation should not be confused with "venting". This is not where one describes the ducting that provides conditioned air to the space/zone. This is done in the DeliverySystem.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes and descriptions. 
+Examples:
+- Inlet, 100% outside air, fixed/variable damper
+- Exhaust, fixed/variable damper
+- Outside air economizer system
+- Natural: Windows, manual/auto control
+- Exhaust, relief vent
+- Whole house fan
+
+It may be appropriate to define the nominal (maximum, 100%) outside air flow rate, particularly when the Ventilation Control Schedule is a fraction schedule type. This would be useful when the ventilation type is natural or if no Delivery System is defined.
+
+It may be appropriate to define the flow rate units (cubic-feet per minute) if the Ventilation Control Schedule type is a value schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="VentilationControlSchedule" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This schedule defines when and what fraction of air is exchanged with outside. A fraction schedule type is most appropriate. The nominal (100%) flow rate would reflect the Delivery System flow rate at the given conditions.
+
+Alternatively, if the ventilation type is natural, the user may define the maximum flow rate in the Description.
+
+Another option would be to define a value schedule and indicate in the description what the units of the schedule values represent (i.e. cubic-feet per minute).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

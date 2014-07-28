@@ -1,0 +1,1789 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
+    targetNamespace="http://www.iepmodel.net" attributeFormDefault="unqualified" version="1.0">
+    <xs:annotation>
+        <xs:documentation>The purpose of this schema is to define a set of types and quantities that are frequently used by other schema and can be referenced in a consistent manner.  
+
+Each object is a ComplexType that includes a Value attribute and a Units attribute, which refers to an associated enumeration of units of measurement.
+
+Some objects have additional attributes that are useful for specifying additional information relevant to the value of the quantity (such as test conditions).
+
+The purpose of these classes/objects is not to indicate the way a quantity is used, but rather the value and unit of measurement of that quantity.
+
+The naming of the element or attribute, which is of a "CommonQuantities" type is the way in which we should indicate the manner in which the quantity is use</xs:documentation>
+    </xs:annotation>
+    <xs:complexType name="DataOriginatorType">
+        <xs:annotation>
+            <xs:documentation>This is used to keep track from where the data was obtained.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is used as a general descript, name, etc. to be used in place of the Participant </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="OriginiationDate" type="xs:date"/>
+        </xs:sequence>
+        <xs:attribute name="ParticipantID" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>This references the specific Participant</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="ApplicationIdType">
+        <xs:annotation>
+            <xs:documentation>This is used to tag schemas elements with a specific application ID. Any element may have multiple application IDs</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IdValue" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is the applications ID tag</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IdSource" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is a simple description of the source of the information</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ZipCodeType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{5}|\d{5}-\d{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="AddressType">
+        <xs:sequence>
+            <xs:element name="Line1" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="Line2" type="xs:string"/>
+            <xs:element name="City" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="County" type="xs:string"/>
+            <xs:element minOccurs="1" name="State" type="xs:string"/>
+            <xs:element name="ZipCode" type="ZipCodeType"/>
+            <xs:element minOccurs="0" name="Elevation" nillable="true" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>This is in feer</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>This is in degrees</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:float">
+                <xs:annotation>
+                    <xs:documentation>This is in degrees</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="MapURL" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Optional URL pointing to an online mapping service that shows the location.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PointDoubleType">
+        <xs:annotation>
+            <xs:documentation>Represents a 2D point, with X and Y as doubles</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="X" type="xs:double"/>
+            <xs:element name="Y" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PointType">
+        <xs:annotation>
+            <xs:documentation>Represents a 2D point, with X and Y.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="X" type="xs:int"/>
+            <xs:element name="Y" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SizeDoubleType">
+        <xs:annotation>
+            <xs:documentation>Represents a 2D size, with a width and a height as doubles</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Width" type="xs:double"/>
+            <xs:element name="Height" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SizeType">
+        <xs:annotation>
+            <xs:documentation>Represents a 2D size, with a width and a height</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Width" type="xs:int"/>
+            <xs:element name="Height" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GeoLocationType">
+        <xs:annotation>
+            <xs:documentation>Geographic location.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Latitude" type="xs:double"/>
+            <xs:element name="Longitude" type="xs:double"/>
+            <xs:element name="Altitude" type="xs:double"/>
+            <xs:element name="AltitudeReference" default="Ground">
+                <xs:annotation>
+                    <xs:documentation>Reference for 'altitude' element.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Ground">
+                            <xs:annotation>
+                                <xs:documentation>The altitude is measured from the ground.</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Ellipsoid">
+                            <xs:annotation>
+                                <xs:documentation>The altitude is measured from the ellipsoid.</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="SeaLevel">
+                            <xs:annotation>
+                                <xs:documentation>The altitude is measured from sea level.</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Location2dType">
+        <xs:annotation>
+            <xs:documentation>Location in 2D space</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="X" type="xs:double"/>
+            <xs:element name="Y" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Location3dType">
+        <xs:annotation>
+            <xs:documentation>Location in 3D space</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="X" type="xs:double"/>
+            <xs:element name="Y" type="xs:double"/>
+            <xs:element name="Z" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AngleType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent an angular quantity.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="AngularUnitEnumType" use="optional"
+                    default="degrees">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="AngularUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of angular units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="degrees"/>
+            <xs:enumeration value="&quot;in 12&quot;"/>
+            <xs:enumeration value="radians"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="AreaType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a two-dimensional spatial quantity (i.e. an area).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="AreaUnitEnumType" use="optional"
+                    default="SquareMeters">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="AreaUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of area units of measurement. Taken directly from gbXML.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SquareCentimeters"/>
+            <xs:enumeration value="SquareFeet"/>
+            <xs:enumeration value="SquareInches"/>
+            <xs:enumeration value="SquareKilometers"/>
+            <xs:enumeration value="SquareMeters"/>
+            <xs:enumeration value="SquareMiles"/>
+            <xs:enumeration value="SquareMillimeters"/>
+            <xs:enumeration value="SquareYards"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="DimensionType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a linear spatial quantity (i.e. a length or distance).  Default units are meters.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="DimensionUnitEnumType" use="optional"
+                    default="Meters">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="DimensionUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of one-dimensional spatial units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Centimeters"/>
+            <xs:enumeration value="Feet"/>
+            <xs:enumeration value="Inches"/>
+            <xs:enumeration value="Kilometers"/>
+            <xs:enumeration value="Meters"/>
+            <xs:enumeration value="Miles"/>
+            <xs:enumeration value="Millimeters"/>
+            <xs:enumeration value="Yards"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="EfficiencyType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used for the efficiency of a system, typically an HVAC system.  Most energy producing and consuming systems and equipment instance this type.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="EfficiencyUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="UnitDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="TestCondition" type="TestConditionEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>This represents the operating conditions (typically certified test conditons or full load) at which the efficiency is realized.  Note that at other conditions, the efficiency may be a different value.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="EfficiencyUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of common efficiency units of measurement used in the building solar and energy efficiency industry.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AFUE">
+                <xs:annotation>
+                    <xs:documentation>The annual fuel utilization efficiency (AFUE; pronounced 'A'-'Few') is a thermal efficiency measure of combustion equipment like furnaces, boilers, and water heaters. The AFUE differs from the true 'thermal efficiency' in that it is not a steady-state, peak measure of conversion efficiency, but instead attempts to represent the actual, season-long, average efficiency of that piece of equipment, including the operating transients.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="BoilerEff">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="COP">
+                <xs:annotation>
+                    <xs:documentation>The coefficient of performance or COP (sometimes CP), of a heat pump is the ratio of the change in heat at the "output" (the heat reservoir of interest) to the supplied work.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EER">
+                <xs:annotation>
+                    <xs:documentation>The Energy Efficiency Ratio (EER) of a particular cooling device is the ratio of output cooling (in Btu/hr) to input electrical power (in Watts) at a given operating point (indoor and outdoor temperature and humidity conditions). The EER is related to the coefficient of performance (COP) commonly used in thermodynamics, with the primary difference being that the COP of a cooling device is unit-less: the cooling load and the electrical power needed to run the device are both measured using the same units, e.g. watts. </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="effectiveness">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EnergyFactor">
+                <xs:annotation>
+                    <xs:documentation>"Energy Factor is the ratio of useful energy output from the water heater to the total amount of energy delivered to the water heater. The higher the EF is, the more efficient the water heater." - http://www.energystar.gov/index.cfm?c=water_heat.pr_crit_water_heaters
+
+"Energy Factor is a metric that was previously used to compare relative efficiencies of clothes washers. The higher the Energy Factor is, the more efficient the clothes washer is. For clothes washers, Energy Factor is calculated using the following formula:[2]"
+
+Energy Factor = 392 x Volume (ft³) / Annual Energy Usage (kWh) - 
+http://www.energystar.gov/index.cfm?fuseaction=clotheswash.display_column_definitions</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FanEff">
+                <xs:annotation>
+                    <xs:documentation>is this Specific Fan power?</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HSPF">
+                <xs:annotation>
+                    <xs:documentation>HSPF (Heating Seasonal Performance Factor) is a term used in the heating and cooling industry. HSPF is specifically used to measure the efficiency of air source heat pumps.
+
+The efficiency of air conditioners are often rated by the Heating Seasonal Performance Factor (HSPF) as defined by the Air Conditioning, Heating, and Refrigeration Institute in its standard 210/240 Performance Rating of Unitary Air-Conditioning and Air-Source Heat Pump Equipment last updated in 2008. </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="kWPerkW">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="kWPerTon">
+                <xs:annotation>
+                    <xs:documentation>kiloWatts per Ton - power to weight ratio of an engine</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LumensPerWatt">
+                <xs:annotation>
+                    <xs:documentation>The ratio of luminous flux in lumens to power measured in watts. </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MechanicalEff">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MotorEff">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SEER">
+                <xs:annotation>
+                    <xs:documentation>The Seasonal Energy Efficiency Ratio (SEER) has the same units of Btu/W·hr, but instead of being evaluated at a single operating condition, it represents the expected overall performance for a typical year's weather in a given location.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ThermalEff">
+                <xs:annotation>
+                    <xs:documentation>In thermodynamics, the thermal efficiency is a dimensionless performance measure of a device that uses thermal energy, such as  a boiler, a furnace, or a refrigerator.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TestConditionEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of common test conditions at which solar and building equipment are certified or marketed.  These include:
+
+AHRI - Air-Conditioning, Heating, and
+Refrigeration Institute
+http://www.ahrinet.org/
+
+FullLoad - full load conditions of the equipment
+
+NEMA - National Electrical Manufacturers Association
+
+PTC - PV USA Test Conditions
+STC - Factory Standard Test Conditions
+http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AHRI">
+                <xs:annotation>
+                    <xs:documentation>Air-Conditioning, Heating and Refrigeration Institute</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Full Load"/>
+            <xs:enumeration value="NEMA">
+                <xs:annotation>
+                    <xs:documentation>National Electrical Manufacturers Association</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PTC">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="STC">
+                <xs:annotation>
+                    <xs:documentation>???</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="VolumeType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a three-dimensional spatial quantity (i.e. a volume).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="VolumeUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="UnitDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="VolumeUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of volume units of measurement. Taken directly from gbXML.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CubicCentimeters"/>
+            <xs:enumeration value="CubicFeet"/>
+            <xs:enumeration value="CubicInches"/>
+            <xs:enumeration value="CubicKilometers"/>
+            <xs:enumeration value="CubicMeters"/>
+            <xs:enumeration value="CubicMiles"/>
+            <xs:enumeration value="CubicMillimeters"/>
+            <xs:enumeration value="CubicYards"/>
+            <xs:enumeration value="Gallons"/>
+            <xs:enumeration value="Liters"/>
+            <xs:enumeration value="Foot-Acres"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PowerUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of common power units of measurement used in the solar and building industry.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BtuPerHour"/>
+            <xs:enumeration value="BtuPerSecond"/>
+            <xs:enumeration value="Candela"/>
+            <xs:enumeration value="Footcandle"/>
+            <xs:enumeration value="FootPoundForcePerSecond"/>
+            <xs:enumeration value="Horsepower"/>
+            <xs:enumeration value="KilocaloriesPerSecond"/>
+            <xs:enumeration value="KilogramForceMeterPerSecond"/>
+            <xs:enumeration value="Kilowatt"/>
+            <xs:enumeration value="Lumen"/>
+            <xs:enumeration value="Watt"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="PowerType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to define a power quantity (time rate of change of energy).  Most energy producing or consuming systems and equipment instance this type.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="TestCondition" type="xs:string" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>The "rating" or list of conditions at which the power was tested.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Unit" type="PowerUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute default="kwh" name="UnitDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Fuel" type="EnergyClassEnumType" use="optional"
+                    default="Electricity">
+                    <xs:annotation>
+                        <xs:documentation>Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute default="Electricity" name="FuelDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>FuelType specified as a string. This should be used for defining the type value's fuel if the proper enum is not listed in Fuel. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="EnergyClassEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of fuels and energy transport media.
+
+"Fuel Oil (No. 2)" is the diesel fuel that trucks and some cars run on, leading to the name "road diesel". It is the same thing as heating oil.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Coal (anthracite)"/>
+            <xs:enumeration value="Coal (bituminous)"/>
+            <xs:enumeration value="Coke"/>
+            <xs:enumeration value="Diesel"/>
+            <xs:enumeration value="District Chilled Water"/>
+            <xs:enumeration value="District Hot Water"/>
+            <xs:enumeration value="District Steam"/>
+            <xs:enumeration value="Electricity"/>
+            <xs:enumeration value="Fuel Oil (No. 1)">
+                <xs:annotation>
+                    <xs:documentation>Number 1 is similar to kerosene and is the fraction that boils off right after gasoline.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Fuel Oil (No. 2)"/>
+            <xs:enumeration value="Fuel Oil (No. 4)">
+                <xs:annotation>
+                    <xs:documentation>Number 4 fuel oil is usually a blend of distillate and residual fuel oils, such as No. 2 and 6; however, sometimes it is just a heavy distillate. No. 4 may be classified as diesel, distillate or residual fuel oil.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Fuel Oil (No. 5 and No. 6)">
+                <xs:annotation>
+                    <xs:documentation>Number 5 fuel oil and Number 6 fuel oil are called residual fuel oils (RFO) or heavy fuel oils. More Number 6 oil is produced compared to Number 5 oil, the terms heavy fuel oil and residual fuel oil  are sometimes used as names for Number 6. Number 5 and 6 are what remains of the crude oil after gasoline and the distillate fuel oils are extracted through distillation. Number 5 fuel oil is a mixture of 75-80 % Number 6 oil and 25-20% of Number 2 oil. Number 6 oil may also contain a small amount of No. 2 to get it to meet specifications.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Geothermal"/>
+            <xs:enumeration value="Kerosene"/>
+            <xs:enumeration value="Liquid Propane"/>
+            <xs:enumeration value="Natural Gas"/>
+            <xs:enumeration value="Other"/>
+            <xs:enumeration value="Propane"/>
+            <xs:enumeration value="Steam"/>
+            <xs:enumeration value="Wood"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EnergyUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of common energy units of measurement used in the building industry.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BTU"/>
+            <xs:enumeration value="Joules"/>
+            <xs:enumeration value="KilowattHours"/>
+            <xs:enumeration value="Therms"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="EnergyType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used for defining an energy quantity. System objects are among those that instance this type.
+                
+                Note that Title24 &amp; HPXML uses "EnergyType" as their Enums name so we followed suit.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="EnergyUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="UnitDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Fuel" type="EnergyClassEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="FuelDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>FuelType specified as a string. This should be used for defining the type value's fuel if the proper enum is not listed in Fuel. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="TemperatureUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of temperature units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="C">
+                <xs:annotation>
+                    <xs:documentation>Celsius</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="F">
+                <xs:annotation>
+                    <xs:documentation>Fahrenheit</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="K">
+                <xs:annotation>
+                    <xs:documentation>Kelvin</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R">
+                <xs:annotation>
+                    <xs:documentation>Rankine
+A thermodynamic (absolute) temperature scale named after the Scottish engineer and physicist William John Macquorn Rankine, who proposed it in 1859.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Re">
+                <xs:annotation>
+                    <xs:documentation>The Réaumur scale (°Ré, °Re, °R), also known as the "octogesimal division",[1] is a temperature scale in which the freezing and boiling points of water are set to 0 and 80 degrees respectively. The scale is named after René Antoine Ferchault de Réaumur, who first proposed something similar in 1730.[2]
+
+AT: why are we including this? Does someone have a use case?</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="TemperatureType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a temperature quantity.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="TemperatureUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="PressureUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of pressure units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Atmospheres"/>
+            <xs:enumeration value="CentimetersOfH2O"/>
+            <xs:enumeration value="CentimetersOfMercury"/>
+            <xs:enumeration value="InchesOfH2O"/>
+            <xs:enumeration value="InchesOfMercury"/>
+            <xs:enumeration value="kPa">
+                <xs:annotation>
+                    <xs:documentation>kiloPascals</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MillimetersOfMercury"/>
+            <xs:enumeration value="Pascals"/>
+            <xs:enumeration value="PSI">
+                <xs:annotation>
+                    <xs:documentation>Pounds per Square Inch</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="PressureType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a pressure quantity.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="PressureUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="FlowUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of (fluid) flow units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CFM"/>
+            <xs:enumeration value="CubicMPerHr"/>
+            <xs:enumeration value="CubicMPerMin"/>
+            <xs:enumeration value="GPH"/>
+            <xs:enumeration value="GPM"/>
+            <xs:enumeration value="LPerSec"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="FlowType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used for defining the flow rate of a fluid (volumetric rate of change with respect to time). Distribution system is a example of an object that instances this type.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="FlowUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="WeightUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of weight units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Kilograms"/>
+            <xs:enumeration value="Pounds"/>
+            <xs:enumeration value="Tons"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="WeightType">
+        <xs:annotation>
+            <xs:documentation>This is a base class for defining a weight quantity. Equipment objects instance this type.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="WeightUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="VelocityType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used for defining a velocity quantity.  This is a common design criteria for air flow in ducts (distribution systems).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="VelocityUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="VelocityUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of velocity units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FeetPerMinute"/>
+            <xs:enumeration value="FeetPerSecond"/>
+            <xs:enumeration value="KilometerPerHour"/>
+            <xs:enumeration value="Knots"/>
+            <xs:enumeration value="MetersPerMinute"/>
+            <xs:enumeration value="MetersPerSecond"/>
+            <xs:enumeration value="MilesPerHour"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DensityUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of density units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GramsPerCubicCm"/>
+            <xs:enumeration value="KgPerCubicM"/>
+            <xs:enumeration value="LbsPerCubicFt"/>
+            <xs:enumeration value="LbsPerCubicIn"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="DensityType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a density quantity.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="DensityUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="EnergyUnitsType">
+        <xs:simpleContent>
+            <xs:extension base="EnergyUnitEnumType">
+                <xs:attribute name="Fuel" type="EnergyClassEnumType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="MonetaryUnitEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="$ US dollars"/>
+            <xs:enumeration value="$ / kWh"/>
+            <xs:enumeration value="$ / MWh"/>
+            <xs:enumeration value="$ / peak kW load"/>
+            <xs:enumeration value="$ / therm"/>
+            <xs:enumeration value="$ / BTU"/>
+            <xs:enumeration value="$ / Gal"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="MonetaryType">
+        <xs:simpleContent>
+            <xs:extension base="xs:float">
+                <xs:attribute name="Unit" type="MonetaryUnitEnumType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="EmissionsEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CO2"/>
+            <xs:enumeration value="NOX"/>
+            <xs:enumeration value="SOX"/>
+            <xs:enumeration value="Methane"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EmissionsUnitEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="pounds"/>
+            <xs:enumeration value="tons"/>
+            <xs:enumeration value="kilograms"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="EmissionsUnitsType">
+        <xs:simpleContent>
+            <xs:extension base="EmissionsUnitEnumType">
+                <xs:attribute name="Emissions" type="EmissionsEnumType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="EmissionsType">
+        <xs:simpleContent>
+            <xs:extension base="xs:float">
+                <xs:attribute name="Unit" type="EmissionsUnitEnumType">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="UnitDesc" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Emissions" type="EmissionsEnumType"/>
+                <xs:attribute name="EmissionsDesc" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="PowerUnitsType">
+        <xs:simpleContent>
+            <xs:extension base="PowerUnitEnumType">
+                <xs:attribute name="TestCondition" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The "rating" or list of conditions at which the power was tested.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Fuel" type="EnergyClassEnumType">
+                    <xs:annotation>
+                        <xs:documentation>Fuel type specified as an enum.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="WaterUnitsType">
+        <xs:simpleContent>
+            <xs:extension base="VolumeUnitEnumType"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="TimeUnitEnumType">
+        <xs:annotation>
+            <xs:documentation>This is an enumeration of time units of measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Day"/>
+            <xs:enumeration value="Hour"/>
+            <xs:enumeration value="Minute"/>
+            <xs:enumeration value="Month"/>
+            <xs:enumeration value="Second"/>
+            <xs:enumeration value="Week"/>
+            <xs:enumeration value="Year"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="TimePeriodType">
+        <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+                <xs:attribute name="TimeUnits" type="TimeUnitEnumType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="TimeType">
+        <xs:annotation>
+            <xs:documentation>This is a base class used to represent a time quantity. A use case is in the lighting system lamp life.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:time">
+                <xs:attribute name="Unit" type="TimeUnitEnumType" use="optional">
+                    <xs:annotation>
+                        <xs:documentation>Unit of measurement.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="TimePeriodEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Hourly"/>
+            <xs:enumeration value="Daily"/>
+            <xs:enumeration value="Weekly"/>
+            <xs:enumeration value="Monthly"/>
+            <xs:enumeration value="Annually"/>
+            <xs:enumeration value="Jan"/>
+            <xs:enumeration value="Feb"/>
+            <xs:enumeration value="Mar"/>
+            <xs:enumeration value="Apr"/>
+            <xs:enumeration value="May"/>
+            <xs:enumeration value="Jun"/>
+            <xs:enumeration value="Jul"/>
+            <xs:enumeration value="Aug"/>
+            <xs:enumeration value="Sep"/>
+            <xs:enumeration value="Oct"/>
+            <xs:enumeration value="Nov"/>
+            <xs:enumeration value="Dec"/>
+            <xs:enumeration value="Billing Period"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="OtherUnitsType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DataValueType">
+        <xs:annotation>
+            <xs:documentation>An element for capturing a data value with optional set of attributes for describing that value (date, time, name). For example, use to capture simple site audit data from data loggers, or to describe a series of monthly energy outputs for a PV System.
+
+Notes: to record On/Off data, use 0 for ON, and 1 for OFF. </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:float">
+                <xs:attribute name="PeriodName" type="TimePeriodEnumType">
+                    <xs:annotation>
+                        <xs:documentation>An optional name for the Period in which the value was captured. Examples:  If Value is associated with a specific calendar month, then this attribute might be the month's name. If the value is an annual value, then the attribute might be "Annual."</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="PeriodLength" type="xs:decimal">
+                    <xs:annotation>
+                        <xs:documentation>When data value is associated with a duration of time, this number describes its length.  Note that Units must be described in an associated TimeUnit attribute within the element where this DataValue resides.
+
+Useful when defining energy billing periods that do not correspond to calendar months.  Use this attribute to capture the number of days in the billing period.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Category" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>An optional name for classifying the value. For example, energy bills frequently break the consumption down by time of use period. This category can be used to classify that time of use period.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Date" type="xs:date">
+                    <xs:annotation>
+                        <xs:documentation>This is the calendar date associated with the value. Typically used when DataValueType is used for site audit datalogging.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Time" type="xs:time">
+                    <xs:annotation>
+                        <xs:documentation>This is the time of day associated with the value. Typically used when DataValueType is used for site audit datalogging.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="BenefitValueUnitsType">
+        <xs:annotation>
+            <xs:documentation>Describes the type of benefit being quanitified and its units (for example: energy, power, emissions, time, etc)</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="Energy" type="EnergyUnitsType"/>
+            <xs:element name="Money" type="MonetaryUnitEnumType"> </xs:element>
+            <xs:element name="Power" type="PowerUnitsType"> </xs:element>
+            <xs:element name="Emissions" type="EmissionsUnitsType"> </xs:element>
+            <xs:element name="Water" type="WaterUnitsType"> </xs:element>
+            <xs:element name="Time" type="TimeUnitEnumType"/>
+            <xs:element name="Other" type="OtherUnitsType"> </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:simpleType name="BenefitCategoryEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="energy produced"/>
+            <xs:enumeration value="energy offset/saved"/>
+            <xs:enumeration value="emissions offset/saved"/>
+            <xs:enumeration value="incentive: rebate/buydown"/>
+            <xs:enumeration value="incentive: production-based incentive"/>
+            <xs:enumeration value="incentive: renewable energy credit"/>
+            <xs:enumeration value="incentive: feed-in tariff"/>
+            <xs:enumeration value="incentive: federal tax credit"/>
+            <xs:enumeration value="incentive: state tax credit"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="BenefitType">
+        <xs:annotation>
+            <xs:documentation>This type is used to collect a specific type of benefit i.e. Estimated, Measured, or Incentive and it's associated Method, source and Author.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Names the specific benefit (or cost).
+
+If Benefit is an incentive, this should be the Name of the incentive program.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Description" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Optional description. For example, many incentive programs break their pools of money into discrete steps where the payment rates vary (for example, "Residential Step 8").</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="BenefitValueUnits" type="BenefitValueUnitsType">
+                <xs:annotation>
+                    <xs:documentation>This element describes what kind of values are being reported. For example, is it energy, money, emissions, time, other?</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="BenefitValue" type="DataValueType">
+                <xs:annotation>
+                    <xs:documentation>Describes a Benefit (or cost) amount.
+
+When used for an incentive, this amount is a single incentive payment (assumed to be USD). Typical for capacity or investment based incentives in solar, as well as single year tax credits.
+
+Use the Name attribute to capture optional name for the payment. For example, if the incentive extends over several years, a year number can be assigned to the amount (for example, "Year 1").</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DeterminationMethod" type="DeterminationMethodType" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>How the benefit was calculated, either Estimated, Measured, or Incentive</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DeterminationSource" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Tool used to calculate the benefit.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DeterminationAuthor" type="DataOriginatorType" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Person, date and time that benefit was calculated.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="Id"/>
+        <xs:attribute name="Category" use="optional" type="BenefitCategoryEnumType">
+            <xs:annotation>
+                <xs:documentation>Describes the category of benefit being described. Typical benefits are financial (for example: incentive payments, utility bill savings, etc) or energy (for example: energy produced or saved).</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="GenericValueType">
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="Unit" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DeterminationMethodType">
+        <xs:sequence>
+            <xs:element name="Method" type="DeterminationMethodEnumType"/>
+            <xs:element name="Assumption" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>This allows the documentation of assumptions used in the determination of the benefit, for the example a blended cost of energy instead of a detailed rate schedule analysis for determining energy cost savings</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="DeterminationMethodEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Estimated"/>
+            <xs:enumeration value="Measured"/>
+            <xs:enumeration value="Incentive"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="FrequencyEnumType">
+        <xs:annotation>
+            <xs:documentation/>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Daily"/>
+            <xs:enumeration value="Monthly"/>
+            <xs:enumeration value="Yearly"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="PeriodicityType">
+        <xs:choice>
+            <xs:element name="OneTime" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>This is the year in which this event occurs relative to implementation.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Recurring">
+                <xs:annotation>
+                    <xs:documentation>This is the time frame in months of the periodicity of the event.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Duration" type="xs:integer">
+                            <xs:annotation>
+                                <xs:documentation>This is the duration in months</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element maxOccurs="1" name="Frequency" type="FrequencyEnumType">
+                            <xs:annotation>
+                                <xs:documentation>This is the frequency of the recurring event.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="CostType">
+        <xs:sequence>
+            <xs:element name="Cost" type="xs:float" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Periodicity" type="PeriodicityType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This represents the description of the cost, i.e. maintenance costs, purchase costs, salvage costs, etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FuelConnectorType">
+        <xs:annotation>
+            <xs:documentation>This is the type of connector used for linking in the fuel.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="InputPowerType">
+        <xs:sequence>
+            <xs:element name="Power" type="PowerType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="FuelConnector" type="FuelConnectorType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SpaceType">
+        <xs:annotation>
+            <xs:documentation>A building consists of one or many spaces. This object provides a high level specification of the building space profile intended for use with Projects and simulations such as SaveEnergy123 and Portfolio Manager.
+                
+                https://saveenergy123.com/
+                
+                http://www.energystar.gov/index.cfm?c=evaluate_performance.bus_portfoliomanager
+                
+ISSUES / TO DO: 
+2) get Space documentation from Portfolio Manager
+3) To use for benchmarking, need to add in additional operational attributes per space.  The set of attributes differs based on PortfolioMgrSpaceType.
+                </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Place for user to include additional notes/description.
+                        
+                        Examples:
+                        - Laundromat, 1st floor
+                        - Pop’s Barber shop, 2nd floor
+                        - Apartments, floors 3-6
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="NewExisting" type="ExistenceEnumType">
+                <xs:annotation>
+                    <xs:documentation>For items marked as new, they will be added as long as the ESP identifier is not found (error otherwise).  For items marked as existing, only updates will be performed if the ESP identifier is found (error otherwise).  For items marked unknown, they will be created if the ESP identifier is not found and updated if the ESP identifier is found (similar to ABS 1.0)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="BuildingFraction">
+                <xs:annotation>
+                    <xs:documentation>The fraction of the total building that this space occupies. This is useful for tools including Portfolio Manager:
+                        http://www.energystar.gov/index.cfm?c=evaluate_performance.bus_portfoliomanager</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SpaceClassification" type="BuildingClassType" minOccurs="0"
+                maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This defines the classification type of the building in terms of residential or non-residential / commercial and further details where relevant.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EspSpaceID" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The identifier for the space as defined in the ESP's system
+                        ReqStringTypeLen60?</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ConditionedAreaFractionHeated" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Fraction of GrossFloorArea that is heated.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ConditionAreaFractionCooled" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Fraction of GrossFloorArea that is cooled.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberFloorsAboveGround" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="DateBuilt" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MaximumNumberPersons" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is the typical maximum occupancy for the building and does not relate to fire codes. This is not currently validated against the NumberAdults, NumberInfants and NumberTeenagers.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberAdults" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is the typical number of adults occupying the building during normal occupation hours.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberTeenagers" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is the typical number of teenagers occupying the building during normal occupation hours. </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberInfants" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This is the typical number of infants occupying the building during normal occupation hours.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberBathrooms" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>This defines the number of bathrooms where a whole bathroom includes toilet and shower, half baths only include toilets.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberBedrooms" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="NumberOffices" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumberKitchens">
+                <xs:annotation>
+                    <xs:documentation>Number of kitchens or cooking environments. 
+                        
+                        This is an input for certain space types in Energy Star Portfolio Manager.
+                        http://www.energystar.gov/index.cfm?c=eligibility.bus_portfoliomanager_space_types#hotel</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="NumberOfWorkers" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfPCs" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfCashRegisters" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfRooms" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfUnits" type="xs:int"/>
+            <xs:element minOccurs="0" name="newElement" type="xs:int"/>
+            <xs:element minOccurs="0" name="AverageNumberOfResidents" type="xs:int"/>
+            <xs:element minOccurs="0" name="ResidentCapacity" type="xs:int"/>
+            <xs:element minOccurs="0" name="SeatingCapacity" type="xs:int"/>
+            <xs:element minOccurs="0" name="PresenceOfCookingFacilities" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfReachInRefrigerators" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfWalkInRefrigerators" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfCommericalWashingMachines" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfResidentialWashingMachines" type="xs:int"/>
+            <xs:element minOccurs="0" name="NumberOfResidentialElectronicLifts" type="xs:int"/>
+            <xs:element minOccurs="0" name="AnnualITEnergy" type="xs:int"/>
+            <xs:element minOccurs="0" name="WeekdayOperation " type="xs:boolean"/>
+            <xs:element minOccurs="0" name="OpenWeekends " type="xs:boolean"/>
+            <xs:element minOccurs="0" name="ExteriorEntrance " type="xs:boolean"/>
+            <xs:element minOccurs="0" name="WeeklyOperatingHours" type="xs:int"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="BuildingClassType">
+        <xs:annotation>
+            <xs:documentation>The building classification indicates the type of Residential or Commercial property. Each of those types also involve multiple classifications.  
+                
+Residential consists of Single-Family and Multi-Family.
+                
+Commercial consists of enumerations of common commercial property classifications from three organizations: CEUS, DEER and EnergyStar (US DOE).
+
+This is contained in Common to allow for use in both Building.xsd and UtilityService.xsd</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="Residential" type="ResidentialEnumType"> </xs:element>
+            <xs:element name="Commercial" type="CommercialBuildingClassType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:simpleType name="ResidentialEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Single-Family"/>
+            <xs:enumeration value="Multi-Family"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="CommercialBuildingClassType">
+        <xs:sequence>
+            <xs:element name="CEUSClassification" minOccurs="0" type="CEUSBuildingEnumType"> </xs:element>
+            <xs:element name="DEERClassification" minOccurs="0" type="DEERBuildingEnumType"> </xs:element>
+            <xs:element minOccurs="0" name="EnergyStarClassification"
+                type="EnergyStarBuildingEnumType">
+                <xs:annotation>
+                    <xs:documentation/>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CEUSBuildingEnumType">
+        <xs:annotation>
+            <xs:documentation>The California Commercial End-Use Survey (CEUS) is a comprehensive study of
+                commercial sector energy use, primarily designed to support the state’s energy
+                demand forecasting activities. http://www.energy.ca.gov/ceus/
+                This enumeration lists the CEUS building types.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="College"/>
+            <xs:enumeration value="Food Store"/>
+            <xs:enumeration value="Health"/>
+            <xs:enumeration value="Large Office (>=30k ft2)"/>
+            <xs:enumeration value="Lodging"/>
+            <xs:enumeration value="Miscellaneous"/>
+            <xs:enumeration value="Refrigerated Warehouse"/>
+            <xs:enumeration value="Restaurant"/>
+            <xs:enumeration value="Retail"/>
+            <xs:enumeration value="School"/>
+            <xs:enumeration value="Small Office (&lt;30k ft2)"/>
+            <xs:enumeration value="Unrefrigerated Warehouse"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DEERBuildingEnumType">
+        <xs:annotation>
+            <xs:documentation>The Database for Energy Efficient Resources (DEER) is a California Energy Commission and California Public Utilities Commission (CPUC) sponsored database designed to provide well-documented estimates of energy and peak demand savings values, measure costs, and effective useful life (EUL) all with one data source.
+                http://www.energy.ca.gov/deer/
+                
+                This list can be found in the "key" sheet of the excel file from the DEER website at the following link:
+                http://www.deeresources.com/deer0911planning/downloads/DEER2008%20Database%20Description%20%28version%202.05%29.xls</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Education - Community College"/>
+            <xs:enumeration value="Education - Primary School"/>
+            <xs:enumeration value="Education - Secondary School"/>
+            <xs:enumeration value="Education - University"/>
+            <xs:enumeration value="Grocery"/>
+            <xs:enumeration value="Health/Medical - Hospital"/>
+            <xs:enumeration value="Health/Medical - Nursing Home"/>
+            <xs:enumeration value="Lodging - Guest Rooms"/>
+            <xs:enumeration value="Lodging - Hotel"/>
+            <xs:enumeration value="Lodging - Motel"/>
+            <xs:enumeration value="Manufacturing - Light Industrial"/>
+            <xs:enumeration value="Office - Large"/>
+            <xs:enumeration value="Office - Small"/>
+            <xs:enumeration value="Residential - Indoor"/>
+            <xs:enumeration value="Residential - Outdoor"/>
+            <xs:enumeration value="Restaurant - Fast-Food"/>
+            <xs:enumeration value="Restaurant - Sit-Down"/>
+            <xs:enumeration value="Retail - 3-Story Large"/>
+            <xs:enumeration value="Retail - Single-Story Large"/>
+            <xs:enumeration value="Retail - Small"/>
+            <xs:enumeration value="Storage - Conditioned"/>
+            <xs:enumeration value="Storage - Unconditioned"/>
+            <xs:enumeration value="Warehouse - Refrigerated"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="EnergyStarBuildingEnumType">
+        <xs:annotation>
+            <xs:documentation>Details of how the Energy Star Portfolio Manager tool rates buildings can be found at the following url:
+                http://www.energystar.gov/index.cfm?c=evaluate_performance.pt_neprs_learn
+                
+                When benchmarking a mixed-use building, Portfolio Recommends defining the building as the space type that accounts for 50% or more of the floor area to get an accurate benchmark. Details can be found at the following url:
+                http://www.energystar.gov/index.cfm?c=eligibility.bus_portfoliomanager_eligibility_mixed</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Office"/>
+            <xs:enumeration value="Bank/Financial Institution"/>
+            <xs:enumeration value="Courthouse"/>
+            <xs:enumeration value="Dormitory / Residence Hall"/>
+            <xs:enumeration value="K-12 School"/>
+            <xs:enumeration value="Hospital (Acute Care and Children's)"/>
+            <xs:enumeration value="House of Worship"/>
+            <xs:enumeration value="Hotel"/>
+            <xs:enumeration value="Retail Store"/>
+            <xs:enumeration value="Supermarket"/>
+            <xs:enumeration value="Senior Care Facility"/>
+            <xs:enumeration value="Residence Halls/Dormitorie"/>
+            <xs:enumeration value="Warehouse"/>
+            <xs:enumeration value="Medical Office"/>
+            <xs:enumeration value="Wastewater Facility"/>
+            <xs:enumeration value="Data Center"/>
+            <xs:enumeration value="Swimming Pool"/>
+            <xs:enumeration value="Parking"/>
+            <xs:enumeration value="Other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NemaRatingEnumType">
+        <xs:annotation>
+            <xs:documentation>NEMA provides ratings on equipment enclosures that describe its protection from weather/elements.
+
+Included in Common.xsd because EquipmentDefinitionType element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="3R"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="4X"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType abstract="true" name="EquipmentDefinitionType">
+        <xs:annotation>
+            <xs:documentation>Base definition of an equipment item.  An equipment defintion does not contain any data about a specific instance of a piece of equipment (for example, SerialNumber, DataManufactured, Location, or Condition).  Equipment definitions are extended from this base type (for example "PvModuleDefinition").</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Manufacturer" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Name of the entity who manufactures the equipment.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ModelNumber" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Manufacturer's unique identifier for this model of equipment.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ProductFamilyName" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>A general name for a group of product models.  Typically each member of the family differs in size or capacity in some way.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Description" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Detailed description of the product. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MountingStyle" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Describes how the equipment/box is installed (or designed to be installed). This is important for determining components required for interfacing with it.  Suggested values include: Wall Mount, Wall Mount-Surface, Wall Mount-Flush, Pad Mount.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Length" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Dimension assumed to be meters.  The long dimension of the equipment's primary envelope (for example, the height of a wall mounted inverter, or the long edge of a PV Module frame).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Width" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Dimension assumed to be meters.  The width dimension of the equipment's primary envelope (for example, the width of a wall mounted inverter, or the short edge of a PV Module frame).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Depth" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Dimension assumed to be meters.  The dimension of the equipment's primary envelope perpendicular to the side of its primary interface (for example the thickness of a PV module's frame, or the thickness of a wall mounted inverter from the wall to the front of the inverter.)  Note: PV Module thickness with J-box would be given as part of PvModuleDefintion.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Weight" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Weight of equipment in kilograms (kg).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EnclosureMaterial" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The material making up the enclosure, such as steel, stainless steel, fiberglass, PVC, etc.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="EnclosureNemaRating" type="NemaRatingEnumType">
+                <xs:annotation>
+                    <xs:documentation>Equipment enclosures typically have a NEMA rating that describes its protection from weather/elements.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ListingAgency" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Agency under which the equipment was listed per the associated standard.  Examples include ETL, UL, CSA, etc</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Warranty" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Description of Manufacturer's warranty on the equipment.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="EnergyStarRated" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Does the equipment have an EnergyStar rating?</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="WhereManufactured" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>In which country was the equipment manufactured?  Important to know for some incentive programs, as there may be a requirement for rebates to only be paid on domestically manufactured equipment.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="Id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="SerialNumberType">
+        <xs:annotation>
+            <xs:documentation>Manufacturer's assigned identifier for a specific instance of a piece of equipment.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="ExistenceEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Existing"/>
+            <xs:enumeration value="New"/>
+            <xs:enumeration value="Unknown"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ConditionType">
+        <xs:annotation>
+            <xs:documentation>A description of the condition of a specific instance of a piece of equipment.  Suggested cvalues might include: brand new, mal-functioning, non-functional, normal wear, other.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="Condition" type="ConditionType">
+        <xs:annotation>
+            <xs:documentation>A description of the equipment's condition.  Suggested values include: brand new, mal-functioning, non-functional, normal wear, other.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="DateManufacturedType">
+        <xs:annotation>
+            <xs:documentation>The calendar date on which the manufacturer completed manufacture of this specific piece of equipment. May be limited to the year.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="DayManufactured" type="xs:gDay"/>
+            <xs:element minOccurs="0" name="MonthManufactured" type="xs:gMonth"/>
+            <xs:element name="YearManufactured" type="xs:gYear"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="DateManufactured" type="DateManufacturedType">
+        <xs:annotation>
+            <xs:documentation>The calendar date on which the manufacturer completed manufacture of this specific piece of equipment. May be limited to the year.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="EquipmentLocationType">
+        <xs:annotation>
+            <xs:documentation>A place where equipment can be located on the site or within the building. Can be used to capture site survey data before any systems are designed, and can be used to specify where specific proposed equipment will be placed during implementation. Note, it can be used to describe an existing equipment location in cases of remove and replace scenarios.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Detailed description of the location. Use to provide detail that can assist a user in identifying the precise location on a site, access information, etc. Typically use room names, compass directions, etc to identify the location to users.
+                        
+When used for site surveys, should include what types of equipment are envisioned to be placed here. For eaxample, in PV Systems, equipment might include: DC transition box, DC Combiner, DC Disconnect, Inverter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Exposure" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Describes the elemental exposure of a location.  Important to describe requirements that a piece of equipment must fulfill.  Suggested values include: Indoor-Conditioned, Indoor-Unconditioned, Outdoor-Covered, Outdoor-Uncovered, Rooftop.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Mounting" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Describes the type of mounting that equipment would be required to have to occupy the location.  For example: Wall Mount, Wall Mount-Surface, Wall Mount-Flush, Pad Mount.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AvailableWidth" type="xs:float" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Width of the location. Dimension is assumed to be meters. Used to determine how much space is available for both equipment and code mandated clearances.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AvailableHeight" type="xs:float" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Height of the location.  Dimension is assumed to be meters. Used to determine how much space is available for both equipment and code mandated clearances.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AvailableDepth" type="xs:float" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Depth of the location.  Dimension is assumed to be meters. Used to determine how much space is available for both equipment and code mandated clearances.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ZoneRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>The conditioned zone that this EquipmentLocation occupies.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Location" type="EquipmentLocationType">
+        <xs:annotation>
+            <xs:documentation>A place where the equipment is located on the site or within the building.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="LastServicedType">
+        <xs:annotation>
+            <xs:documentation>The date that a specific instance of a piece of equipment was last serviced. If it has never been serviced, this should be "N/A".</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:date"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="LastServiced" type="LastServicedType">
+        <xs:annotation>
+            <xs:documentation>The date that the equipment was last serviced, if applicable.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="RemainingUsefulLifeType">
+        <xs:annotation>
+            <xs:documentation>A description of the expected remaining service life for the equipment.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string"/>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="UsefulLife" type="RemainingUsefulLifeType">
+        <xs:annotation>
+            <xs:documentation>A description of the expected remaining service life for the equipment.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType abstract="true" name="EquipmentInstanceType">
+        <xs:annotation>
+            <xs:documentation>Base class for any instance of equipment.  Provides a base set of elements common to any single instance of a piece of equipment.  Extend with other elements that are specific to the type of equipment instance being defined. </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>A user provided name for convenience.  For example, an electrical panel might be the "Main service entry panel", or the "AC combiner panel."</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SerialNumber" type="SerialNumberType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Serial number of the equipment</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="DateManufactured" type="DateManufacturedType">
+                <xs:annotation>
+                    <xs:documentation>The calendar date on which the manufacturer completed manufacture of this specific piece of equipment. May be limited to the year.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Location" type="EquipmentLocationType">
+                <xs:annotation>
+                    <xs:documentation>A place where the equipment is located on the site or within the building.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Condition" type="ConditionType">
+                <xs:annotation>
+                    <xs:documentation>A description of the equipment's condition.  Suggested values include: brand new, mal-functioning, non-functional, normal wear, other.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="LastServiced" type="LastServicedType">
+                <xs:annotation>
+                    <xs:documentation>The date that the equipment was last serviced, if applicable.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="UsefulLife" type="RemainingUsefulLifeType">
+                <xs:annotation>
+                    <xs:documentation>A description of the expected remaining service life for the equipment.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="Id" type="xs:ID" use="required"/>
+        <xs:attribute name="EquipmentDefinitionIdRef" type="xs:IDREF" use="optional">
+            <xs:annotation>
+                <xs:documentation>ID Ref of the associated equipment definition for this equipment instance.  For example, in case of a PVModule, this would be the ID of the PvModuleDefinition element that describes this particular PV module instance.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="SiteWeatherDataType">
+        <xs:annotation>
+            <xs:documentation>Describes what weather data to use in an analysis.  Provides a means to specify a location and type of weather file dataset to use in an analysis.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element form="unqualified" name="StationCategory" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Describes the set of weather stations, or geographic cells used to specify the site's weather.  Examples include: WBAN, WMO, NREL 40km Monthly Grid Cell, etc. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element form="unqualified" minOccurs="1" name="StationId" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>The ID number used within the associated Station Category system.  If the Station Category is "WBAN," then this element would contain the WBAN number for the desired station.  For example, San Francisco, CA is WBAN "23234."  And Cairo, Egypt is WMO "623660."</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element form="unqualified" minOccurs="0" name="WeatherDataset" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Type of weather dataset, such as TMY, TMY2, IWEC, etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IntervalDataDoubleType">
+        <xs:annotation>
+            <xs:documentation>Used in YearIntervalDataDoubleType.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="Data" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DailyInvervalDataType">
+        <xs:annotation>
+            <xs:documentation>Used in YearIntervalDataDoubleType.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="Interval"
+                type="IntervalDataDoubleType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="SunRiseTime" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>The sunrise time, in decimal float, relative to the timezone specified in the root of this data structure.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="SunSetTime" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>The sunset time, in decimal float, relative to the timezone specified in the root of this data structure.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MonthlyIntervalDataType">
+        <xs:annotation>
+            <xs:documentation>Used in YearIntervalDataDoubleType.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="31" minOccurs="1" name="Days" type="DailyInvervalDataType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="YearIntervalDataDoubleType">
+        <xs:annotation>
+            <xs:documentation>Generic data structure to represent a year in arbitrary time increments.  The default is 1 hour. Breaks down an entire year into equal intervals of time, with the ability to associate a value of type double for each time interval.
+
+TODO: Look at consiolidating with the Schedule schema, also look at newly discovered interval data structures such as http://naesb.org/, and http://collaborate.nist.gov/twiki-sggrid/bin/view/SmartGrid/GreenButtonInitiative</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="12" minOccurs="12" name="Months" type="MonthlyIntervalDataType"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="IntervalsPerHour" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>The number of interrvals per hour for the Intervals in each of the days.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="TimeZone" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

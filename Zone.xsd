@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>A Zone should point to systems that condition it.  (Systems point to a zone to indicate location - where the equipment resides).</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="Schedule.xsd"/>
+	<xs:complexType name="ZoneType">
+		<xs:annotation>
+			<xs:documentation>These are heat loads. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalLoad" type="PowerType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This represents thermal load in addition to occupant and envelope.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CoolingSetPointSchedule" type="ScheduleType" minOccurs="0"
+				maxOccurs="1"/>
+			<xs:element name="HeatingSetPointSchedule" type="ScheduleType" minOccurs="0"
+				maxOccurs="1"/>
+			<xs:element name="FloorNo" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Occupancy" type="xs:int" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is the maximum occupancy of the zone</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OccupantSchedule" type="ScheduleType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RefHVACSystemID" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>ID for referencing a cooling system serving this zone.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+</xs:schema>

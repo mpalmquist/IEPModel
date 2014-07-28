@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>
+
+This schema defines the common attributes used by all systems.
+
+System contains "Design_____" quantities to refer to the level of performance that the "system" was design to operate at.  Generally when doing an analysis, the design range of performance is considered. However, a particular equipment may have a different constraint on its capacity or output.
+		</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="EnergyConsumption.xsd"/>
+	<xs:include schemaLocation="Schedule.xsd"/>
+	<xs:complexType name="CommonSystemPropertiesType">
+		<xs:annotation>
+			<xs:documentation>These are common attributes of a system that are shared by the various system types used in this model.  The idea is to capture here, high-level properties related to the operation and energy consumption of various systems.  
+
+Details of actual hardware not required for a 1st level analysis are not included here (these are located in CommonEquipmentAttributes).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name or description of the system, i.e. "Attic DX cooling unit".</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnnualOperatingHours" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The annual operating hours of the system.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DesignEfficiency" type="EfficiencyType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Efficiency at design operating conditions (typically full load, but not necessarily).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DesignInput" type="PowerType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>(Power) Input at design conditions (typically full load, but not necessarily).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DesignOutput" type="PowerType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>(Power) Output at design conditions (typically full load, but not necessarily).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnergyConsumption" type="EnergyRecordType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is a placeholder for analysis results.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxInput" type="PowerType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Maximum (Power) Input. Note that many systems are oversized when designed. This represents the absolute maximum power consumption of the equipment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatingSchedule" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The operating schedule of the system. This is likely to be a fraction schedule and represent the time-dependent capacity of the system. Note that particular systems, such as HVAC system, have additional schedules such as temperature schedules.
+
+This references the IDREF of a complete Schedules element at the Project level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RefZoneLocationID" type="xs:IDREF" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is the zone where the system is located. This is for the purpose of capturing the heat load that  the system introduces to its environment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="RefRevenueMeterID" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is used to reference the meter attached to the particular system.
+
+Generator of this ID needs to create the RevenueMeter first in the UtilityService schema in order to link back here.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

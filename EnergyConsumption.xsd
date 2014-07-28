@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--**************************************************************************
+	schema: EnergyConsumption.xsd
+	Primary Author:  Michael Palmquist, SolarNexus Inc
+	Contributors: Devan Johnson, kW Engineering; Paul Cobb, SaveEnergy123
+**************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>&lt;xs:include schemaLocation="\CommonQuantities.xsd"/&gt;
+
+The IEPModel team looked at using the gbXML model for energy consumption, which uses a time period ENUM of named calendar months, or "annual." 
+
+A critical IEP use of energy consumption data is to pass historical billing data.  Billing data starts on any given date, and has a number of billing days, along with qty.  We should not assume that such raw billing data will be transformed into monthly/annual periods prior to being transferred via IEP between applications.  Consider that a PV marketer could actually collect billing data as part of their service. They would transfer the data as part of a lead that they sell to a contractor.
+
+The IEP team agreed that it is NOT sufficient to simplify energy consumption periods into calendar months or annual periods. We agreed that it makes sense to provide for abilty to send raw billing data or monthly/annual data.
+
+Therefore our IEP model defines an EnergyConsumption type that can contain multiple EnergyConsumptionRecords that each correspond to a defined time period.
+
+Note that we currently use UtilityService XSD for capturing simple rough consumption estimates (e.g. I use 1000kWhrs/month, or my bill averages $X/month).
+</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:simpleType name="EnergyDataSourceEnumType">
+		<xs:annotation>
+			<xs:documentation>This enumeration indicates where the energy consumption data originated.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Utility Bill"/>
+			<xs:enumeration value="Simulated"/>
+			<xs:enumeration value="Rated"/>
+			<xs:enumeration value="Measured"/>
+			<xs:enumeration value="Estimated"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="EnergyValueType">
+		<xs:annotation>
+			<xs:documentation>A quantity of energy produced, consumed, or saved. If relevant, use name attribute to describe Time of Use period.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="DataValueType"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="PeakPowerType">
+		<xs:annotation>
+			<xs:documentation>The peak power quantity, given in kilowatts (kW), at a specified time. For cases where Demand charges are relevant.
+
+Use the Date and Time attributes to express exact time of peak demand, if required.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="DataValueType"> </xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="EnergyRecordType">
+		<xs:annotation>
+			<xs:documentation>A series of energy quanities each of which are associated with a defined period. An energy record can cover multiple utility billing periods.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataSource" type="EnergyDataSourceEnumType" minOccurs="0"
+				maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Detail description of where the energy data comes from. For example, it may be:  a) specific piece of software, b) customer's bill, c) measurements, d) etc.  This field may contain information about who captured the data.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnergyAmountUnits" type="EnergyUnitsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Type and units of energy described in the EnergyAmount elements of each EnergyRecord.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="EnergyAmount" type="EnergyValueType"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A quantity of energy. Units and energy type should be defined using the EnergyUnitsType. Each EnergyAmount instance can define the amount of energy used, saved, or produced during a defined period of time. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="PeakDemand" type="PeakPowerType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>For cases where Electric Demand charges are relevant, this optional element can be used to capture the Peak power demand in kW during the period defined.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="EnergyCost" type="DataValueType">
+				<xs:annotation>
+					<xs:documentation>A quantity of money paid for an amount of energy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="PeriodStart" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>Start date of the time period covered by this Energy Consumption record. Use this attribute in conjunction with the PeriodLength attributes of the EnergyAmount elements when defining consecutive billing periods that do not correspond to calendar months. Put the billing days in the PeriodLength attribute.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PeriodUnits" type="TimeUnitEnumType">
+			<xs:annotation>
+				<xs:documentation>Describes the Units of time for the PeriodLength attribute within the EnergyAmounts.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="RevenueMeterIdRef" type="xs:IDREF">
+			<xs:annotation>
+				<xs:documentation>A reference to a an optionally defined meter in the UtilityService XSD.  When benchmarking, a consumed quantity of energy must be associated to a defined revenue meter.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

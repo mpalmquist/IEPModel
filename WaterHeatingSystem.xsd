@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
+	<xs:include schemaLocation="Schedule.xsd"/>
+	<xs:include schemaLocation="DistributionSystem.xsd"/>
+	<xs:element name="WaterHeatingSystem" type="WaterHeatingSystemType">
+		<xs:annotation>
+			<xs:documentation>This system describes the properties of a water heating system. This object contains system properties as well as equipment properties.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterHeatingSystemType">
+		<xs:annotation>
+			<xs:documentation>This system describes a generic system used for heating water.  The end use may be HVAC, domestic or another.
+
+Attributes from Title24 WaterHeating</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Fuel" type="EnergyClassEnumType"/>
+			<xs:element name="HeatingMethod" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describe here what method is used to heat the water.
+Examples:
+Electric Resistance
+Fuel - Condensing
+Fuel - Non-Condensing
+Heat Pump – Air Source
+Heat Pump – Water Source
+Hybrid
+Heat Exchanger
+Solar
+
+Note, that some of the examples above require additional objects to be defined. For example:
+
+- If the heating type is Heat Exchanger, a reference to a distribution system that is the heat source is needed.
+
+- If solar, then additional details regarding the solar heating system are needed. This may simply be a reference to the distribution system that transfers heat from the solar panels to the water heating system. It may be an instance of Equipment Properties.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TankVolume" type="VolumeType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This element indicates the volume of water that the tank associated with the water-heating system can hold. If there is no tank, then this should have the value zero. Water heating systems wtih zero volume (no) tanks are commonly referred to as:
+- tankless
+- direct 
+- instantaneous
+- boiler (typical in a large facility; used for space heating)
+
+Note that a hot water tank is not necessarily and does not have to be integrated with the water heating equipment. The water heater and the storage tank may be separate entities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TankInsulation" type="InsulationType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemHeatSource"
+				type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is an optional reference to the distribution system, which is the source of heat.
+
+This is particularly relevant if the heating method is a heat exchanger. For example, a facility may use hot water at multiple temperatures. One boiler may heat water to 180 degF to use for space heating. A heat exchanger may be used to extract heat from the 180degF water loop and heat another water loop to only 120 degF to be used as domestic hot water.
+
+Another use case is when multiple water heaters are used in series. The first heaters may heat water to 130 degF for one purpose, such as domestic hot water. Another heater may boost the water to a higher temperature for another use such as laundry or dish washing.
+
+Multiple hot water loops are often advantageous when the end uses are very far apart. The less distance that the hotter water has to travel, the less heat that will lost through the piping into the environment. It is then advantageous to boost the water temperature nearby the end use.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"
+				maxOccurs="1"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="WaterHeatingEquipmentDefinition"
+				type="EquipmentDefinitionType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="WaterHeatingEquipment"
+				nillable="false" type="EquipmentInstanceType">
+				<xs:annotation>
+					<xs:documentation>User may define any number of components of the system. 
+
+Solar Water Heater:
+If the water-heating system is the solar type, it may be useful to describe the properties of the solar system with an instance of this object. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="RefDeliverySystem" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>This is an optional reference to the distribution system that is used to deliver/transport the heated water to end uses.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaterHeatingCapacity" type="WaterHeatingCapacityType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The heating capacity of the system in terms of water flow rate and water temperature rise across the system. Several are allowed because it is not uncommon for manufacturers to specify the temperature rise at various flow rates.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Quantity" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The quantity of this system that exists.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SetpointSchedule" type="xs:IDREF" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The temperature setpoint schedule. This may be constant.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="WaterHeatingCapacityType">
+		<xs:annotation>
+			<xs:documentation>This object reflects the water heating capacity of the system in terms of the water flow rate and rise in temperature of water across the system. 
+
+This "capacity" is commonly used with domestic tankless (instantaneous) water heaters.
+
+Systems in the U.S. are often rated in a maximum gpm (flow rate) with a 35 degree Fahrenheit temperature rise. Detailed manufacturer specifications often also list the temperature rise at various flow rates.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0" maxOccurs="1">
+			<xs:element name="RatedTemperatureRise" type="TemperatureType" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The change in temperature of the water between the inlet and outlet of the water heating system when it is operating at full load (maximum heat output or firing rate).
+
+This Rated Temperature Rise corresponds to the Rated Flow Rate.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RatedFlowRate" type="FlowType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The flow rate through the water heating system that corresponds to the Rated Temperature Rise when the system is operating at full load (maximum heat output or firing rate).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

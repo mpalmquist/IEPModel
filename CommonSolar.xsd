@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+    schema: CommonSolar.xsd
+    Author(s):  Michael Palmquist (SolarNexus Inc), Shading elements defined by Mark Galli (Solmetric Corp)
+    Description: Schema includes elements common to defining solar electric or solar thermal systems. Includes elements that define solar exposure (orientation and shading), for example.
+    **************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
+    targetNamespace="http://www.iepmodel.net" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" version="1.0">
+    <xs:include schemaLocation="Common.xsd"/>
+    <xs:complexType name="ObstructionElevationsType">
+        <xs:annotation>
+            <xs:documentation>A description of the top of an obstruction relative to a define location.  At that location, the obstruction is in the direction define by Azimuth, and the top of that obstruction is at the elevation angle define by Elevation.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Azimuth" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Direction to the obstruction, in degrees.  0 degrees is North, 90 degress is East, etc.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="359"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Elevation" maxOccurs="1" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Elevation, in degrees, of the top of the obstruction.  0 degrees is the horizon, and 90 degress is straight up.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="90"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ObstructionElevationsMeasurementType">
+        <xs:sequence>
+            <xs:element name="ObstructionElevation" type="ObstructionElevationsType" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Collection of the tops of obstructions surrounding the measurement location that define the skylie.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MeasurementLocation" type="Location3dType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TimeIntervalShadingMeasurmentType">
+        <xs:annotation>
+            <xs:documentation>A description of the shade for an entire year at the measurement locThe year is broken into equal increments (i.e. 1 hour increments) and for each increment the data value is 1 if at that location it is not shaded for that hour, and 0 if at that location it is shaded for that hour.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="IntervalShading" type="YearIntervalDataDoubleType" maxOccurs="1"
+                minOccurs="1"/>
+            <xs:element name="MeasurementLocation" type="Location3dType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BasicSolarAccessType">
+        <xs:annotation>
+            <xs:documentation>Monthly solar access values.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element name="SolarAccessAnnual" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessJan" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessFeb" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessMar" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessApr" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessMay" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessJun" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessJul" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessAug" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessSep" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessOct" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessNov" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+            <xs:element name="SolarAccessDec" type="xs:int" minOccurs="0" maxOccurs="1"
+                form="unqualified"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BasicSolarAccessMeasurementType">
+        <xs:annotation>
+            <xs:documentation>Represents an instance of a solar access measurement.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="SolarAccessPercentages" type="BasicSolarAccessType" maxOccurs="1"
+                minOccurs="1" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Measured monthly solar access.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MeasurementLocation" type="Location3dType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ShadingMeasurementsType">
+        <xs:annotation>
+            <xs:documentation>A place holder to allow a description of all different representations of shading.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="BasicSolarAccess" type="BasicSolarAccessMeasurementType" minOccurs="0"
+                maxOccurs="unbounded" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Solar access measurements.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ObstructionElevationMeasurement"
+                type="ObstructionElevationsMeasurementType" minOccurs="0" maxOccurs="unbounded"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Obstruction elevation measurements.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TimeIntervalShadingMeasurement"
+                type="TimeIntervalShadingMeasurmentType" minOccurs="0" maxOccurs="unbounded"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Annual interval breakdown for shading.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="TrackingModeEnumType">
+        <xs:annotation>
+            <xs:documentation>Enumeration of eligible tracking modes for a PV mounting structure.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="fixed"/>
+            <xs:enumeration value="single-axis"/>
+            <xs:enumeration value="dual-axis"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="SolarExposureType">
+        <xs:annotation>
+            <xs:documentation>Defines the orientation to the sun as well as any effects from shading for a particular location.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="Azimuth" nillable="true"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>For 'Fixed' tracking mode, this represents the azimuth angle clockwise from true north that the plane faces.  For '1-Axis' tracking, this represents the azimuth angle clockwise from true north of the axis of rotation.  If this is a child plane, instead of the angle representing azimuth relative to world space north, this represent the angle rotation about the z-axis relative to the parent plane of this child plane.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="360"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" name="Tilt" nillable="true" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>For 'Fixed' tracking mode, this represents the angle from horizontal of the inclination of the plane (0° = horizontal, 90° = vertical).  For '1-Axis' tracking, this represents the angle from horizontal of the inclination of the tracker axis.  Units are degrees.  If this is a child plane, instead of this angle being relative to the horizontal, it is relative to its parent plane.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="90"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element default="fixed" maxOccurs="1" minOccurs="1" name="TrackingMode"
+                type="TrackingModeEnumType" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Plane tracking mode.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="45" maxOccurs="1" minOccurs="0" name="TrackingRange1Axis"
+                nillable="true" type="xs:double" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>For '1-Axis' tracking only, this represents the +/- range that the tracking mechanism rotates around the axis of rotation.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Shading" type="ShadingMeasurementsType"
+                form="unqualified"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ArrayLocationType">
+        <xs:annotation>
+            <xs:documentation>Describes the location of the panel array.  It can reference a RoofPlane or GroundArea defined elsewhere in the document, or it can simply include a text description if such a roof or ground area element is not defined. </xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element form="unqualified" name="RoofPlaneIdRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>If the array is roof mounted, then this can refer to the defined RoofPlane element that contains the solar exposure attributes (note, this is because a single RoofPlane can have multiple arrays).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element form="unqualified" name="GroundAreaIdRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>If the Array is a ground mount, and the ground mount area is defined in a Project, then this can refer to that Ground Area element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element form="unqualified" name="LocationDescription" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>If an appropriate RoofPlane or GroundArea is not defined to be referenced, this element can contain a text description of the location.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:simpleType name="ArrayInstallStyleEnumType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="parallel to roof"/>
+            <xs:enumeration value="tilt-up roof"/>
+            <xs:enumeration value="ballasted tilt"/>
+            <xs:enumeration value="ground mount"/>
+            <xs:enumeration value="pole mount"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PanelOrientationEnumType">
+        <xs:annotation>
+            <xs:documentation>Panels (PvModules and potentially thermal panels) may be oriented in portrait or landscape.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="portrait"/>
+            <xs:enumeration value="landscape"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PanelTiltEdgeEnumType">
+        <xs:annotation>
+            <xs:documentation>When a panel (PvModule or Thermal panel) is tilted from its RoofPlane, these are the possible edges on which the tilt can occur.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="bottom"/>
+            <xs:enumeration value="top"/>
+            <xs:enumeration value="left"/>
+            <xs:enumeration value="right"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="MountingSystemType">
+        <xs:annotation>
+            <xs:documentation>Describes the physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Manufacturer" type="xs:string" form="unqualified"/>
+            <xs:element name="ComponentsDescription" type="xs:string" form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Include model numbers and descriptions of mounting system components.  Note, if there is more than one manufacturer's parts used, list the secondary mfr's name here with its component.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="AttachmentPointQuantity" type="xs:integer"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Total number of attachment points for the array.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MaxSpacingBetweenAttachmentPoints" type="xs:double"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Given in feet, the maximum spacing allowed between attachment points. See product manual for maximum spacing allowed based on maximum design wind speed.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="TotalWeightOfPanelsAndMountingSystem" type="xs:double"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Total weight in pounds (lbs) of the array's panels and its mounting structure components.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="TotalPanelSurfaceArea" type="xs:double"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>The total surface area (in square feet) of all the panels in the array.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="RoofPenetrationWeatherProofing" type="xs:string"
+                form="unqualified">
+                <xs:annotation>
+                    <xs:documentation>Description of the method used to weatherproof roof penetrations (e.g. flashing, caulk) </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

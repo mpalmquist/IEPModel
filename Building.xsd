@@ -1,0 +1,548 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>
+Need to add other types of spaces within a building to cover buildings other than homes
+Consider extending BuildingType and SpaceType in the Space xml class to cover more than one program type
+</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="RoofPlane.xsd"/>
+	<xs:include schemaLocation="EnergyConsumption.xsd"/>
+	<xs:include schemaLocation="Zone.xsd"/>
+	<xs:element name="Building" type="BuildingType"/>
+	<xs:complexType name="BuildingType">
+		<xs:annotation>
+			<xs:documentation>This object captures all of the building components with exception to energy producing and consuming systems.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0" maxOccurs="1">
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GrossFloorArea" type="AreaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Total floor area, including conditioned (heated/ cooled/ ventilated) and unconditioned spaces.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Space" type="SpaceType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" name="BuildingNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifies the number of a building where multiple buildings share a common street address (case where a site with a single address contains multiple buildings).
+						
+						Note that if a single Building has more than one street address, only one is required to identify the location.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnergyConsumption" type="EnergyRecordType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This defines the overall energy consumption for the building. This may be multiple instances for each type of Energy</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Envelope" type="EnvelopeType" maxOccurs="1" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This defines the components of the envelope for the existing structure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Zone" type="ZoneType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="EnvelopeType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Attic" type="AtticType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Ceiling" type="CeilingType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Door" type="DoorType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Fenestration" type="FenestrationType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This is also referred to as the Shading</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Foundation" type="FoundationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Garage" type="GarageType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Roof" type="RoofType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Wall" type="WallType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Window" type="WindowType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" name="Leakage" type="LeakageType"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
+	</xs:complexType>
+	<xs:complexType name="FenestrationType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SideFin" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="LeftDistance" type="DimensionType"/>
+						<xs:element name="LeftDepth" type="DimensionType"/>
+						<xs:element name="RightDistance" type="DimensionType"/>
+						<xs:element name="RightDepth" type="DimensionType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Overhang" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Depth" type="DimensionType"/>
+						<xs:element name="Distance" type="DimensionType"/>
+						<xs:element name="LeftExtension" type="DimensionType"/>
+						<xs:element name="RightExtension" type="DimensionType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0"/>
+			<xs:element name="UFactor" type="xs:double" minOccurs="0"/>
+			<xs:element name="SHGC" type="xs:double" minOccurs="0"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0"/>
+			<xs:element name="Height" type="DimensionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="InsulationType">
+		<xs:sequence>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describe the insulation to any extent desired: type (fiberglass, foam, etc.), brand, location, installation features, etc.
+
+It is important to specify the units of measurement for R-value if one intends to use non-SI units. This is discouraged, as SI units are expected and indicated in the annotation of R-Value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="R-Value" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The amount of thermal insulation installed, specified in SI units: square-meter kelvins per watt or m²·K/W (or equivalently to m²·°C/W).
+
+Note that if you intend to use different units then this should be noted in the Description.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Emissivity" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The ability of a surface/material to radiate energy relative to a black body.
+
+An ideal reflective material has an emissivity close to zero.
+An ideal black body has an emissivity of one.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CoverageFraction" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The fraction of the insulated surface that is covered by insulation.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LeakageType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describe the nature of the leakage, such as:
+- the entity that performed the test
+- location
+- severity
+- how discovered
+- systems, equipment affected
+- etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TestFlow" type="FlowType">
+				<xs:annotation>
+					<xs:documentation>The flow rate during which the leakage test was performed. Typically, this is the flow rate through the pipe or from the fan if a blower door or duct leakage test is performed.
+
+This flow rate correspondes to the Leakage Value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="TestPressure" type="PressureType">
+				<xs:annotation>
+					<xs:documentation>The pressure at the leak or test point when the leakage test was performed. Typically, this may be the discharge pressure of the fan if a blower door or duct leakage test is performed.
+
+This pressure corresponds to the Leakage Value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="LeakageFlow" type="FlowType">
+				<xs:annotation>
+					<xs:documentation>The quantity of leakage - the resulting leakage flow rate that is measured or determined from a test.
+
+This corresponds to the Test Flow and Pressure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="LeakageArea" type="AreaType">
+				<xs:annotation>
+					<xs:documentation>The quantity of leakage measured in terms of "leakage area" per area of the enclosure. The leakage area indicates the effective net size (area) of the leak. The area of the enclosure typically refers to the floor-area of the enclosure being tested.
+
+This corresponds to the Test Flow and Pressure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WallType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Height" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insulation" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Composition" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Wall composition.
+Examples:
+Wood Framing - Face Brick
+Steel - Face Brick
+Concrete Block
+Insulated Concrete Form						etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="CeilingType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insulation" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Length" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="AtticType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0"/>
+			<xs:element name="Length" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insulation" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="WindowType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FrameComposition" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Vinyl
+						Steel
+						Wood
+						etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaneCount" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The number of panes: 
+1 = single-pane
+2 = double-pane
+3 = triple-pane</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="SHGC" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Solar Heat Gain Coefficient
+http://www.efficientwindows.org/shgc.cfm
+The SHGC is the fraction of incident solar radiation admitted through a window, both directly transmitted and absorbed and subsequently released inward. SHGC is expressed as a number between 0 and 1. The lower a window's solar heat gain coefficient, the less solar heat it transmits.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Treatment" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>None or Clear
+Tinted
+Low Emmissivity ("Low-E")</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="U-Value" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The heat conductivity or coefficient of heat transmission of a material, specified in SI units: watts per square-meter kelvins  W/(m²·K) or equivalently W/(m²·°C).
+
+Note that if you intend to use different units then this should be noted in the Description.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:float">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Height" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Area" type="AreaType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="DoorType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.
+For example:
+- East exterior door, metal and wood construction
+- Interior, upstairs bathroom door, wood construction</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Height" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="UFactor" use="required" type="xs:double"/>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="GarageType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Length" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Height" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insulation" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:complexType name="FoundationType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="AreaType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Length" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Width" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insulation" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Base" type="FoundationBaseEnumType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+	<xs:simpleType name="FoundationBaseEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Crawlspace"/>
+			<xs:enumeration value="Finished Basement"/>
+			<xs:enumeration value="Unfinished Basement"/>
+			<xs:enumeration value="SlabOnGrade"/>
+			<xs:enumeration value="Raised Floor"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoofLookEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Butterfly"/>
+			<xs:enumeration value="Combination"/>
+			<xs:enumeration value="Flat"/>
+			<xs:enumeration value="Gable"/>
+			<xs:enumeration value="Gambrel"/>
+			<xs:enumeration value="Hip"/>
+			<xs:enumeration value="Mansard"/>
+			<xs:enumeration value="Shed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoofSurfaceEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CalPac metal"/>
+			<xs:enumeration value="composition roll"/>
+			<xs:enumeration value="composition shingle"/>
+			<xs:enumeration value="foam"/>
+			<xs:enumeration value="heavy concrete tile"/>
+			<xs:enumeration value="high-definition comp shingle"/>
+			<xs:enumeration value="light weight concrete tile"/>
+			<xs:enumeration value="single-ply membrane"/>
+			<xs:enumeration value="slate"/>
+			<xs:enumeration value="spanish barrel tile"/>
+			<xs:enumeration value="standing seam metal"/>
+			<xs:enumeration value="tar &amp; gravel"/>
+			<xs:enumeration value="wood shake"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoofConstructionEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="beams and purlins"/>
+			<xs:enumeration value="rafters with attic"/>
+			<xs:enumeration value="truss with attic"/>
+			<xs:enumeration value="vaulted 2x"/>
+			<xs:enumeration value="vaulted beams"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RoofType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is simply a descriptive name, typically a common name used for the system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Place for user to include additional notes/description:
+
+- Descriptions of damage/leaks/deterioration, 
+- Description of access requirements to chillers / air handlers / etc. 
+- Was the customer told of their options if solar will outlive roof? 
+- Attic accessibility - special requirements? Crane? Key?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Look" type="RoofLookEnumType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The type of roof design.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConstructionStyle" type="RoofConstructionEnumType" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describes the roof structure design.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SurfaceType" type="RoofSurfaceEnumType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Roof surface material.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Color" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Area" type="AreaType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>This is a convenience value based on the average tilt of the roof and the floor space of the building and may be overridden by the LayoutPlane dimensions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParapetWall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Does roof have a parapet wall?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParapetWallHeight" type="DimensionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="SignsOfLeaksDamageOrDeterioration" type="xs:string" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Use as a notes field. Look for things like: Existing roof leaks, signs of poor drainage (such as stains), uneven roof decks, etc</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="YearBuiltOrReplaced" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NewRoofPlanned" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>New Roof Planned Before/With Solar?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeckInsulationLevel" type="InsulationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="CraneRequiredForAccess" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Is a crane required to access the roof?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RooferNameAndContact" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="RoofPlane" type="RoofPlaneType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This can be used for defining multiple sections of the roof</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:IDREF"/>
+	</xs:complexType>
+</xs:schema>

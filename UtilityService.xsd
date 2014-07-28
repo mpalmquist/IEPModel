@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--**************************************************************************
+	schema: UtilityService.xsd
+	Primary Author:  Michael Palmquist, SolarNexus Inc
+**************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
+	xmlns="http://www.iepmodel.net">
+	<xs:annotation>
+		<xs:documentation>Defines a utility service for a site.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Common.xsd"/>
+	<xs:include schemaLocation="EnergyConsumption.xsd"/>
+	<xs:simpleType name="MeteringTypesEnumType">
+		<xs:annotation>
+			<xs:documentation>Master metered or individually metered.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Individually Metered"/>
+			<xs:enumeration value="Master Metered"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UtilityTransformerConnectionTypesEnumType">
+		<xs:annotation>
+			<xs:documentation>The level at which the service connection is made to the utility's electrical services (primary, secondary, transmission).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Secondary"/>
+			<xs:enumeration value="Transmission"/>
+			<xs:enumeration value="Primary"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UtilityServiceType">
+		<xs:annotation>
+			<xs:documentation>An energy service for a single fuel type. A utility typically provides this service, although a propane or heating oil provider can fit as well. Describes the customer's service attributes as well as utility bills based on metering of an energy service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1" minOccurs="1">
+			<xs:element name="Energy" type="EnergyClassEnumType">
+				<xs:annotation>
+					<xs:documentation>Names the energy fuel type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="UtilityName" type="xs:string"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="HostCustomerName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Customer name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="AccountNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifier assigned by the utility.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ServiceId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>An identifier provided by the utility.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExistingRateSchedule" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The utility's description of how it charges the customer for units of energy consumed.  This is the currently in effect rate schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProposedRateSchedule">
+				<xs:annotation>
+					<xs:documentation>The utility's description of how it charges the customer for units of energy consumed.  This is the proposed rate schedule in cases where the project includes a change of rate schedule.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="ScopeOfWorkIdRef" type="xs:IDREF">
+								<xs:annotation>
+									<xs:documentation>This ID is used to associate the ProposedRateSchedule with a single ScopeOfWork in a Project. A project may have more than one ScopeOfWork defined. The proposed rate schedule may differ from one Scope Of Work to another.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="BlendedRate" type="MonetaryType">
+				<xs:annotation>
+					<xs:documentation>Blended rate is an average per unit rate that may blend various rates based on tier, time of use and seasonal changes into a single rate. This will be in cents/kwh or dollars/therm</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="EnergyConsumption" type="EnergyRecordType">
+				<xs:annotation>
+					<xs:documentation>Multiple Energy Consumption elements are allowed in case of multiple revenue meters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="UtilityMeterId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Utility's identifier for the meter.
+
+Utiility interconnections may require meter number. Utility incentive programs may require meter id as well.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Space" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>A building consists of one or many spaces. This object provides a high level specification of the building space profile intended for use with Projects and simulations such as SaveEnergy123 and Portfolio Manager.
+                
+                https://saveenergy123.com/
+                
+                http://www.energystar.gov/index.cfm?c=evaluate_performance.bus_portfoliomanager</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Metering" type="MeteringTypesEnumType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="UtilityTransformerConnection"
+				type="UtilityTransformerConnectionTypesEnumType"/>
+			<xs:element minOccurs="0" name="ProvidesWaterHeating" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Value = true if this UtilityService is known to provide the energy used for heating water. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="RevenueMeterIdRef" type="xs:IDREF">
+			<xs:annotation>
+				<xs:documentation>When UtilityService is used within a Project.xsd, this attribute can reference a defined meter instance in the ElectricalDistributionHierarchy, or within a PvSystem.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

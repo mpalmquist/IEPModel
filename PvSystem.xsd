@@ -1,0 +1,1449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+    schema: PvDesign.xsd
+    Author: Michael Palmquist (SolarNexus Inc)
+    Input From: Mark Galli (Solmetric Corporation)
+    Description: This schema contains elements which can be used for a number of purposes.
+    The PvSystem element has a number of possible uses:
+    1) It can provide detailed specifications of key electrical equipment, including PV modules, combiners, disconnects, inverters, and AC electrical panels where interconnection occurs.
+    2) It can also be used to define a physical 3D layout of modules on one or more roof surfaces.
+    3) It can be used to transfer system descriptions between software used to estimate system output. Full shading information is also available for inclusion in analyses.
+    4) It can be used to completely define a PV system to a level of detail sufficient for creating a single line electrical diagram used for permitting.
+    There are probably many other potential uses.
+    
+    Use the GenericPVArray element to describe a very simple, generic PV System. It mimics the data set required to run a PVWatts simulation. It does not require any specific equipment to be defined.
+    
+    Using the PvSystem element, one can completely define a string or micro-inverter based system.  Details for defining each can be found within the annotations of each element.
+**************************************************************************** -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
+    targetNamespace="http://www.iepmodel.net">
+    <xs:include schemaLocation="Common.xsd"/>
+    <xs:include schemaLocation="CommonElectrical.xsd"/>
+    <xs:include schemaLocation="CommonSolar.xsd"/>
+    <xs:include schemaLocation="EnergyConsumption.xsd"/>
+    <xs:include schemaLocation="RoofPlane.xsd"/>
+    <xs:element name="PhotovoltaicSystem" type="PvSystemType">
+        <xs:annotation>
+            <xs:documentation>Root element of a PV system definition.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="InverterDefinitionType">
+        <xs:annotation>
+            <xs:documentation>Definition of a DC to AC inverter.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentDefinitionType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="InverterCategory" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>An optional description of the inverter's type, such as "Micro-inverter - Grid-tie," "String Inverter - Grid-tie," "Battery-based Inverter - Grid-tie/Off-grid," "Battery-based Inverter - Off-grid," "Centraal Inverter"</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IsMicroInverter" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Provides a definitive way of differentiating the inverter architecture as a String or Micro-Inverter. If TRUE, then the inverter is intended to be placed in series into an AC PV branch circuit.  All other inverters essentially conform to a string architecture. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MppTrackerQuantity" type="xs:integer" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>The number of MPP Trackers within the inverter.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MinMpptVoltage" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Lower end of the inverter's Maximum Power Point Tracker DC voltage window.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MaxMpptVoltage" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Higher end of the inverter's Maximum Power Point Tracker DC voltage window.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MaxDcInputPower" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Maximum PV module input power in DC watts at STC.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="NominalDcVoltage" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>DC voltage at normal operating conditions.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MaxDcVoltage" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Maximum DC system voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="PvDcStartVoltage" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Given in volts DC. Some inverters have a voltage point that differs from the minimum MPPT DC voltage at which it will start operation.  This is typically higher than the minimum MPPT voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NominalDcCurrent" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Nominal DC input current in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MaxDcCurrent" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Maximum usable current (Isc) in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DcTerminalQuantity" type="xs:integer" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Number of DC terminals.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DcTerminalMechanism" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Mechanism used for the terminal, for example "Screw Compression".</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DcTerminalWireRange" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the range of wire sizes that the DC terminals accept (for example "10-6" would be 10AWG on the small end up to 6AWG).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedDcDisconnect" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes whether any DC disconnect is integrated into the inverter (for example as "Standard," "Standard (Load break rated)," "Optional," or "None"). </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedDcDisconnectRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Rating in amps of any pre-integrated DC disconnect.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedCombiner" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes whether a fused combiner is integrated into the inverter (for example, standard or optional).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedCombinerFuses" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>The rating, in amps, of any fuses that ship pre-installed in the inverter's integrated fused combiner.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedCombinerMaxFuse" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Rating in amps of the maximum fuse that the integrated fused combiner can accomodate.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NominalAcPower" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Maximum continuous power in watts AC.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NominalAcVoltage" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>The nominal grid voltage to which the inverter connects, for example 240, 208, etc.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="GridVoltageRange" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Range of AC voltages within which the inverter can operate.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="GridFrequency" type="xs:double" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Nominal grid frequency, in Hz, that the inverter is specified to operate, for example "60".</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MaxAcCurrent" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>AC current in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AcOcpdRating" minOccurs="0" maxOccurs="1" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Rating in amps for any integrated AC over current protection device (OCPD).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="AcOcpdInterruptCapacity" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Interrupt rating in kAic for the AC OCPD.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedAcDisconnect" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes whether any AC disconnect is integrated into the inverter (for example as "Standard," "Optional," or "None").</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IntegratedAcDisconnectRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>The rating, in amps, of the integrated AC disconnect, if included.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="NeutralSizingRequirement" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AcTerminalQuantity" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Number of AC terminals per phase.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AcTerminalWireRange" type="xs:string" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Describes the range of wire sizes that the AC terminals accept (for example "10-6" would be 10AWG on the small end up to 6AWG).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="GecTerminalQuantity" minOccurs="0" maxOccurs="1"
+                        type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Number of GEC (grounding electrode conductor) terminals in the inverter.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="GecTerminalWireRange" minOccurs="0" maxOccurs="1"
+                        type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the range of wire sizes that the GEC (grounding electrode conductor) terminals accept (for example "10-6" would be 10AWG on the small end up to 6AWG).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MaxEfficiency" type="xs:double" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="CecWeightedEfficiency" type="xs:double" minOccurs="0"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Efficiency published by the California Energy Commission (CEC).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EuroEtaEffeciency" type="xs:double" minOccurs="0"
+                        maxOccurs="1"/>
+                    <xs:element name="Transformer" minOccurs="0" maxOccurs="1" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the inverter based on a transformer architecture?  TRUE indicates there is a transformer.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="PositiveGroundOption" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Does the inverter have an option to make the positive end grounded?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Cooling" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the mechanism used for cooling the inverter.  Values expected to inlcude: "Forced Air," "Passive," etc.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CSIApprovedBuiltInMeter" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is there a built in meter approved by the California Solar Initiative?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CSINightTareLoss" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Given in watts.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="AmbientTempRange" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the allowable ambient temperature range for normal operation.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DataInterfaceOptions" minOccurs="0" maxOccurs="1"
+                        type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes any and all types of interfaces that can be used for communications with the inverter.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ConduitEntryZones" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the physical sides of the inverter enclosure where conduit may be connected. Assumes user is facing the front of the inverter. For example, "bottom, back, both sides."</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Compliances" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Lists any testing standards with which the inverter complies.  For example, "UL 1741; IEEE 529; IEEE 1547; UL 1998."</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="UL1741Compliant" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the inverter UL 1741 compliant?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NrtlCertifyingUL1741" minOccurs="0" maxOccurs="1"
+                        type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Names the NRTL (testing lab) that has certified UL 1741 compliance.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CsiApproved" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the Inverter listed as approved by the California Solar Initiative (CSI)? True means that it is approved. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Notes" minOccurs="0" maxOccurs="1" type="xs:string">
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PvModuleDefinitionType">
+        <xs:annotation>
+            <xs:documentation>Definition of a PV module.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentDefinitionType">
+                <xs:sequence>
+                    <xs:element name="Pstc" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Rated power output at Standard Test Conditions (stc).</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="1.0"/>
+                                <xs:maxInclusive value="800.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PstcToleranceHighPercent" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Upper range of variation from rated power at STC. A module with this specification may output up to x % more than rated Pstc.</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="0.0"/>
+                                <xs:maxInclusive value="20.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="PstcToleranceLowPercent" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Lower range of variation from rated power at STC. A module with this specification may output up to x % less than rated Pstc.</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-20.0"/>
+                                <xs:maxInclusive value="0.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Pptc" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Rated power at PVUSA test conditions (PTC).</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="1.0"/>
+                                <xs:maxInclusive value="800.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Vmpp" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Voltage at max power (V)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Impp" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Current in amps at max power.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Voc" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Open Circuit Voltage (V)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Isc" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Short circuit current in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MaxSystemVoltage" minOccurs="0" maxOccurs="1" type="xs:double"
+                        > </xs:element>
+                    <xs:element name="MaxSystemCurrent" minOccurs="0" maxOccurs="1" type="xs:double"
+                        > </xs:element>
+                    <xs:element name="FuseRating" minOccurs="0" maxOccurs="1" type="xs:integer"> </xs:element>
+                    <xs:element name="Noct" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Nominal operating cell temperature (NOCT), expressed in deg C.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="VocTempCoefficient" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Open circuit voltage temperature coefficient, expressed in % / deg C.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IscTempCoefficient" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Short circuit current temperature coefficient, expressed in % / deg C.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MaxPowerTempCoefficient" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Maximum power temperature coefficient, expressed in % / deg C.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ModuleEfficiency" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Average efficiency of the entire module assembly, in percent.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CellEfficiency" minOccurs="0" maxOccurs="1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Average efficiency of a single cell within the module assembly, in percent.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CellTechnology" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the type of photovoltaic cell material.  Values include "Mono," "Poly," "a-Si," "Ribbon," "Mono + a-Si," "CdTe," "CIGS," "a-Si + micro-c," and "CIS" </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ModuleConstruction" minOccurs="0" maxOccurs="1"
+                        type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes the type of construction used for the module.  For example, "Glass on Glass - frameless," "Framed glass with backsheet," etc. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BIPV" minOccurs="0" maxOccurs="1" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the module classified as Building Integrated PV? The California Solar Initiative's (CSI) list of approved modules maintains such a classification.  TRUE means that it is.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CableConnector" minOccurs="0" maxOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>Types of cable connections. Values may include "J-Box," "MC-3 (Solarline1)," "MC-4 (Solarline2)," "Tyco SolarLok," "Terminals," "MC (unspecified)"</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CableDiameter" minOccurs="0" maxOccurs="1" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Wire gauge in AWG or kcmil.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ConnectorCableLength" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Length of pre-installed cables.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CellDimensions" minOccurs="0" maxOccurs="1" type="xs:string"> </xs:element>
+                    <xs:element name="CellCount" minOccurs="0" maxOccurs="1" type="xs:integer"> </xs:element>
+                    <xs:element name="BypassDiodeCount" minOccurs="0" maxOccurs="1"
+                        type="xs:integer"> </xs:element>
+                    <xs:element name="ParallelSubstrings" minOccurs="0" maxOccurs="1"
+                        type="xs:integer"> </xs:element>
+                    <xs:element name="DepthWithJunctionBox" minOccurs="0" maxOccurs="1"
+                        type="xs:double"> </xs:element>
+                    <xs:element name="FrameMaterial" minOccurs="0" maxOccurs="1" type="xs:string"> </xs:element>
+                    <xs:element minOccurs="0" name="FrameColor" type="xs:string"/>
+                    <xs:element minOccurs="0" name="BacksheetColor" type="xs:string"/>
+                    <xs:element name="PowerWarranty" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="WarrantyPeriod" type="xs:integer">
+                                    <xs:annotation>
+                                        <xs:documentation>This defines the number of years of the warranty from the point at which the system was installed.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="WarrantedPower" type="xs:string">
+                                    <xs:annotation>
+                                        <xs:documentation>This describes the percentage of original rated output that can be expected at the end of the WarrantyPeriod</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Compliances" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Describes testing standards with which the PV module complies.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="UL1703Compliant" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the PV module UL 1703 compliant?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="NrtlCertifyingUl1703Compliance" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Name of the testing lab (NRTL) that certifies compliance with UL 1703.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CsiApproved" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the PV module listed as approved by the California Solar Initiative (CSI)? True means that it is approved. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CecVmppLowLight" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="500.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CecImppLowLight" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="50.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CecVmppNoct" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="1.0"/>
+                                <xs:maxInclusive value="500.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CecImppNoct" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="50.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="CecGeometricMultipl" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".10"/>
+                                <xs:maxInclusive value="1.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="MeasurementDate" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamAref" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="10.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamILref" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="20.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamIoref" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="1.0e-13"/>
+                                <xs:maxInclusive value="1.0e-6"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamRs" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="1.0e-3"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamRshref" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="10.0"/>
+                                <xs:maxInclusive value="1000000.00"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="FiveParamAdjust" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaIxo" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="50.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaIxxo" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="50.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaDiodeFactor" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="10.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaThermalVoltage" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="10.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaMbVoc" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double"/>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaMbVmpp" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double"/>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="GammaPmppPercent" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-10.0"/>
+                                <xs:maxInclusive value="10.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="BetaVocPercent" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-2.0"/>
+                                <xs:maxInclusive value="2.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="BetaMppPercent" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-2.0"/>
+                                <xs:maxInclusive value="2.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AlphaIscPercent" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-2.0"/>
+                                <xs:maxInclusive value="2.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="AlphaImppPercent" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-2.0"/>
+                                <xs:maxInclusive value="2.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaTempFactorA" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-5.0"/>
+                                <xs:maxInclusive value="-1.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaTempFactorB" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-1.0"/>
+                                <xs:maxInclusive value="-0.01"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefA0" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefA1" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefA2" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefA3" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefA4" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB0" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB1" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB2" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB3" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB4" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefB5" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC0" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC1" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC2" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC3" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC4" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC5" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC6" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaCoefC7" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value="-100.0"/>
+                                <xs:maxInclusive value="100.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="SandiaDiffuseAcceptanceFactor" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:double">
+                                <xs:minInclusive value=".1"/>
+                                <xs:maxInclusive value="1.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="Notes" minOccurs="0" maxOccurs="1">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:maxLength value="255"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:anyAttribute namespace="##targetNamespace" processContents="lax"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="DcCombinerDefinitionType">
+        <xs:annotation>
+            <xs:documentation>Specification data defining a combiner.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentDefinitionType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="AcVoltageRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated AC voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DcVoltageRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated DC voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MaxContinuousCurrent" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Rating in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="QtyInputCircuits" minOccurs="0" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Max number of circuits on the input side.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MaxOcpdRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated current (in Amps) of the over-current protection device (OCPD) per input circuit.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MinInputConductorSize"
+                        type="ConductorSizeEnumType"/>
+                    <xs:element minOccurs="0" name="MaxInputConductorSize"
+                        type="ConductorSizeEnumType"/>
+                    <xs:element name="QtyOutputConductors" minOccurs="0" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Max number of output conductors.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="MinOutputConductorSize"
+                        type="ConductorSizeEnumType"/>
+                    <xs:element minOccurs="0" name="MaxOutputConductorSize"
+                        type="ConductorSizeEnumType"/>
+                    <xs:element minOccurs="0" name="IntegratedDisconnectIncluded" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="IntegratedDisconnectRating" type="xs:integer"/>
+                    <xs:element minOccurs="0" name="MonitoringAvailable" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="RevenueGradeMonitoring" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PvModuleType">
+        <xs:annotation>
+            <xs:documentation>Represents an instance of an individual module contained in the design.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentInstanceType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="LocationOnPlane" type="Location3dType">
+                        <xs:annotation>
+                            <xs:documentation>X, Y, and Z coordinates of the center of the module relative to the LayoutPlane's origin.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="PowerOptimizerDescription" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>If a module level power optimizer is used on this module, this field is a description of which technology is used.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IndividualModuleOrientation"
+                        type="PanelOrientationEnumType">
+                        <xs:annotation>
+                            <xs:documentation>The orientation of the rectangular module if it differs from that defined by the CommonModuleOrientation value for its array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="EffectiveIndividualModuleTilt" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>A measure in degrees of the angle that this module makes with  from the horizon, if different from that defined by the SolarResource element for the array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IndividualModuleTiltEdge"
+                        type="PanelTiltEdgeEnumType">
+                        <xs:annotation>
+                            <xs:documentation>The tilt edge of the module if it differs from that defined by the CommonModuleTiltEdge value for its array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="IndividualModuleStandoff" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Standoff describes the average spacing from the back of the modules to the installation surface (e.g. roof or ground).  
+
+Use IndividualModuleStandoff only if it differs from the CommonModuleStandoff defined for the array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PvStringType">
+        <xs:annotation>
+            <xs:documentation>A string of PV modules connected in series.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="CircuitConnection" type="CircuitConnectionType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Represents the wired connection from the string to its parent element (for example, a Combiner or InverterInput).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="IndividualModule"
+                type="PvModuleType">
+                <xs:annotation>
+                    <xs:documentation>The IndividualModule element describes information specific to a single module in a PV system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PartialSourceCircuitType">
+        <xs:annotation>
+            <xs:documentation>A Source Circuit is either a PvString, or an AcBranchCircuit. A PvArray may not have an even number of strings, or a branch circuit may be split across two physical arrays.  This type allows a partial source circuit (string or AC branch circuit) to be included within one array, noting how many modules of the total circuit length are in this array, and setting a reference to another array where the remainder of the circuit is included.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="QtyOfModulesInPartialCircuit" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Number of modules of the partial source circuit present on this array.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ArrayHoldingRemainderOfCircuit" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>Reference ID of the other array containing the remaining modules of the partial circuit.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MicroInverterType">
+        <xs:complexContent>
+            <xs:extension base="EquipmentInstanceType"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AcModuleInstanceType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="IndividualModule" type="PvModuleType">
+                <xs:annotation>
+                    <xs:documentation>The IndividualModule element describes information specific to a single PV module in an AcPvBranchCircuit.  It may represent an integrated module / micro-inverter assembly (common make/model) or an individual module that can be paired with an independent micro-inverter (described by the IndividualMicroInverter element).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="IndividualMicroInverter" type="MicroInverterType">
+                <xs:annotation>
+                    <xs:documentation>Use to record individual properties (such as serial number, etc) of a Micro Inverter that is paired with an independent PV module.  Together they form the AC Module.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AcPvBranchCircuitType">
+        <xs:annotation>
+            <xs:documentation>An AC Branch circuit is a quantity of AC Modules connected in series.
+
+The AC Branch Circuit defintion assumes that all AC modules in the circuit share the same PvModule and Inverter Definitions.  Although micro-inverter technology allows an AC Branch to contain different makes and models in series, this is a highly unusual use case not supported by this schema.  Such a case would typically come about in a remove and replace scenario well after the project was implemented.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string" minOccurs="0"/>
+            <xs:element name="AcModuleQuantity" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>The number of AC modules tied in series. 
+
+NOTE: An AC Module is assumed to be either:
+1) an integrated micro-inverter and PV module, OR 2) an independent PV module and micro-inverter pair.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AcTieInCircuitConnection" type="CircuitConnectionType" minOccurs="0"/>
+            <xs:element minOccurs="0" name="PartialAcPvBranchCircuit"
+                type="PartialSourceCircuitType">
+                <xs:annotation>
+                    <xs:documentation>When defining the AC PV Branch Circuits included in the AcPvBranchCircuitPvArray element, the PvArray may not always have an even number of circuits.  This type allows a partial branch circuit to be included in an array, noting how many modules of the total circuit length are in this array, and setting a reference to another array where the remainder of the branch circuit is included.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="AcModuleInstance"
+                type="AcModuleInstanceType">
+                <xs:annotation>
+                    <xs:documentation>The AcModuleInstance element describes a single instance of an AC Module in an AcPvBranchCircuit.
+
+It may represent an integrated module / micro-inverter assembly (common make/model) or a an independent PV module paired with an independent micro-inverter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DerateFactorsType">
+        <xs:annotation>
+            <xs:documentation>A set of environmental or component efficiency effects causing some reduction of ideal system performance. Default values correspond to NREL's PVWatts default values.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element default="0.95" minOccurs="0" name="ModuleRatedPowerTolerance"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Manufacturers group modules together that test within a specified tolerance of the stated DC power output at STC.  Depending on how they define the group, the actual expected power of the modules may be lower than the STC ratings.  For example, if the module is rated at 200Wstc, but it has a lower power tolerance of -5%, then the assumption should be made that the modules will only output 190Wstc, and have a derate of 0.95.  If the module's lower tolerance is 0%, then the derate would be 1.0. Acceptable PVWatts range = 0.95 to 1.05.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.92" name="InverterTransformerEfficiency" type="xs:double"
+                maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.88 to 0.98.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.98" name="DcWiringEfficiency" type="xs:double" maxOccurs="1"
+                minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.99.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.99" name="AcWiringEfficiency" type="xs:double" maxOccurs="1"
+                minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.98 to 0.993.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.995" name="DiodesAndConnectionsEfficiency" type="xs:double"
+                maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.99 to 0.997.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ModuleMismatch" default="0.98" type="xs:double" maxOccurs="1"
+                minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.95" name="Soiling" type="xs:double" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.30 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.98" name="SystemAvailability" type="xs:double" maxOccurs="1"
+                minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Shading" default="1.0" type="xs:double" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1.0" name="SunTracking" type="xs:double" form="unqualified"
+                maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.95 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1.0" name="Age" type="xs:double" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.70 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PvArrayType" abstract="true">
+        <xs:annotation>
+            <xs:documentation>A PV Array is defined as a group of modules that share the same make and model, and that feed a common inverter instance (may be single string/central inverter or multiple micro-inverters, one per module). 
+The PvArrayType serves as a base type for either StringPvArray or AcModulePvArrays based on their respective inverter architectures.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ArrayName" type="xs:string"/>
+            <xs:element minOccurs="0" name="InstallationStyle" type="ArrayInstallStyleEnumType">
+                <xs:annotation>
+                    <xs:documentation>Describes the installation style used for the array. The installation style categorizes the type of racking and mounting equipment used.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ArrayLocation" type="ArrayLocationType">
+                <xs:annotation>
+                    <xs:documentation>Describes where on the site that the array is located. It is a choice between referencing an existing RoofPlane element, an existing GroundArea element, or a text description.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SolarExposure" type="SolarExposureType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>This element provides the solar orientation, tracking, and shade effects for the array (its azimuth, tilt, tracking mode, and percent of time unshaded). When the array is not mounted parallel to a defined RoofPlane, it may share that RoofPlane's SolarExposure (see the ArrayLocation element for referencing a RoofPlane defined in a Project's Site element).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="CommonModuleStandoff" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Standoff describes the average spacing from the back of the modules to the installation surface (e.g. roof or ground).  Standoff is used in calculating system output when the calculator considers heat effects of reduced air circulation to the back of the modules.  Many incentive programs reduce incentive payments when air circulation is minimal.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="CommonModuleOrientation" type="PanelOrientationEnumType">
+                <xs:annotation>
+                    <xs:documentation>The orientation of the rectangular module.  "Portrait" indicates that the long dimension is vertical, while "Landscape" indicates that the long dimension is horizontal.
+
+If an individual module has an orientation different from the common value, that orientation can be called out in that particular module's detail element.  That value can override the common value provided here.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CommonModuleTiltEdge" maxOccurs="1" minOccurs="0"
+                type="PanelTiltEdgeEnumType">
+                <xs:annotation>
+                    <xs:documentation>This defines the module edge on which the tilt relative to the array's RoofPlane (if given) azimuth occurs.  For example, a "top" edge tilt is routinely used on a north roof to tilt the module to face south (aka "reverse tilt"). "Bottom edge" is the edge toward the azimuth direction of the LayoutPlane.
+
+If an individual module has a tilt edge different from the common value, that tilt edge can be called out in that particular module's detail element.  That value can override the common value provided here.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="DerateFactors" type="DerateFactorsType">
+                <xs:annotation>
+                    <xs:documentation>A set of environmental or component efficiencies that affect the ideal system performance. The whole set of DerateFactors is assumed to apply to the entire PvArray. Used as inputs to NREL's PVWatts and potentially other software that runs output estimations. Default values correspond to NREL's PVWatts default values.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MountingSystem" type="MountingSystemType">
+                <xs:annotation>
+                    <xs:documentation>Contains information necessary for Permitting using the Solar ABCs expedited permit process.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="Id" use="optional" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="StringPvArrayType">
+        <xs:annotation>
+            <xs:documentation>A StringPvArray is suitable for use with string or central inverter system architectures.  It features PvStrings and DcCombiners as building blocks. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PvArrayType">
+                <xs:sequence>
+                    <xs:element name="StringQuantity" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Number of strings in this array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ModulesPerString" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Quantity of modules in a single series string.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="SplitString" type="PartialSourceCircuitType">
+                        <xs:annotation>
+                            <xs:documentation>PvArrays may not always contain an even number of strings.  This element allows a string to be split across two (and only two) arrays.  It includes how many modules of the total string length are in this array, and refers to another array where the remainder of the string is included.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TypicalStringConnection" minOccurs="0"
+                        type="CircuitConnectionType">
+                        <xs:annotation>
+                            <xs:documentation>Arrays can be made up of many strings. Each string has its own circuit connection.  Because the strings in any one array are almost always connected to their parent element in a common way, this TypicalCircuitConnection element defines the commonly used connection approach from any one of the strings to the parent element (a combiner, or inverter).
+
+If circuit connections vary between strings, this element should not be used.  Instead, use the IndividualString element which contains its own CircuitConnection element.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="StringDetail">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="IndividualString"
+                                    type="PvStringType" minOccurs="0">
+                                    <xs:annotation>
+                                        <xs:documentation>Can optionally include detailed information on each individual string.
+
+Allows ability to define individual module properties within each string, including x/y locations on layout planes, serial numbers, shading affects, etc.  This element is typically used by design software for detailed calculation of system output.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="PvModuleDefinitionIdRef" type="xs:IDREF" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID of the PvModuleDefinition within the PvSystem instance.  The PvModuleDefintion describes the make and model of the PV module. The PvArray is assumed to use the same module for the entire array.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="AcModulePvArrayType">
+        <xs:annotation>
+            <xs:documentation>An AcModulePvArray is suitable for use with micro-inverter system architectures.  It features AcPvBranchCircuits as building blocks.
+
+NOTE: An AC Module is assumed to be either:
+1) an integrated micro-inverter and PV module, OR 2) an independent PV module and micro-inverter pair.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PvArrayType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="AcPvBranchCircuit"
+                        type="AcPvBranchCircuitType">
+                        <xs:annotation>
+                            <xs:documentation>An AC PV Branch circuit is a quantity of AC Modules connected in series to an ElectricalPanel element at the customer's site.
+
+The AC PV Branch Circuit defintion assumes that all AC modules in the circuit share the same PvModule and Inverter Definitions.  
+
+Although micro-inverter technology allows an AC Branch to contain different makes and models in series, this is a highly unusual use case not supported by this schema.  Such a case would typically come about in a remove and replace scenario well after the project was implemented.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="PvModuleDefinitionIdRef" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID of the PvModuleDefinition within the PvSystem instance.  The PvModuleDefintion describes the make and model of the PV module. The PvArray is assumed to use the same module for the entire array.
+
+Note that in case of an AC Module, the PvModuleDefinition and the MicroInverterDefinition may share the same make and model number.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="MicroInverterDefinitionIdRef" use="required">
+                    <xs:annotation>
+                        <xs:documentation>ID of the InverterDefinition element within the PvSystem instance.  The InverterDefintion describes the make and model of the micro-inverter used in all the AC Modules within this array.
+
+Note that in case of an AC Module, the PvModuleDefinition and the MicroInverterDefinition may share the same make and model number.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="GenericPvArrayType">
+        <xs:annotation>
+            <xs:documentation>Rather than define a specific array configuration using a specific PV module make and model, the GenericPvArray element allows an array to be defined simply as a total DC power output. The PvArray Base Type provides all the orientation, derate, and solar access parameters necessary to evaluate this "generic" array using a tool like NREL's PVWatts.  The GenericPvArray element is useful for feasibility studies where specific designs are not required.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="PvArrayType">
+                <xs:sequence>
+                    <xs:element name="DcRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Sum total STC power rating for an entire generic array.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="DcCombinerType">
+        <xs:annotation>
+            <xs:documentation>A DcCombiner only combines DC inputs.  AC circuits can be combined using an AcElectricalPanel type element.
+
+The EquipmentDefinitionRefID for the DcCombiner references the ID of the associated CombinerDefinition.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentInstanceType">
+                <xs:sequence>
+                    <xs:element name="OutputCircuit" type="CircuitConnectionType">
+                        <xs:annotation>
+                            <xs:documentation>Output from the Combiner to its parent (inverter or sub-combiner).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StringPvArray" type="StringPvArrayType" maxOccurs="unbounded"
+                        minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>One or more PvString inputs that are all configured identically (all modules the same make/model, equal string length, and share the same LayoutPlane). The PvArray element provides an alternate, and simpler means of defining a set of identical strings than using the PvString element which lists every module individually, making it quite verbose. The PvArray defines a single string and how many of them there are.
+
+NOTE: Must consider total number of strings to be separate inputs into the combiner.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="DcCombinerInput"
+                        type="DcCombinerType">
+                        <xs:annotation>
+                            <xs:documentation>Combiner output can be an input to another combiner. Outputs from this combiner element are "recombined" at the combiner in which this element is found.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PowerPointTrackerType">
+        <xs:annotation>
+            <xs:documentation>PPT in an inverter.  An inverter may have more than one PPT.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Name" minOccurs="0" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="StringPvArray"
+                type="StringPvArrayType">
+                <xs:annotation>
+                    <xs:documentation>A StringPvArray is suitable for use with string or central inverter system architectures.  It features PvStrings and DcCombiners as building blocks.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="DcCombiner" type="DcCombinerType">
+                <xs:annotation>
+                    <xs:documentation>A DcCombiner only combines DC inputs.  AC circuits can be combined using an AcElectricalPanel type element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="StringInverterType">
+        <xs:annotation>
+            <xs:documentation>Defines an inverter that converts DC electricity to AC.  Includes all the possible DC inputs.  Works well for modeling string based inverters.  
+
+Micro-inverters are modeled by defining a single PPT with a single IndividualCircuitInput for the module feeding it. To define an AC Branch Circuit, use the AcTie-InCircuitConnection element to refer to the next inverter in the series circuit.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="EquipmentInstanceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="MaxPowerPointTracker"
+                        type="PowerPointTrackerType">
+                        <xs:annotation>
+                            <xs:documentation>Maximum power point tracker (MPPT) in an inverter.  An inverter may have more than one MPPT.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AcTieInCircuitConnection" type="CircuitConnectionType"
+                        minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>The AcTie-InCircuitConnection element describes the AC side of the DC to AC Inverter.  It uses the common design pattern of each electrical equipment instance having a single CircuitConnection element that describes its electrical connection to upstream electrical equipment (for example, Combiners, ElectricalPanels, etc).  
+
+However, Inverters do not have a parent element to which the CircuitConnection refers. Instead, it relies on its optional EquipmentWhereConnectedIdRef attribute to describe the EquipmentInstance to which it is connected. For string inverters, the EquipmentWhereConnectedIdRef attribute should reference the ElectricalPanel element that represents the electrical panel where the Inverter will be (or already is) connected. In micro-inverter case, the EquipmentWhereConnectedIdRef attribute should reference the ID of the next micro-inverter in the circuit. The last inverter in the circuit will reference the electrical panel where interconnected.
+
+If the PvDesign is used independently (a PvDesign document) then the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel element within the PvDesign element. The referenced ElectricalPanel can represent an existing electrical panel on the site, or a new panel (perhaps serving as an AC Combiner).
+
+If the PvDesign is used within a Project.xml document, and the PvDesign calls for the connection of the Inverter to an existing ElectricalPanel, the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel element within the ExistingElectricalDistributionHierarchy element of the Site.  If the PvDesign calls for the inverter to connect to a new ElectricPanel, then the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel instance within the PvDesign itself.
+
+NOTE: If an external AC Disconnect Switch is required, it is a part of this CircuitConnection's WirewaySegments.  One segment can be a disconnect type.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DcGroundingElectrodeConductor"
+                        type="GroundingElectrodeConductorType">
+                        <xs:annotation>
+                            <xs:documentation>The conductor that grounds the DC system. NEC 690.47C calls out acceptable ways to install DC grounding electrode conductors.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PvSystemType">
+        <xs:annotation>
+            <xs:documentation>Description of a PV System Design.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ApplicationReferenceId" type="ApplicationIdType"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>ID of the object represented by this XML rewithin a  corresponding software application. Used by the software to identify its corresponding record within the application's database. AKA a primary key. Important if the data is passed from one application back to an originating application, for example. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Name" type="xs:string" maxOccurs="1"/>
+            <xs:element minOccurs="0" name="Description" type="xs:string" maxOccurs="1"/>
+            <xs:element name="ModuleDefinition" type="PvModuleDefinitionType" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Specifications for a PV module used in this design. A PvDesign may contain more than PV module make and model.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InverterDefinition" type="InverterDefinitionType" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Specifications for an inverter used in this design. A PvDesign may contain more than inverter make and model.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="DcCombinerDefinition"
+                type="DcCombinerDefinitionType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="JunctionBoxDefintion"
+                type="JunctionBoxDefinitionType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="DisconnectSwitchDefinition"
+                type="DisconnectSwitchDefinitionType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ElectricalPanelDefinition"
+                type="ElectricalPanelDefinitionType">
+                <xs:annotation>
+                    <xs:documentation>Specifications for an AC electric panel where a String Inverter or AC PV Branch Circuit may be connected. A PvSystem may contain more than one AC electric panel make and model (each Inverter or AC PV Branch Circuit can connect to different equipment).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="StringInverter" type="StringInverterType" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>String (or Central) Inverters that make up the system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="AcModuleArray"
+                type="AcModulePvArrayType">
+                <xs:annotation>
+                    <xs:documentation>An AcModulePvArray is suitable for use with micro-inverter system architectures.  It features AcPvBranchCircuits as building blocks.
+
+NOTE: An AC Module is assumed to be either:
+1) an integrated micro-inverter and PV module, OR 2) an independent PV module and micro-inverter pair.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="GenericPvArray"
+                type="GenericPvArrayType">
+                <xs:annotation>
+                    <xs:documentation>Rather than define a specific array configuration using a specific PV module make and model, the GenericPvArray element allows an array to be defined simply as a total DC power output. The PvArray Base Type provides all the orientation, derate, and solar access parameters necessary to evaluate this "generic" array using a tool like NREL's PVWatts.  The GenericPvArray element is useful for feasibility studies where specific designs are not required.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ElectricalPanel"
+                type="ElectricalPanelType">
+                <xs:annotation>
+                    <xs:documentation>Optional. The ElectricalPanel on which an Inverter can make its AC system tie-in. May also include parent ElectricalPanels.
+
+Use of this element is somewhat dependent on what XSDs are used. This element is always used to describe a new electrical panel which will be added to a site to accommodate the addition of a PV system (perhaps serving as an AC Combiner). If PvDesign xml document is used independently from a broader Project XML document, then this element can also be used to define existing ElectricalPanel(s) where the PV system may be interconnected.
+
+This element is not required when the PvDesign is used within a broader Project XML instance that contains an ExistingElectricalDitributionHierarchy and the PvDesign's Inverter(s) are to be connected to the ElectricalPanel(s) defined there.
+
+NOTE: The EquipmentWhereConnectedIdRef within the Inverter's AcCircuitConnection should reference either this element, or a similar ElectricalPanel instance within an ExistingElectricalDistributionHierarchy element of a Project.xml.
+
+NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy element. It can only be associated with an ElectricalDistributionHierarchy via EquipmentWhereConnectedIdRef attribute of the Inverter's AcTie-InCircuitConnection element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ConduitSegment" type="ConduitSegmentType" minOccurs="0"
+                maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>A conduit segment used in this design.  Note that if the PvSystem is used in an IEPM Project file, this Wireway Segment does not reference any ExistingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="WirewayBox" type="WirewayBoxType">
+                <xs:annotation>
+                    <xs:documentation>A wireway boxes used in this design.  Note that if the PvSystem is used in an IEPM Project file, the WirewayBox does not reference any ExistingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SceneOriginGeoTag" type="GeoLocationType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Coordinate system geo reference origin for the system.  All child components that specify 3D coordinates are in units meters relative to this location.  The 3D coordinate of this origin is (0,0,0).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="WeatherData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ExpectedHighTemperature" type="xs:decimal">
+                            <xs:annotation>
+                                <xs:documentation>Expected highest temperature in degrees Celcius at the system's location.  Used to evaluate equipment derating.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="ExpectedLowTemperature" type="xs:decimal">
+                            <xs:annotation>
+                                <xs:documentation>Expected lowest temperature in degrees Celcius at the system's location.  Used to evaluate maximum system output.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="SiteWeatherData" type="SiteWeatherDataType"
+                        />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

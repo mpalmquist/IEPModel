@@ -1,0 +1,2105 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for CommonSystemProperties.xsd</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_CommonSystemProperties.xsd', 
+				'properties_CommonSystemPropertiesType_Description', 
+				'properties_CommonSystemPropertiesType_AnnualOperatingHours', 
+				'properties_CommonSystemPropertiesType_DesignEfficiency', 
+				'properties_CommonSystemPropertiesType_DesignInput', 
+				'properties_CommonSystemPropertiesType_DesignOutput', 
+				'properties_CommonSystemPropertiesType_EnergyConsumption', 
+				'properties_CommonSystemPropertiesType_MaxInput', 
+				'properties_CommonSystemPropertiesType_OperatingSchedule', 
+				'properties_CommonSystemPropertiesType_RefZoneLocationID', 
+				'properties_CommonSystemPropertiesType_RefRevenueMeterID');
+var facetsBoxes= new Array('facets_CommonSystemPropertiesType_AnnualOperatingHours');
+var usedByBoxes= new Array('usedBy_CommonSystemPropertiesType');
+var sourceBoxes= new Array('source_CommonSystemPropertiesType_Description', 
+				'source_CommonSystemPropertiesType_AnnualOperatingHours', 
+				'source_CommonSystemPropertiesType_DesignEfficiency', 
+				'source_CommonSystemPropertiesType_DesignInput', 
+				'source_CommonSystemPropertiesType_DesignOutput', 
+				'source_CommonSystemPropertiesType_EnergyConsumption', 
+				'source_CommonSystemPropertiesType_MaxInput', 
+				'source_CommonSystemPropertiesType_OperatingSchedule', 
+				'source_CommonSystemPropertiesType_RefZoneLocationID', 
+				'source_CommonSystemPropertiesType_RefRevenueMeterID', 
+				'source_CommonSystemPropertiesType');
+var instanceBoxes= new Array('instance_CommonSystemPropertiesType_EnergyConsumption');
+var diagramBoxes= new Array('diagram_CommonSystemPropertiesType_Description', 
+				'diagram_CommonSystemPropertiesType_AnnualOperatingHours', 
+				'diagram_CommonSystemPropertiesType_DesignEfficiency', 
+				'diagram_CommonSystemPropertiesType_DesignInput', 
+				'diagram_CommonSystemPropertiesType_DesignOutput', 
+				'diagram_CommonSystemPropertiesType_EnergyConsumption', 
+				'diagram_CommonSystemPropertiesType_MaxInput', 
+				'diagram_CommonSystemPropertiesType_OperatingSchedule', 
+				'diagram_CommonSystemPropertiesType_RefZoneLocationID', 
+				'diagram_CommonSystemPropertiesType_RefRevenueMeterID', 
+				'diagram_CommonSystemPropertiesType');
+var annotationBoxes= new Array('annotations_CommonSystemProperties.xsd', 
+				'annotations_CommonSystemPropertiesType_Description', 
+				'annotations_CommonSystemPropertiesType_AnnualOperatingHours', 
+				'annotations_CommonSystemPropertiesType_DesignEfficiency', 
+				'annotations_CommonSystemPropertiesType_DesignInput', 
+				'annotations_CommonSystemPropertiesType_DesignOutput', 
+				'annotations_CommonSystemPropertiesType_EnergyConsumption', 
+				'annotations_CommonSystemPropertiesType_MaxInput', 
+				'annotations_CommonSystemPropertiesType_OperatingSchedule', 
+				'annotations_CommonSystemPropertiesType_RefZoneLocationID', 
+				'annotations_CommonSystemPropertiesType_RefRevenueMeterID', 
+				'annotations_CommonSystemPropertiesType');
+var attributesBoxes= new Array('attributes_CommonSystemPropertiesType_DesignEfficiency', 
+				'attributes_CommonSystemPropertiesType_DesignInput', 
+				'attributes_CommonSystemPropertiesType_DesignOutput', 
+				'attributes_CommonSystemPropertiesType_EnergyConsumption', 
+				'attributes_CommonSystemPropertiesType_MaxInput');
+var modelBoxes= new Array('model_CommonSystemPropertiesType_EnergyConsumption', 
+				'model_CommonSystemPropertiesType');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control" /></span><span class="globalControlName">Facets </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, instanceBoxes);" class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control" /></span><span class="globalControlName">Model </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="CommonSystemProperties.xsd"></a><div class="componentTitle">Included schema <span class="qname">CommonSystemProperties.xsd</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.iepmodel.net</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemProperties.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemProperties.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemProperties.xsd" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This schema defines the common attributes used by all systems.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">System contains "Design_____" quantities to refer to the level of performance that the "system" was design to operate at.  Generally when doing an analysis, the design range of performance is considered. However, a particular equipment may have a different constraint on its capacity or output.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemProperties.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemProperties.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemProperties.xsd" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">attribute form default</td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">element form default</td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_Description"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / Description</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_Description" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_Description');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_Description" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">The name or description of the system, i.e. "Attic DX cooling unit".</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_Description" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_Description');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_Description" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_Description.jpeg" /></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_Description" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_Description');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_Description" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_Description" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_Description');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_Description" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"Description"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The name or description of the system, i.e. "Attic DX cooling unit".</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_AnnualOperatingHours"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / AnnualOperatingHours</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_AnnualOperatingHours" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_AnnualOperatingHours');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_AnnualOperatingHours" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">The annual operating hours of the system.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_AnnualOperatingHours" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_AnnualOperatingHours');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_AnnualOperatingHours" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_AnnualOperatingHours.jpeg" /></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td>restriction of <b>xs:int</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_AnnualOperatingHours" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_AnnualOperatingHours');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_AnnualOperatingHours" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_CommonSystemPropertiesType_AnnualOperatingHours" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_CommonSystemPropertiesType_AnnualOperatingHours');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="facets_CommonSystemPropertiesType_AnnualOperatingHours" style="display:block">
+                              <table class="facetsTable">
+                                 <tr>
+                                    <td class="firstColumn">minInclusive</td>
+                                    <td width="30%"><b>0</b></td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_AnnualOperatingHours" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_AnnualOperatingHours');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_AnnualOperatingHours" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"AnnualOperatingHours"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The annual operating hours of the system.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:int"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:minInclusive</span><span class="tAN"> value=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_DesignEfficiency"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / DesignEfficiency</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_DesignEfficiency" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_DesignEfficiency');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_DesignEfficiency" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Efficiency at design operating conditions (typically full load, but not necessarily).</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_DesignEfficiency" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_DesignEfficiency');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_DesignEfficiency" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_DesignEfficiency.jpeg" usemap="#CommonSystemProperties_xsd_Element_DesignEfficiency" /><map name="CommonSystemProperties_xsd_Element_DesignEfficiency" id="CommonSystemProperties_xsd_Element_DesignEfficiency">
+                                 <area alt="Common_xsd.tmp#EfficiencyType_Unit" href="Common_xsd.html#EfficiencyType_Unit" coords="188,160,258,185" />
+                                 <area alt="Common_xsd.tmp#EfficiencyType_UnitDesc" href="Common_xsd.html#EfficiencyType_UnitDesc" coords="188,254,281,279" />
+                                 <area alt="Common_xsd.tmp#EfficiencyType_TestCondition" href="Common_xsd.html#EfficiencyType_TestCondition" coords="188,348,303,373" />
+                                 <area alt="Common_xsd.tmp#EfficiencyType" href="Common_xsd.html#EfficiencyType" coords="163,3,286,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Common_xsd.html#EfficiencyType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">EfficiencyType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_DesignEfficiency" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_DesignEfficiency');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_DesignEfficiency" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonSystemPropertiesType_DesignEfficiency" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonSystemPropertiesType_DesignEfficiency');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_CommonSystemPropertiesType_DesignEfficiency" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#EfficiencyType_TestCondition" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">TestCondition</a></b></td>
+                                    <td><b><a href="Common_xsd.html#TestConditionEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">TestConditionEnumType</a></b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">This represents the operating conditions (typically certified test conditons or full load) at which the efficiency is realized.  Note that at other conditions, the efficiency may be a different value.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#EfficiencyType_Unit" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Unit</a></b></td>
+                                    <td><b><a href="Common_xsd.html#EfficiencyUnitEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">EfficiencyUnitEnumType</a></b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#EfficiencyType_UnitDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">UnitDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_DesignEfficiency" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_DesignEfficiency');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_DesignEfficiency" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignEfficiency"</span><span class="tAN"> type=</span><span class="tAV">"EfficiencyType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Efficiency at design operating conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_DesignInput"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / DesignInput</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_DesignInput" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_DesignInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_DesignInput" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">(Power) Input at design conditions (typically full load, but not necessarily).</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_DesignInput" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_DesignInput');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_DesignInput" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_DesignInput.jpeg" usemap="#CommonSystemProperties_xsd_Element_DesignInput" /><map name="CommonSystemProperties_xsd_Element_DesignInput" id="CommonSystemProperties_xsd_Element_DesignInput">
+                                 <area alt="Common_xsd.tmp#PowerType_TestCondition" href="Common_xsd.html#PowerType_TestCondition" coords="163,160,278,185" />
+                                 <area alt="Common_xsd.tmp#PowerType_Unit" href="Common_xsd.html#PowerType_Unit" coords="163,240,233,265" />
+                                 <area alt="Common_xsd.tmp#PowerType_UnitDesc" href="Common_xsd.html#PowerType_UnitDesc" coords="163,334,256,359" />
+                                 <area alt="Common_xsd.tmp#PowerType_Fuel" href="Common_xsd.html#PowerType_Fuel" coords="163,428,233,453" />
+                                 <area alt="Common_xsd.tmp#PowerType_FuelDesc" href="Common_xsd.html#PowerType_FuelDesc" coords="163,522,258,547" />
+                                 <area alt="Common_xsd.tmp#PowerType" href="Common_xsd.html#PowerType" coords="138,3,245,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Common_xsd.html#PowerType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_DesignInput" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_DesignInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_DesignInput" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonSystemPropertiesType_DesignInput" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonSystemPropertiesType_DesignInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_CommonSystemPropertiesType_DesignInput" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="10%">Default</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Fuel" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Fuel</a></b></td>
+                                    <td><b><a href="Common_xsd.html#EnergyClassEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">EnergyClassEnumType</a></b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_FuelDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">FuelDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">FuelType specified as a string. This should be used for defining the type value's fuel if the proper enum is not listed in Fuel. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_TestCondition" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">TestCondition</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">The "rating" or list of conditions at which the power was tested.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Unit" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Unit</a></b></td>
+                                    <td><b><a href="Common_xsd.html#PowerUnitEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerUnitEnumType</a></b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_UnitDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">UnitDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>kwh</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_DesignInput" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_DesignInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_DesignInput" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignInput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">(Power) Input at design conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_DesignOutput"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / DesignOutput</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_DesignOutput" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_DesignOutput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_DesignOutput" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">(Power) Output at design conditions (typically full load, but not necessarily).</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_DesignOutput" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_DesignOutput');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_DesignOutput" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_DesignOutput.jpeg" usemap="#CommonSystemProperties_xsd_Element_DesignOutput" /><map name="CommonSystemProperties_xsd_Element_DesignOutput" id="CommonSystemProperties_xsd_Element_DesignOutput">
+                                 <area alt="Common_xsd.tmp#PowerType_TestCondition" href="Common_xsd.html#PowerType_TestCondition" coords="172,160,287,185" />
+                                 <area alt="Common_xsd.tmp#PowerType_Unit" href="Common_xsd.html#PowerType_Unit" coords="172,240,242,265" />
+                                 <area alt="Common_xsd.tmp#PowerType_UnitDesc" href="Common_xsd.html#PowerType_UnitDesc" coords="172,334,265,359" />
+                                 <area alt="Common_xsd.tmp#PowerType_Fuel" href="Common_xsd.html#PowerType_Fuel" coords="172,428,242,453" />
+                                 <area alt="Common_xsd.tmp#PowerType_FuelDesc" href="Common_xsd.html#PowerType_FuelDesc" coords="172,522,267,547" />
+                                 <area alt="Common_xsd.tmp#PowerType" href="Common_xsd.html#PowerType" coords="147,3,254,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Common_xsd.html#PowerType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_DesignOutput" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_DesignOutput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_DesignOutput" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonSystemPropertiesType_DesignOutput" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonSystemPropertiesType_DesignOutput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_CommonSystemPropertiesType_DesignOutput" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="10%">Default</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Fuel" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Fuel</a></b></td>
+                                    <td><b><a href="Common_xsd.html#EnergyClassEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">EnergyClassEnumType</a></b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_FuelDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">FuelDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">FuelType specified as a string. This should be used for defining the type value's fuel if the proper enum is not listed in Fuel. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_TestCondition" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">TestCondition</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">The "rating" or list of conditions at which the power was tested.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Unit" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Unit</a></b></td>
+                                    <td><b><a href="Common_xsd.html#PowerUnitEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerUnitEnumType</a></b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_UnitDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">UnitDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>kwh</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_DesignOutput" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_DesignOutput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_DesignOutput" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignOutput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">(Power) Output at design conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_EnergyConsumption"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / EnergyConsumption</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_EnergyConsumption" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This is a placeholder for analysis results.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_EnergyConsumption" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_EnergyConsumption.jpeg" usemap="#CommonSystemProperties_xsd_Element_EnergyConsumption" /><map name="CommonSystemProperties_xsd_Element_EnergyConsumption" id="CommonSystemProperties_xsd_Element_EnergyConsumption">
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_PeriodStart" href="EnergyConsumption_xsd.html#EnergyRecordType_PeriodStart" coords="203,79,306,104" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_PeriodUnits" href="EnergyConsumption_xsd.html#EnergyRecordType_PeriodUnits" coords="203,173,307,198" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_RevenueMeterIdRef" href="EnergyConsumption_xsd.html#EnergyRecordType_RevenueMeterIdRef" coords="203,253,348,278" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_DataSource" href="EnergyConsumption_xsd.html#EnergyRecordType_DataSource" coords="280,340,368,365" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_Description" href="EnergyConsumption_xsd.html#EnergyRecordType_Description" coords="280,375,365,400" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_EnergyAmountUnits" href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmountUnits" coords="280,469,406,494" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_EnergyAmount" href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmount" coords="280,549,382,574" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_PeakDemand" href="EnergyConsumption_xsd.html#EnergyRecordType_PeakDemand" coords="280,643,373,668" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType_EnergyCost" href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyCost" coords="280,737,367,762" />
+                                 <area alt="EnergyConsumption_xsd.tmp#EnergyRecordType" href="EnergyConsumption_xsd.html#EnergyRecordType" coords="178,3,322,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="EnergyConsumption_xsd.html#EnergyRecordType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyRecordType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_EnergyConsumption" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('model_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="model_CommonSystemPropertiesType_EnergyConsumption" style="display:block"><b><a href="EnergyConsumption_xsd.html#EnergyRecordType_DataSource" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">DataSource{0,1}</a></b> , <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_Description" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">Description{0,1}</a></b> , <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmountUnits" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyAmountUnits{0,1}</a></b> , <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmount" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyAmount*</a></b> , <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_PeakDemand" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">PeakDemand*</a></b> , <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyCost" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyCost*</a></b></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="EnergyConsumption_xsd.html#EnergyRecordType_DataSource" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">DataSource</a></b>, <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_Description" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">Description</a></b>, <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmount" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyAmount</a></b>, <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyAmountUnits" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyAmountUnits</a></b>, <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_EnergyCost" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">EnergyCost</a></b>, <b><a href="EnergyConsumption_xsd.html#EnergyRecordType_PeakDemand" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">PeakDemand</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_CommonSystemPropertiesType_EnergyConsumption" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;EnergyConsumption</span><span class="tT"> </span><span class="tAN">PeriodStart=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodUnits=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RevenueMeterIdRef=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;DataSource</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/DataSource&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Description</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Description&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;EnergyAmountUnits</span><span class="tT"> </span><span class="tAN">Fuel=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/EnergyAmountUnits&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;EnergyAmount</span><span class="tT"> </span><span class="tAN">Category=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodLength=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodName=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/EnergyAmount&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;PeakDemand</span><span class="tT"> </span><span class="tAN">Category=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodLength=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodName=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/PeakDemand&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;EnergyCost</span><span class="tT"> </span><span class="tAN">Category=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodLength=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">PeriodName=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/EnergyCost&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/EnergyConsumption&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_CommonSystemPropertiesType_EnergyConsumption" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EnergyConsumption_xsd.html#EnergyRecordType_PeriodStart" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">PeriodStart</a></b></td>
+                                    <td><b>xs:dateTime</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Start date of the time period covered by this Energy Consumption record. Use this attribute in conjunction with the PeriodLength attributes of the EnergyAmount elements when defining consecutive billing periods that do not correspond to calendar months. Put the billing days in the PeriodLength attribute.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EnergyConsumption_xsd.html#EnergyRecordType_PeriodUnits" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">PeriodUnits</a></b></td>
+                                    <td><b><a href="Common_xsd.html#TimeUnitEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">TimeUnitEnumType</a></b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Describes the Units of time for the PeriodLength attribute within the EnergyAmounts.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="EnergyConsumption_xsd.html#EnergyRecordType_RevenueMeterIdRef" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for EnergyConsumption.xsd')">RevenueMeterIdRef</a></b></td>
+                                    <td><b>xs:IDREF</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">A reference to a an optionally defined meter in the UtilityService XSD.  When benchmarking, a consumed quantity of energy must be associated to a defined revenue meter.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_EnergyConsumption" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_EnergyConsumption');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_EnergyConsumption" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"EnergyConsumption"</span><span class="tAN"> type=</span><span class="tAV">"EnergyRecordType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is a placeholder for analysis results.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_MaxInput"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / MaxInput</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_MaxInput" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_MaxInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_MaxInput" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Maximum (Power) Input. Note that many systems are oversized when designed. This represents the absolute maximum power consumption of the equipment.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_MaxInput" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_MaxInput');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_MaxInput" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_MaxInput.jpeg" usemap="#CommonSystemProperties_xsd_Element_MaxInput" /><map name="CommonSystemProperties_xsd_Element_MaxInput" id="CommonSystemProperties_xsd_Element_MaxInput">
+                                 <area alt="Common_xsd.tmp#PowerType_TestCondition" href="Common_xsd.html#PowerType_TestCondition" coords="150,160,265,185" />
+                                 <area alt="Common_xsd.tmp#PowerType_Unit" href="Common_xsd.html#PowerType_Unit" coords="150,240,220,265" />
+                                 <area alt="Common_xsd.tmp#PowerType_UnitDesc" href="Common_xsd.html#PowerType_UnitDesc" coords="150,334,243,359" />
+                                 <area alt="Common_xsd.tmp#PowerType_Fuel" href="Common_xsd.html#PowerType_Fuel" coords="150,428,220,453" />
+                                 <area alt="Common_xsd.tmp#PowerType_FuelDesc" href="Common_xsd.html#PowerType_FuelDesc" coords="150,522,245,547" />
+                                 <area alt="Common_xsd.tmp#PowerType" href="Common_xsd.html#PowerType" coords="125,3,232,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="Common_xsd.html#PowerType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_MaxInput" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_MaxInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_MaxInput" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonSystemPropertiesType_MaxInput" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonSystemPropertiesType_MaxInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_CommonSystemPropertiesType_MaxInput" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="10%">Default</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Fuel" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Fuel</a></b></td>
+                                    <td><b><a href="Common_xsd.html#EnergyClassEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">EnergyClassEnumType</a></b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_FuelDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">FuelDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>Electricity</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">FuelType specified as a string. This should be used for defining the type value's fuel if the proper enum is not listed in Fuel. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_TestCondition" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">TestCondition</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">The "rating" or list of conditions at which the power was tested.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_Unit" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">Unit</a></b></td>
+                                    <td><b><a href="Common_xsd.html#PowerUnitEnumType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for Common.xsd')">PowerUnitEnumType</a></b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as an enum. This should be used for defining the type value's units. If the proper enum is not listed, please use the UnitDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="Common_xsd.html#PowerType_UnitDesc" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Common.xsd')">UnitDesc</a></b></td>
+                                    <td><b>xs:string</b></td>
+                                    <td>kwh</td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Unit of measurement specified as a string This should be used for defining the type value's units if the proper enum is not listed in Unit. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the UnitDesc may contain a default type.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_MaxInput" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_MaxInput');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_MaxInput" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"MaxInput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Maximum (Power) Input. Note that many systems are oversized when designed. This represents the absolute maximum power consumption of the equipment.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_OperatingSchedule"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / OperatingSchedule</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_OperatingSchedule" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_OperatingSchedule');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_OperatingSchedule" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">The operating schedule of the system. This is likely to be a fraction schedule and represent the time-dependent capacity of the system. Note that particular systems, such as HVAC system, have additional schedules such as temperature schedules.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">This references the IDREF of a complete Schedules element at the Project level</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_OperatingSchedule" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_OperatingSchedule');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_OperatingSchedule" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_OperatingSchedule.jpeg" /></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:IDREF</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_OperatingSchedule" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_OperatingSchedule');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_OperatingSchedule" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>unbounded</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_OperatingSchedule" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_OperatingSchedule');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_OperatingSchedule" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"OperatingSchedule"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The operating schedule of the system. This is likely to be a fraction schedule and represent the time-dependent capacity of the system. Note that particular systems, such as HVAC system, have additional schedules such as temperature schedules. This references the IDREF of a complete Schedules element at the Project level</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_RefZoneLocationID"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / RefZoneLocationID</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_RefZoneLocationID" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_RefZoneLocationID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_RefZoneLocationID" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This is the zone where the system is located. This is for the purpose of capturing the heat load that  the system introduces to its environment.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_RefZoneLocationID" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_RefZoneLocationID');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_RefZoneLocationID" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_RefZoneLocationID.jpeg" /></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:IDREF</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_RefZoneLocationID" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_RefZoneLocationID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_RefZoneLocationID" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">maxOccurs</td>
+                                    <td><b>1</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_RefZoneLocationID" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_RefZoneLocationID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_RefZoneLocationID" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"RefZoneLocationID"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is the zone where the system is located. This is for the purpose of capturing the heat load that the system introduces to its environment.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType_RefRevenueMeterID"></a><div class="componentTitle">Element <span class="qname"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType" target="mainFrame" title="http://www.iepmodel.net" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">CommonSystemPropertiesType</a></b> / RefRevenueMeterID</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType_RefRevenueMeterID" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType_RefRevenueMeterID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType_RefRevenueMeterID" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">This is used to reference the meter attached to the particular system.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">Generator of this ID needs to create the RevenueMeter first in the UtilityService schema in order to link back here.</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType_RefRevenueMeterID" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType_RefRevenueMeterID');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType_RefRevenueMeterID" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Element_RefRevenueMeterID.jpeg" /></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b>xs:IDREF</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonSystemPropertiesType_RefRevenueMeterID" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonSystemPropertiesType_RefRevenueMeterID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_CommonSystemPropertiesType_RefRevenueMeterID" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>simple</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">minOccurs</td>
+                                    <td><b>0</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType_RefRevenueMeterID" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType_RefRevenueMeterID');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType_RefRevenueMeterID" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> name=</span><span class="tAV">"RefRevenueMeterID"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is used to reference the meter attached to the particular system. Generator of this ID needs to create the RevenueMeter first in the UtilityService schema in order to link back here.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="CommonSystemPropertiesType"></a><div class="componentTitle">Complex Type <span class="qname">CommonSystemPropertiesType</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.iepmodel.net</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonSystemPropertiesType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonSystemPropertiesType');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_CommonSystemPropertiesType" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">These are common attributes of a system that are shared by the various system types used in this model.  The idea is to capture here, high-level properties related to the operation and energy consumption of various systems.  </span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">Details of actual hardware not required for a 1st level analysis are not included here (these are located in CommonEquipmentAttributes).</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonSystemPropertiesType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonSystemPropertiesType');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_CommonSystemPropertiesType" style="display:block"><img alt="Diagram" border="0" src="img/CommonSystemProperties_xsd_Complex_Type_CommonSystemPropertiesType.jpeg" usemap="#CommonSystemProperties_xsd_Complex_Type_CommonSystemPropertiesType" /><map name="CommonSystemProperties_xsd_Complex_Type_CommonSystemPropertiesType" id="CommonSystemProperties_xsd_Complex_Type_CommonSystemPropertiesType">
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_Description" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_Description" coords="344,0,429,25" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_AnnualOperatingHours" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_AnnualOperatingHours" coords="344,80,485,105" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_DesignEfficiency" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignEfficiency" coords="344,146,456,171" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_DesignInput" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignInput" coords="344,226,431,251" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_DesignOutput" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignOutput" coords="344,306,440,331" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_EnergyConsumption" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_EnergyConsumption" coords="344,386,471,411" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_MaxInput" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_MaxInput" coords="344,452,418,477" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_OperatingSchedule" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_OperatingSchedule" coords="344,546,467,571" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_RefZoneLocationID" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefZoneLocationID" coords="344,626,467,651" />
+                                 <area alt="CommonSystemProperties_xsd.tmp#CommonSystemPropertiesType_RefRevenueMeterID" href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefRevenueMeterID" coords="344,706,471,731" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_CommonSystemPropertiesType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_CommonSystemPropertiesType');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_CommonSystemPropertiesType" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Elements </td>
+                                    <td><b><a href="Appliance_xsd.html#ApplianceType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for Appliance.xsd')">ApplianceType/SystemProperties</a></b>, <b><a href="HVACSystem_xsd.html#CoolingSystemType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for HVACSystem.xsd')">CoolingSystemType/SystemProperties</a></b>, <b><a href="HVACSystem_xsd.html#HeatingSystemType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for HVACSystem.xsd')">HeatingSystemType/SystemProperties</a></b>, <b><a href="LightingSystem_xsd.html#LightingControlGroupType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for LightingSystem.xsd')">LightingControlGroupType/SystemProperties</a></b>, <b><a href="DistributionSystem_xsd.html#PrimeMoverSystemType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for DistributionSystem.xsd')">PrimeMoverSystemType/SystemProperties</a></b>, <b><a href="WaterHeatingSystem_xsd.html#WaterHeatingSystemType_SystemProperties" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for WaterHeatingSystem.xsd')">WaterHeatingSystemType/SystemProperties</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_CommonSystemPropertiesType" type="image" src="img/btM.gif" value="-" onclick="switchState('model_CommonSystemPropertiesType');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="model_CommonSystemPropertiesType" style="display:block"><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_Description" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">Description{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_AnnualOperatingHours" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">AnnualOperatingHours{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignEfficiency" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignEfficiency{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignInput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignInput{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignOutput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignOutput{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_EnergyConsumption" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">EnergyConsumption{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_MaxInput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">MaxInput{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_OperatingSchedule" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">OperatingSchedule*</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefZoneLocationID" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">RefZoneLocationID{0,1}</a></b> , <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefRevenueMeterID" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">RefRevenueMeterID{0,1}</a></b></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_AnnualOperatingHours" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">AnnualOperatingHours</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_Description" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">Description</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignEfficiency" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignEfficiency</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignInput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignInput</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_DesignOutput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">DesignOutput</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_EnergyConsumption" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">EnergyConsumption</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_MaxInput" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">MaxInput</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_OperatingSchedule" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">OperatingSchedule</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefRevenueMeterID" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">RefRevenueMeterID</a></b>, <b><a href="CommonSystemProperties_xsd.html#CommonSystemPropertiesType_RefZoneLocationID" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for CommonSystemProperties.xsd')">RefZoneLocationID</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonSystemPropertiesType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonSystemPropertiesType');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_CommonSystemPropertiesType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"CommonSystemPropertiesType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">These are common attributes of a system that are shared by the various system types used in this model. The idea is to capture here, high-level properties related to the operation and energy consumption of various systems. Details of actual hardware not required for a 1st level analysis are not included here (these are located in CommonEquipmentAttributes).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:sequence</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"Description"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The name or description of the system, i.e. "Attic DX cooling unit".</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"AnnualOperatingHours"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The annual operating hours of the system.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:int"</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xs:minInclusive</span><span class="tAN"> value=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignEfficiency"</span><span class="tAN"> type=</span><span class="tAV">"EfficiencyType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Efficiency at design operating conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignInput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">(Power) Input at design conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"DesignOutput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">(Power) Output at design conditions (typically full load, but not necessarily).</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"EnergyConsumption"</span><span class="tAN"> type=</span><span class="tAV">"EnergyRecordType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is a placeholder for analysis results.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"MaxInput"</span><span class="tAN"> type=</span><span class="tAV">"PowerType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Maximum (Power) Input. Note that many systems are oversized when designed. This represents the absolute maximum power consumption of the equipment.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"OperatingSchedule"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The operating schedule of the system. This is likely to be a fraction schedule and represent the time-dependent capacity of the system. Note that particular systems, such as HVAC system, have additional schedules such as temperature schedules. This references the IDREF of a complete Schedules element at the Project level</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"RefZoneLocationID"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"1"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is the zone where the system is located. This is for the purpose of capturing the heat load that the system introduces to its environment.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> name=</span><span class="tAV">"RefRevenueMeterID"</span><span class="tAN"> type=</span><span class="tAV">"xs:IDREF"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is used to reference the meter attached to the particular system. Generator of this ID needs to create the RevenueMeter first in the UtilityService schema in order to link back here.</span><span class="tEl">&lt;/xs:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body>
+</html>
