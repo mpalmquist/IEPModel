@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+    schema: SDT Module Layout Request.xsd
+    Author: Michael Palmquist, SolarNexus Inc
+    Description: blah blah TBD.
+    **************************************************************************** -->
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.solardesigntool.com"
+    xmlns="http://www.solardesigntool.com"
+    xmlns:iep="http://www.iepmodel.net"
+    elementFormDefault="unqualified"
+    version="2.0" >
+    <xs:import namespace="http://www.iepmodel.net" schemaLocation="../schema/IEPModel.xsd"/>
+    <xs:include schemaLocation="CommonRequest.xsd"/>
+    <xs:element name="sdtModuleLayoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="settings">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="unitOfLength" type="iep:dimensionUnitEnumType"
+                                minOccurs="0"/>
+                            <xs:element minOccurs="0" name="setbacksByRoofEdgeType"
+                                type="iep:roofEdgeSetbacksType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="site">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="address" type="iep:addressType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="designSpecification">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="moduleSpecification">
+                                <xs:annotation>
+                                    <xs:documentation>A choice of either providing the ID of a PV module in the Solar Design Tool database, or to provide your own PV Module definition. Note that if providing a PV module definition, Solar Design Tool will attempt to match its make and model to a PV module in its database, and if found, use the dimension data for the PV module from Solar Design Tool. If not found, Solar Design Tool will use the module dimension data provided in the PV module definition element.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:choice>
+                                        <xs:element name="id">
+                                            <xs:annotation>
+                                                <xs:documentation>This is the ID of a Solar Design Tool PV module.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="moduleDefinition"
+                                            type="iep:pvModuleDefinitionType">
+                                            <xs:annotation>
+                                                <xs:documentation>This is a PV module definition, which includes the data about a particular make and model of a PV module and its attributes, particularly its dimensions.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:choice>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="sizingMethod" type="sizingMethodEnumType"/>
+                            <xs:element name="target" type="xs:integer">
+                                <xs:annotation>
+                                    <xs:documentation>This is the target system size, in watts at standard test conditions (stc).</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="targetTolerance" type="xs:integer"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="layoutSpecifications">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="layoutSpecification"
+                                type="layoutSpecificationType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="exclusionAreas">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1"
+                                name="exclusionArea2dOrthoProjection" type="iep:polygon2dType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
