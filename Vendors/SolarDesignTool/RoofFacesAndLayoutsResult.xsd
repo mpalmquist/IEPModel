@@ -7,7 +7,7 @@
     elementFormDefault="qualified" 
     version="1.0">
     <xs:include schemaLocation="ApiResponse.xsd"/>
-    <xs:import namespace="http://www.iepmodel.net" schemaLocation="IEPModel.xsd"/>
+    <xs:import namespace="http://www.iepmodel.net" schemaLocation="../SolarDesignTool/IEPModel.xsd"/>
     <xs:complexType name="RoofFacesAndLayoutsResult">
         <xs:complexContent>
             <xs:extension base="ApiResults">

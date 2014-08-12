@@ -11,7 +11,7 @@
     xmlns:iep="http://www.iepmodel.net"
     elementFormDefault="unqualified"
     version="2.0" >
-    <xs:import namespace="http://www.iepmodel.net" schemaLocation="../schema/IEPModel.xsd"/>
+    <xs:import namespace="http://www.iepmodel.net" schemaLocation="../SolarDesignTool/IEPModel.xsd"/>
     <xs:include schemaLocation="CommonRequest.xsd"/>
     <xs:element name="sdtModuleLayoutRequest">
         <xs:complexType>
