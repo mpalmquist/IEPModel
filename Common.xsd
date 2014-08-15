@@ -1,4 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
+    elementFormDefault="unqualified"
     targetNamespace="http://www.iepmodel.net" attributeFormDefault="unqualified" version="1.0">
     <xs:annotation>
         <xs:documentation>The purpose of this schema is to define a set of types and quantities that are frequently used by other schema and can be referenced in a consistent manner.  

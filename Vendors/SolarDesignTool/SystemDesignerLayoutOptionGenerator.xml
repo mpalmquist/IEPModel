@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sdtModuleLayoutRequest 
-	xmlns="http://www.solardesigntool.com"
-	xmlns:iep="http://www.iepmodel.net"
+<my:layoutGenerationRequest 
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.solardesigntool.com ../schema/SystemDesignerModuleLayoutRequest.xsd">
+ xmlns:my="http://www.solardesigntool.com"
+ xsi:schemaLocation="http://www.solardesigntool.com SystemDesignerModuleLayoutRequest.xsd">
+	<!-- changes 
+	
+	unitOfLength: m = > METER | FOOT
+	layoutSpecification: roofSlope deleted. It was redundant. Only installationAreaSpecification.slope is needed.
+	exclusionArea2dOrthoProjection: setbacks removed
+	exclusionArea2dOrthoProjection: name changed to @id
+	
+	-->
 	<settings>
-		<unitOfLength>METERS</unitOfLength>
+		<unitOfLength>METER</unitOfLength>
 		<setbacksByRoofEdgeType>
 			<eaveForFlatRoof>0.9144</eaveForFlatRoof>
 			<eaveForPitchedRoof>0.0</eaveForPitchedRoof>
-			<ridge>0.9144</ridge>
-			<rake>0.9144</rake>
-			<hip>0.4572</hip>
-			<valley>0.4572</valley>
 			<flashing>0.9144</flashing>
-			<stepFlashing>0.9144</stepFlashing>
+			<hip>0.4572</hip>
 			<mansard>0.0</mansard>
+			<rake>0.9144</rake>
+			<ridge>0.9144</ridge>
+			<stepFlashing>0.9144</stepFlashing>
+			<valley>0.4572</valley>
 		</setbacksByRoofEdgeType>
 	</settings>
 	<site>
 		<address>
-			<county>UNITED_STATES</county>
+			<state>CA</state>
 			<latitude>37.456</latitude>
 			<longitude>-122.4567</longitude>
-			<province>CA</province>
-			<state>CA</state>
 		</address>
 	</site>
 	<designSpecification>
@@ -33,8 +38,8 @@
 				<manufacturer>SunPower</manufacturer>
 				<modelNumber>SPR-X21-335-BLK</modelNumber>
 				<description>335W Monocrystalline Module</description>
-				<width>1.046</width>
 				<length>1.559</length>
+				<width>1.046</width>
 				<depth>.046</depth>
 				<weight>18.6</weight>
 				<warranty />
@@ -46,7 +51,7 @@
 				<impp>5.85</impp>
 				<voc>67.9</voc>
 				<isc>6.23</isc>
-				<fuseRating />
+				<fuseRating>15</fuseRating>
 				<noct>46.4</noct>
 				<moduleEfficiency>21.2</moduleEfficiency>
 				<cellTechnology>Mono</cellTechnology>
@@ -62,7 +67,7 @@
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -96,15 +101,14 @@
 				</orientationLine>
 				<slope>9.46</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>9.46</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 		<layoutSpecification>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -138,8 +142,7 @@
 				</orientationLine>
 				<slope>9.46</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>9.46</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 		<layoutSpecification>
@@ -147,7 +150,9 @@
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<numberOfTiersInRack>1</numberOfTiersInRack>
+			<tiltedRackSpacingStrategy>AUTO_CALCULATED_BASED_ON_SHADE_MONTH</tiltedRackSpacingStrategy>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -170,17 +175,18 @@
 				</polygon2dSceneOrthoProjection>
 				<slope>0.0</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>0.0</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
-			<shadeMonth>DECEMBER</shadeMonth>
+			<shadeMonth>Dec</shadeMonth>
 		</layoutSpecification>
 		<layoutSpecification>
 			<arrayTiltAngle>15.0</arrayTiltAngle>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<numberOfTiersInRack>1</numberOfTiersInRack>
+			<tiltedRackSpacingStrategy>AUTO_CALCULATED_BASED_ON_SHADE_MONTH</tiltedRackSpacingStrategy>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -203,16 +209,15 @@
 				</polygon2dSceneOrthoProjection>
 				<slope>0.0</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>0.0</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
-			<shadeMonth>DECEMBER</shadeMonth>
+			<shadeMonth>Dec</shadeMonth>
 		</layoutSpecification>
 		<layoutSpecification>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -246,15 +251,14 @@
 				</orientationLine>
 				<slope>9.46</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>9.46</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 		<layoutSpecification>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -288,15 +292,14 @@
 				</orientationLine>
 				<slope>9.46</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>9.46</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 		<layoutSpecification>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -330,15 +333,14 @@
 				</orientationLine>
 				<slope>18.43</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>18.43</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 		<layoutSpecification>
 			<columnSpacing>0.0254</columnSpacing>
 			<layoutTemplateStrategy>GRID_OPTIMIZED</layoutTemplateStrategy>
 			<moduleOrientationStrategy>PORTRAIT_ONLY</moduleOrientationStrategy>
-			<roofFaceSpecification>
+			<installationAreaSpecification>
 				<polygon2dSceneOrthoProjection>
 					<vertices>
 						<vertex>
@@ -372,14 +374,12 @@
 				</orientationLine>
 				<slope>18.43</slope>
 				<unskew>true</unskew>
-			</roofFaceSpecification>
-			<roofSlope>18.43</roofSlope>
+			</installationAreaSpecification>
 			<rowSpacing>0.0254</rowSpacing>
 		</layoutSpecification>
 	</layoutSpecifications>
 	<exclusionAreas>
-		<exclusionArea2dOrthoProjection>
-			<name>shade</name>
+		<exclusionArea2dOrthoProjection id="shade">
 			<polygon2dSceneOrthoProjection>
 				<vertices>
 					<vertex>
@@ -400,10 +400,8 @@
 					</vertex>
 				</vertices>
 			</polygon2dSceneOrthoProjection>
-			<setbacks>true</setbacks>
 		</exclusionArea2dOrthoProjection>
-		<exclusionArea2dOrthoProjection>
-			<name>vent</name>
+		<exclusionArea2dOrthoProjection id="vent">
 			<polygon2dSceneOrthoProjection>
 				<vertices>
 					<vertex>
@@ -424,7 +422,6 @@
 					</vertex>
 				</vertices>
 			</polygon2dSceneOrthoProjection>
-			<setbacks>true</setbacks>
 		</exclusionArea2dOrthoProjection>
 	</exclusionAreas>
-</sdtModuleLayoutRequest>
+</my:layoutGenerationRequest>

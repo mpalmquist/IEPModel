@@ -5,7 +5,7 @@
     Description: Schema includes elements common to defining solar electric or solar thermal systems. Includes elements that define solar exposure (orientation and shading), for example.
     **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    targetNamespace="http://www.iepmodel.net" elementFormDefault="qualified"
+    targetNamespace="http://www.iepmodel.net" elementFormDefault="unqualified"
     attributeFormDefault="unqualified" version="1.0">
     <xs:include schemaLocation="Common.xsd"/>
     <xs:complexType name="obstructionElevations">

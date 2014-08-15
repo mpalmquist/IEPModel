@@ -5,8 +5,8 @@
     Description: blah blah TBD.
     **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-    version="2.0" xmlns="http://www.iepmodel.net" elementFormDefault="unqualified"
-    attributeFormDefault="unqualified">
+    version="2.0" xmlns="http://www.iepmodel.net" elementFormDefault="qualified"
+    attributeFormDefault="qualified">
     <xs:include schemaLocation="Common.xsd"/>
     <xs:include schemaLocation="CommonSolar.xsd"/>
     <xs:include schemaLocation="Building.xsd"/>
