@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:iep="http://www.iepmodel.net"
+  xmlns="http://www.solardesigntool.com"
+  targetNamespace="http://www.solardesigntool.com" 
+  elementFormDefault="qualified" 
+  version="1.0">
+  <xs:import schemaLocation="CommonRequest.xsd"/>
+  <xs:import namespace="http://www.iepmodel.net" schemaLocation="IEPModel.xsd"/>
+   <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="code" type="xs:integer"/>
+        <xs:element name="results" type="ApiResults" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ApiResults" abstract="true"/>
+</xs:schema>

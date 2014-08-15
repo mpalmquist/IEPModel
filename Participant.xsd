@@ -21,6 +21,11 @@ mailing addresses are closely associated with the role of the participant, not t
 					<xs:documentation>The class (or type) of participant. Legal values should include Individual, Business, and Government. The tax status element provides more detailed information about the type of business (corporation, LLC, tax-exempt, etc).</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="taxStatus" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The participant's tax entity status.  For example, the Cal Solar Initiative program defines the following legal values: Corporation, Individual, LLC (Corporation), LLC (Non-Corporation), Partnership, Sole Proprietor, Tax Exempt.  This may hold other values depending on the needs of the user.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="organization" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>If the Participant is an organization. Use this for the name of the organization</xs:documentation>
@@ -41,11 +46,6 @@ mailing addresses are closely associated with the role of the participant, not t
 							maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
-			</xs:element>
-			<xs:element name="taxStatus" type="xs:string" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The participant's tax entity status.  For example, the Cal Solar Initiative program defines the following legal values: Corporation, Individual, LLC (Corporation), LLC (Non-Corporation), Partnership, Sole Proprietor, Tax Exempt.  This may hold other values depending on the needs of the user.</xs:documentation>
-				</xs:annotation>
 			</xs:element>
 			<xs:element name="roles">
 				<xs:complexType>
