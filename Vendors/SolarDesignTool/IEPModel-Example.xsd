@@ -1,0 +1,26 @@
+<!-- 
+This file is used to link the SolarDesignTool API Model Schema to IEP. The paths will depend on your environment.
+
+Follow these steps.
+1. resave the file as IEPModel.xsd
+2. correct the local paths
+3. Done. 
+
+This file should never be committed to the repository (It is currently listed in .gitignore)
+
+
+-->
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.iepmodel.net"
+    xmlns="http://www.iepmodel.net">
+    <xs:include schemaLocation="../../../IEP/schema/Building.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/Common.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/CommonSolar.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/ArrayLayout.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/CommonSystemProperties.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/Project.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/PvSystem.xsd"/>
+    <xs:include schemaLocation="../../../IEP/schema/RoofFace.xsd"/>
+    <xs:include schemaLocation="IEPModel-Draft.xsd"/>
+</xs:schema>
