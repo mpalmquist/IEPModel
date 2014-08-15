@@ -354,22 +354,6 @@ For example:
 			<xs:enumeration value="vaulted beams"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="roofEdgeSetbacks">
-		<xs:annotation>
-			<xs:documentation>Defines the Setback dimensions required by permitting jurisdictions for each type of roof line. </xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element minOccurs="0" name="eaveForFlatRoof" type="xs:double"/>
-			<xs:element minOccurs="0" name="eaveForPitchedRoof" type="xs:double"/>
-			<xs:element minOccurs="0" name="ridge" type="xs:double"/>
-			<xs:element minOccurs="0" name="rake" type="xs:double"/>
-			<xs:element minOccurs="0" name="hip" type="xs:double"/>
-			<xs:element minOccurs="0" name="valley" type="xs:double"/>
-			<xs:element minOccurs="0" name="flashing" type="xs:double"/>
-			<xs:element minOccurs="0" name="stepFlashing" type="xs:double"/>
-			<xs:element minOccurs="0" name="mansard" type="xs:double"/>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="roofFaceStructure">
 		<xs:annotation>
 			<xs:documentation>Describes a roof face's structural attributes important to knowing whether the roof can support the additional weight of added equipment, such as solar panels.</xs:documentation>
