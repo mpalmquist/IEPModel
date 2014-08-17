@@ -777,45 +777,6 @@ ISSUES / TO DO:
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
-    <xs:simpleType name="polygonEdgeTypeEnum">
-        <xs:annotation>
-            <xs:documentation>Set of polygon edge types. In IEP, polygons commonly used to describe areas where solar arrays can be placed, such as roof faces or ground areas. The various edges types for these areas can have a variety of setback rules associated by type.</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="eave - pitched roof"/>
-            <xs:enumeration value="eave - flat roof"/>
-            <xs:enumeration value="ridge"/>
-            <xs:enumeration value="rake"/>
-            <xs:enumeration value="hip"/>
-            <xs:enumeration value="valley"/>
-            <xs:enumeration value="flashing"/>
-            <xs:enumeration value="step flashing"/>
-            <xs:enumeration value="mansard"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:complexType name="polygonEdge">
-        <xs:annotation>
-            <xs:documentation>Defines a single edge of a defined polygon and associates a type to it. Useful for identifying array areas where different edge types have different setback rules.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="startIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>ID of the first of two points in a polygon that define one of its edges. Note that all polygon types defined for the roofFace should have the same ID for the points that represent the same polygon vertex.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="endIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>ID of the second of two points in a polygon that define one of its edges.  Note that all polygon types defined for the roofFace should have the same ID for the points that represent the same polygon vertex.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="type" type="polygonEdgeTypeEnum">
-                <xs:annotation>
-                    <xs:documentation>Type of polygon edge. In case of roof face edge, for example: ridge, eave, etc.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
     <xs:complexType name="angle">
         <xs:annotation>
             <xs:documentation>This is a base class used to represent an angular quantity. Units are degrees.</xs:documentation>
@@ -1946,11 +1907,6 @@ When used for site surveys, should include what types of equipment are envisione
                     <xs:documentation>Useful for describing an equipmentLocation that is either currently occupied, or proposed to be occupied by a given equipment instance.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="equipmentInstanceIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>The equipmentLocation type can be used for an element where specific equipment instances are referenced to this location.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element name="exposure" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Describes the elemental exposure of a location.  Important to describe requirements that a piece of equipment must fulfill.  Suggested values include: Indoor-Conditioned, Indoor-Unconditioned, Outdoor-Covered, Outdoor-Uncovered, Rooftop.</xs:documentation>
@@ -1992,6 +1948,11 @@ When used for site surveys, should include what types of equipment are envisione
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="equipmentInstanceIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>The equipmentLocation type can be used for an element where specific equipment instances are referenced to this location.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="id"/>
         <xs:attribute name="name"/>
     </xs:complexType>

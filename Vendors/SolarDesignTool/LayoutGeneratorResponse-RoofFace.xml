@@ -1,0 +1,4395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdt:response
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:sdt="http://www.solardesigntool.com"
+ xsi:schemaLocation="http://www.solardesigntool.com InstallationAreasAndLayoutsResult.xsd">
+  <code>0</code>
+  <errorMessages>
+    <message>Error</message>
+  </errorMessages>
+  <warningMessages>
+    <message>Warning</message>
+  </warningMessages>
+  <infoMessages>
+    <message>Info</message>
+  </infoMessages>
+	<results xsi:type="sdt:InstallationAreasAndLayoutsResult">
+    <roofFaces>
+      <roofFace id="C" name="C">
+        <azimuth>0.0</azimuth>
+        <slope>0.0</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>16.527</x>
+              <y>4.267</y>
+            </vertex>
+            <vertex id="B">
+              <x>3.645</x>
+              <y>4.604</y>
+            </vertex>
+            <vertex id="C">
+              <x>3.645</x>
+              <y>0.169</y>
+            </vertex>
+            <vertex id="D">
+              <x>16.527</x>
+              <y>0.169</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>0.337</x>
+              <y>12.883</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="C">
+              <x>4.436</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>4.436</x>
+              <y>12.883</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>ridge</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="D" name="D">
+        <azimuth>0.0</azimuth>
+        <slope>0.0</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>16.747</x>
+              <y>10.55</y>
+            </vertex>
+            <vertex id="B">
+              <x>16.851</x>
+              <y>14.511</y>
+            </vertex>
+            <vertex id="C">
+              <x>3.912</x>
+              <y>14.511</y>
+            </vertex>
+            <vertex id="D">
+              <x>3.912</x>
+              <y>10.55</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>0.104</x>
+              <y>3.961</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="C">
+              <x>12.939</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>12.939</x>
+              <y>3.961</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>ridge</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="G" name="G">
+        <azimuth>-1.5</azimuth>
+        <slope>18.4</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>17.665</x>
+              <y>17.867</y>
+            </vertex>
+            <vertex id="B">
+              <x>10.353</x>
+              <y>18.059</y>
+            </vertex>
+            <vertex id="C">
+              <x>10.353</x>
+              <y>14.611</y>
+            </vertex>
+            <vertex id="D">
+              <x>17.665</x>
+              <y>14.611</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>7.322</x>
+              <y>3.433</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.01</x>
+              <y>3.635</y>
+            </vertex>
+            <vertex id="C">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>7.313</x>
+              <y>0.0</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>rake</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="B" name="B">
+        <azimuth>-1.5</azimuth>
+        <slope>9.5</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>16.617</x>
+              <y>7.317</y>
+            </vertex>
+            <vertex id="B">
+              <x>3.734</x>
+              <y>7.655</y>
+            </vertex>
+            <vertex id="C">
+              <x>3.734</x>
+              <y>3.976</y>
+            </vertex>
+            <vertex id="D">
+              <x>16.617</x>
+              <y>3.976</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>12.886</x>
+              <y>3.388</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.003</x>
+              <y>3.73</y>
+            </vertex>
+            <vertex id="C">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>12.883</x>
+              <y>0.0</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>rake</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="F" name="F">
+        <azimuth>-1.5</azimuth>
+        <slope>9.5</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>3.732</x>
+              <y>7.509</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.044</x>
+              <y>7.606</y>
+            </vertex>
+            <vertex id="C">
+              <x>0.044</x>
+              <y>4.193</y>
+            </vertex>
+            <vertex id="D">
+              <x>3.732</x>
+              <y>4.193</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>3.69</x>
+              <y>3.362</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.002</x>
+              <y>3.461</y>
+            </vertex>
+            <vertex id="C">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>3.688</x>
+              <y>0.0</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>rake</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="H" name="H">
+        <azimuth>178.5</azimuth>
+        <slope>18.4</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>17.712</x>
+              <y>17.962</y>
+            </vertex>
+            <vertex id="B">
+              <x>17.8</x>
+              <y>21.314</y>
+            </vertex>
+            <vertex id="C">
+              <x>10.44</x>
+              <y>21.314</y>
+            </vertex>
+            <vertex id="D">
+              <x>10.44</x>
+              <y>17.962</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>0.098</x>
+              <y>3.533</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="C">
+              <x>7.36</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>7.37</x>
+              <y>3.533</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>ridge</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="A" name="A">
+        <azimuth>178.5</azimuth>
+        <slope>9.5</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>16.709</x>
+              <y>10.826</y>
+            </vertex>
+            <vertex id="B">
+              <x>3.826</x>
+              <y>11.164</y>
+            </vertex>
+            <vertex id="C">
+              <x>3.826</x>
+              <y>7.485</y>
+            </vertex>
+            <vertex id="D">
+              <x>16.709</x>
+              <y>7.485</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>0.088</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="B">
+              <x>12.975</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="C">
+              <x>12.879</x>
+              <y>3.729</y>
+            </vertex>
+            <vertex id="D">
+              <x>0.0</x>
+              <y>3.386</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>valley</type>
+          </edge>
+        </edges>
+      </roofFace>
+      <roofFace id="E" name="E">
+        <azimuth>178.5</azimuth>
+        <slope>9.5</slope>
+        <polygon2dSceneOrthoProjection>
+          <vertices>
+            <vertex id="A">
+              <x>3.777</x>
+              <y>7.557</y>
+            </vertex>
+            <vertex id="B">
+              <x>3.873</x>
+              <y>11.211</y>
+            </vertex>
+            <vertex id="C">
+              <x>0.136</x>
+              <y>11.211</y>
+            </vertex>
+            <vertex id="D">
+              <x>0.136</x>
+              <y>7.557</y>
+            </vertex>
+          </vertices>
+        </polygon2dSceneOrthoProjection>
+        <polygon2dLocal>
+          <vertices>
+            <vertex id="A">
+              <x>0.099</x>
+              <y>3.705</y>
+            </vertex>
+            <vertex id="B">
+              <x>0.0</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="C">
+              <x>3.737</x>
+              <y>0.0</y>
+            </vertex>
+            <vertex id="D">
+              <x>3.74</x>
+              <y>3.705</y>
+            </vertex>
+          </vertices>
+        </polygon2dLocal>
+        <edges>
+          <edge id="a">
+            <startIdRef>A</startIdRef>
+            <endIdRef>B</endIdRef>
+            <type>hip</type>
+          </edge>
+          <edge id="b">
+            <startIdRef>B</startIdRef>
+            <endIdRef>C</endIdRef>
+            <type>eave</type>
+          </edge>
+          <edge id="c">
+            <startIdRef>C</startIdRef>
+            <endIdRef>D</endIdRef>
+            <type>rake</type>
+          </edge>
+          <edge id="d">
+            <startIdRef>D</startIdRef>
+            <endIdRef>A</endIdRef>
+            <type>ridge</type>
+          </edge>
+        </edges>
+      </roofFace>
+    </roofFaces>
+    <moduleLayouts>
+      <moduleLayout id="L-C" installationAreaIdRef="C">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.615</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.615</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.604</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.604</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>11.97</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>11.97</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>10.96</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>10.96</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.615</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.615</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.604</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.604</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>11.97</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>11.97</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>10.96</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>10.96</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.905</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.905</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.894</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.894</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>10.26</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>10.26</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>9.25</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>9.25</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.905</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.905</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.894</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.894</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>10.26</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>10.26</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>9.25</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>9.25</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.185</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.185</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.174</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.174</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>8.54</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>8.54</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>7.53</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>7.53</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.185</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.185</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.174</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.174</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>8.54</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>8.54</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>7.53</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>7.53</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>10.475</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.475</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.464</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.464</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>6.83</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>6.83</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>5.82</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>5.82</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>10.475</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.475</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.464</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.464</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>6.83</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>6.83</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>5.82</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>5.82</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.755</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.755</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.744</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.744</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>5.11</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>5.11</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>4.1</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>4.1</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.755</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.755</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.744</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.744</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>5.11</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>5.11</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>4.1</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>4.1</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.045</x>
+                  <y>2.735</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.045</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.034</x>
+                  <y>4.294</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.034</x>
+                  <y>2.735</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.869</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.31</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.31</x>
+                  <y>2.39</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.869</x>
+                  <y>2.39</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.045</x>
+                  <y>1.155</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.045</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.034</x>
+                  <y>2.714</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.034</x>
+                  <y>1.155</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.449</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.89</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.89</x>
+                  <y>2.39</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.449</x>
+                  <y>2.39</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+      </moduleLayout>
+      <moduleLayout id="L-D" installationAreaIdRef="D">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.212</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>16.771</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>16.771</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.212</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.639</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.08</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.08</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.639</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.632</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.191</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.191</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.632</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.219</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.66</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.66</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.219</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.042</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.601</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.601</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.042</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.809</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.25</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.25</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.809</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>10.462</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.021</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.021</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.462</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.389</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.83</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.83</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.389</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.872</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.431</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.431</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.872</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>7.979</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.42</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.42</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.979</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.292</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.851</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.851</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.292</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>9.559</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.0</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.0</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.559</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>true</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>5.702</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.261</x>
+                  <y>11.461</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.261</x>
+                  <y>12.471</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.702</x>
+                  <y>12.471</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>11.149</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.59</x>
+                  <y>3.05</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.59</x>
+                  <y>2.04</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.149</x>
+                  <y>2.04</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+      </moduleLayout>
+      <moduleLayout id="L-G" installationAreaIdRef="G">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.309</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.263</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.267</x>
+                  <y>16.424</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.313</x>
+                  <y>16.424</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.966</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.92</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.92</x>
+                  <y>1.911</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.966</x>
+                  <y>1.911</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.379</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.333</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.337</x>
+                  <y>16.424</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.383</x>
+                  <y>16.424</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.036</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.99</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.99</x>
+                  <y>1.911</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.036</x>
+                  <y>1.911</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.449</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.403</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.407</x>
+                  <y>16.424</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.453</x>
+                  <y>16.424</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.106</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.06</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.06</x>
+                  <y>1.911</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.106</x>
+                  <y>1.911</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.519</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.473</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.477</x>
+                  <y>16.424</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.523</x>
+                  <y>16.424</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.176</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.13</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.13</x>
+                  <y>1.911</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.176</x>
+                  <y>1.911</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>16.599</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.553</x>
+                  <y>17.903</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.557</x>
+                  <y>16.424</y>
+                </vertex>
+                <vertex id="D">
+                  <x>16.603</x>
+                  <y>16.424</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.256</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.21</x>
+                  <y>3.47</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.21</x>
+                  <y>1.911</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.256</x>
+                  <y>1.911</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.313</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.267</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.272</x>
+                  <y>14.925</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.318</x>
+                  <y>14.925</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.966</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.92</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.92</x>
+                  <y>0.331</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.966</x>
+                  <y>0.331</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.383</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.337</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.342</x>
+                  <y>14.925</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.387</x>
+                  <y>14.925</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.036</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.99</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.99</x>
+                  <y>0.331</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.036</x>
+                  <y>0.331</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.453</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.407</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.411</x>
+                  <y>14.925</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.457</x>
+                  <y>14.925</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.106</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.06</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.06</x>
+                  <y>0.331</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.106</x>
+                  <y>0.331</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.523</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.477</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.481</x>
+                  <y>14.925</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.527</x>
+                  <y>14.925</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.176</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.13</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.13</x>
+                  <y>0.331</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.176</x>
+                  <y>0.331</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>16.603</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.557</x>
+                  <y>16.404</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.561</x>
+                  <y>14.925</y>
+                </vertex>
+                <vertex id="D">
+                  <x>16.607</x>
+                  <y>14.925</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.256</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.21</x>
+                  <y>1.89</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.21</x>
+                  <y>0.331</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.256</x>
+                  <y>0.331</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+      </moduleLayout>
+      <moduleLayout id="L-B" installationAreaIdRef="B">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>5.698</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.652</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.653</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.699</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.966</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.92</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.92</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.966</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>6.768</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.722</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.723</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.769</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.036</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.99</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.99</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.036</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.838</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.792</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.793</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.839</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.106</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.06</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.06</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.106</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.907</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.862</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.863</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.909</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.176</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.13</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.13</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.176</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>9.987</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.941</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.943</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.989</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.256</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.21</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.21</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.256</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>11.057</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.011</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.013</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.059</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>7.326</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.28</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.28</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.326</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.127</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.081</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.083</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.129</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>8.396</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.35</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.35</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.396</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.197</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.151</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.153</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.199</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>9.466</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.42</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.42</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.466</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.267</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.221</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.223</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.269</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>10.536</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.49</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.49</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.536</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.337</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.291</x>
+                  <y>7.359</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.293</x>
+                  <y>5.821</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.339</x>
+                  <y>5.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>11.606</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.56</x>
+                  <y>3.43</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.56</x>
+                  <y>1.871</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.606</x>
+                  <y>1.871</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>5.699</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.653</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.654</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.7</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.966</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.92</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.92</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.966</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>6.769</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.723</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.724</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.77</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.036</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.99</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.99</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.036</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.839</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.793</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.794</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.84</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.106</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.06</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.06</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.106</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.909</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.863</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.864</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.91</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.176</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.13</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.13</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.176</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>9.989</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.943</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.944</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.99</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.256</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.21</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.21</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.256</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>11.059</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.013</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.014</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.06</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>7.326</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.28</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.28</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.326</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.129</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.083</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.084</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.13</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>8.396</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.35</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.35</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.396</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.199</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.153</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.154</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.2</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>9.466</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.42</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.42</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.466</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.269</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.223</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.224</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.27</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>10.536</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.49</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.49</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.536</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.339</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.293</x>
+                  <y>5.8</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.294</x>
+                  <y>4.263</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.34</x>
+                  <y>4.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>11.606</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.56</x>
+                  <y>1.85</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.56</x>
+                  <y>0.291</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.606</x>
+                  <y>0.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+        <exclusionAreas>
+          <exclusionArea id="a">
+            <polygon2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>3.734</x>
+                  <y>6.0</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.0</x>
+                  <y>6.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.0</x>
+                  <y>7.648</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.734</x>
+                  <y>7.655</y>
+                </vertex>
+              </vertices>
+            </polygon2dSceneOrthoProjection>
+            <polygon2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>0.0</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.266</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.267</x>
+                  <y>1.671</y>
+                </vertex>
+                <vertex id="D">
+                  <x>0.001</x>
+                  <y>1.678</y>
+                </vertex>
+              </vertices>
+            </polygon2dLocal>
+          </exclusionArea>
+        </exclusionAreas>
+      </moduleLayout>
+      <moduleLayout id="L-F" installationAreaIdRef="F">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>2.008</x>
+                  <y>7.556</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.962</x>
+                  <y>7.556</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.963</x>
+                  <y>6.018</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.009</x>
+                  <y>6.018</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.966</x>
+                  <y>3.41</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.92</x>
+                  <y>3.41</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.92</x>
+                  <y>1.851</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.966</x>
+                  <y>1.851</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+        <exclusionAreas>
+          <exclusionArea id="b">
+            <polygon2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>2.5</x>
+                  <y>7.542</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.5</x>
+                  <y>6.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.732</x>
+                  <y>6.0</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.732</x>
+                  <y>7.509</y>
+                </vertex>
+              </vertices>
+            </polygon2dSceneOrthoProjection>
+            <polygon2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>0.001</x>
+                  <y>1.563</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.0</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.232</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.233</x>
+                  <y>1.53</y>
+                </vertex>
+              </vertices>
+            </polygon2dLocal>
+          </exclusionArea>
+          <exclusionArea id="c">
+            <polygon2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>2.0</x>
+                  <y>4.193</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.0</x>
+                  <y>4.5</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.5</x>
+                  <y>4.5</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.5</x>
+                  <y>4.193</y>
+                </vertex>
+              </vertices>
+            </polygon2dSceneOrthoProjection>
+            <polygon2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>0.5</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.5</x>
+                  <y>0.312</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.0</x>
+                  <y>0.312</y>
+                </vertex>
+                <vertex id="D">
+                  <x>0.0</x>
+                  <y>0.0</y>
+                </vertex>
+              </vertices>
+            </polygon2dLocal>
+          </exclusionArea>
+        </exclusionAreas>
+      </moduleLayout>
+      <moduleLayout id="L-H" installationAreaIdRef="H">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>16.718</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>17.764</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>17.76</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>16.714</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.086</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.04</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.04</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.086</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.648</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>16.694</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>16.69</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.644</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>2.156</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.11</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.11</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.156</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.578</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.624</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.62</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.574</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.226</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.18</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>2.18</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.226</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.508</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.554</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.55</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.504</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.296</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.25</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.25</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.296</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.428</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.474</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.47</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.424</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.376</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.33</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.33</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.376</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>11.358</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.404</x>
+                  <y>19.739</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.4</x>
+                  <y>21.218</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.354</x>
+                  <y>21.218</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.446</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.4</x>
+                  <y>1.66</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.4</x>
+                  <y>0.101</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.446</x>
+                  <y>0.101</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+      </moduleLayout>
+      <moduleLayout id="L-A" installationAreaIdRef="A">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.0</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.573</x>
+                  <y>7.501</y>
+                </vertex>
+                <vertex id="B">
+                  <x>16.619</x>
+                  <y>7.474</y>
+                </vertex>
+                <vertex id="C">
+                  <x>16.659</x>
+                  <y>9.011</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.613</x>
+                  <y>9.038</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.136</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.09</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.09</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.136</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.503</x>
+                  <y>7.529</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.549</x>
+                  <y>7.502</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.589</x>
+                  <y>9.039</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.544</x>
+                  <y>9.066</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>2.206</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.16</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.16</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.206</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.434</x>
+                  <y>7.557</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.479</x>
+                  <y>7.53</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.52</x>
+                  <y>9.067</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.474</x>
+                  <y>9.094</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.276</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.23</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>2.23</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.276</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.364</x>
+                  <y>7.585</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.41</x>
+                  <y>7.558</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.45</x>
+                  <y>9.095</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.404</x>
+                  <y>9.123</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.346</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.3</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.3</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.346</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>11.285</x>
+                  <y>7.614</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.33</x>
+                  <y>7.586</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.37</x>
+                  <y>9.123</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.325</x>
+                  <y>9.151</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.426</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.38</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.38</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.426</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>10.215</x>
+                  <y>7.642</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.261</x>
+                  <y>7.614</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.301</x>
+                  <y>9.152</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.255</x>
+                  <y>9.179</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.496</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.45</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.45</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.496</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>9.145</x>
+                  <y>7.67</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.191</x>
+                  <y>7.642</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.231</x>
+                  <y>9.18</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.186</x>
+                  <y>9.207</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>7.566</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.52</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.52</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.566</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.076</x>
+                  <y>7.698</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.121</x>
+                  <y>7.67</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.162</x>
+                  <y>9.208</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.116</x>
+                  <y>9.235</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>8.636</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.59</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.59</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.636</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.006</x>
+                  <y>7.726</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.052</x>
+                  <y>7.698</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.092</x>
+                  <y>9.236</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.046</x>
+                  <y>9.263</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>9.706</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.66</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.66</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.706</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>5.936</x>
+                  <y>7.754</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.982</x>
+                  <y>7.726</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.022</x>
+                  <y>9.264</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.977</x>
+                  <y>9.291</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>10.776</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.73</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.73</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.776</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>4.867</x>
+                  <y>7.782</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.912</x>
+                  <y>7.755</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.953</x>
+                  <y>9.292</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.907</x>
+                  <y>9.319</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>11.846</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.8</x>
+                  <y>3.4</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.8</x>
+                  <y>1.841</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.846</x>
+                  <y>1.841</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>15.614</x>
+                  <y>9.059</y>
+                </vertex>
+                <vertex id="B">
+                  <x>16.66</x>
+                  <y>9.032</y>
+                </vertex>
+                <vertex id="C">
+                  <x>16.7</x>
+                  <y>10.569</y>
+                </vertex>
+                <vertex id="D">
+                  <x>15.654</x>
+                  <y>10.596</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.136</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.09</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.09</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.136</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>14.544</x>
+                  <y>9.087</y>
+                </vertex>
+                <vertex id="B">
+                  <x>15.59</x>
+                  <y>9.06</y>
+                </vertex>
+                <vertex id="C">
+                  <x>15.63</x>
+                  <y>10.597</y>
+                </vertex>
+                <vertex id="D">
+                  <x>14.585</x>
+                  <y>10.624</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>2.206</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.16</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.16</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.206</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>13.475</x>
+                  <y>9.115</y>
+                </vertex>
+                <vertex id="B">
+                  <x>14.52</x>
+                  <y>9.088</y>
+                </vertex>
+                <vertex id="C">
+                  <x>14.561</x>
+                  <y>10.625</y>
+                </vertex>
+                <vertex id="D">
+                  <x>13.515</x>
+                  <y>10.652</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>3.276</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.23</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>2.23</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.276</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>12.405</x>
+                  <y>9.143</y>
+                </vertex>
+                <vertex id="B">
+                  <x>13.451</x>
+                  <y>9.116</y>
+                </vertex>
+                <vertex id="C">
+                  <x>13.491</x>
+                  <y>10.653</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.445</x>
+                  <y>10.681</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>4.346</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.3</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.3</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.346</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>11.325</x>
+                  <y>9.172</y>
+                </vertex>
+                <vertex id="B">
+                  <x>12.371</x>
+                  <y>9.144</y>
+                </vertex>
+                <vertex id="C">
+                  <x>12.411</x>
+                  <y>10.681</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.366</x>
+                  <y>10.709</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>5.426</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.38</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.38</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>5.426</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>10.256</x>
+                  <y>9.2</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.301</x>
+                  <y>9.172</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.342</x>
+                  <y>10.709</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.296</x>
+                  <y>10.737</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>6.496</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.45</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.45</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.496</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>9.186</x>
+                  <y>9.228</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.232</x>
+                  <y>9.2</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.272</x>
+                  <y>10.738</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.226</x>
+                  <y>10.765</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>7.566</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>6.52</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>6.52</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.566</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>8.116</x>
+                  <y>9.256</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.162</x>
+                  <y>9.228</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.202</x>
+                  <y>10.766</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.157</x>
+                  <y>10.793</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>8.636</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.59</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.59</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>8.636</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>7.047</x>
+                  <y>9.284</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.092</x>
+                  <y>9.256</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.133</x>
+                  <y>10.794</y>
+                </vertex>
+                <vertex id="D">
+                  <x>7.087</x>
+                  <y>10.821</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>9.706</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>8.66</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>8.66</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>9.706</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>5.977</x>
+                  <y>9.312</y>
+                </vertex>
+                <vertex id="B">
+                  <x>7.023</x>
+                  <y>9.284</y>
+                </vertex>
+                <vertex id="C">
+                  <x>7.063</x>
+                  <y>10.822</y>
+                </vertex>
+                <vertex id="D">
+                  <x>6.018</x>
+                  <y>10.849</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>10.776</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>9.73</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>9.73</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>10.776</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>4.908</x>
+                  <y>9.34</y>
+                </vertex>
+                <vertex id="B">
+                  <x>5.953</x>
+                  <y>9.313</y>
+                </vertex>
+                <vertex id="C">
+                  <x>5.994</x>
+                  <y>10.85</y>
+                </vertex>
+                <vertex id="D">
+                  <x>4.948</x>
+                  <y>10.877</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>11.846</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>10.8</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>10.8</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>11.846</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>3.828</x>
+                  <y>9.368</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.874</x>
+                  <y>9.341</y>
+                </vertex>
+                <vertex id="C">
+                  <x>4.914</x>
+                  <y>10.878</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.868</x>
+                  <y>10.906</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>12.926</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="B">
+                  <x>11.88</x>
+                  <y>1.82</y>
+                </vertex>
+                <vertex id="C">
+                  <x>11.88</x>
+                  <y>0.261</y>
+                </vertex>
+                <vertex id="D">
+                  <x>12.926</x>
+                  <y>0.261</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+        <exclusionAreas>
+          <exclusionArea id="d">
+            <polygon2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>4.0</x>
+                  <y>7.485</y>
+                </vertex>
+                <vertex id="B">
+                  <x>4.0</x>
+                  <y>8.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.826</x>
+                  <y>8.0</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.826</x>
+                  <y>7.485</y>
+                </vertex>
+              </vertices>
+            </polygon2dSceneOrthoProjection>
+            <polygon2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>0.0</x>
+                  <y>0.522</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.014</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.187</x>
+                  <y>0.005</y>
+                </vertex>
+                <vertex id="D">
+                  <x>0.174</x>
+                  <y>0.527</y>
+                </vertex>
+              </vertices>
+            </polygon2dLocal>
+          </exclusionArea>
+        </exclusionAreas>
+      </moduleLayout>
+      <moduleLayout id="L-E" installationAreaIdRef="E">
+        <setbacks>
+          <setback edgeIdRef="a">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="b">
+            <distance>0.0</distance>
+          </setback>
+          <setback edgeIdRef="c">
+            <distance>0.9144</distance>
+          </setback>
+          <setback edgeIdRef="d">
+            <distance>0.9144</distance>
+          </setback>
+        </setbacks>
+        <moduleSpaces>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>2.759</x>
+                  <y>8.459</y>
+                </vertex>
+                <vertex id="B">
+                  <x>3.805</x>
+                  <y>8.459</y>
+                </vertex>
+                <vertex id="C">
+                  <x>3.804</x>
+                  <y>9.997</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.758</x>
+                  <y>9.997</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>1.116</x>
+                  <y>2.79</y>
+                </vertex>
+                <vertex id="B">
+                  <x>0.07</x>
+                  <y>2.79</y>
+                </vertex>
+                <vertex id="C">
+                  <x>0.07</x>
+                  <y>1.231</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.116</x>
+                  <y>1.231</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+          <moduleSpace>
+            <occupied>false</occupied>
+            <footprint2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>1.689</x>
+                  <y>8.459</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.735</x>
+                  <y>8.459</y>
+                </vertex>
+                <vertex id="C">
+                  <x>2.734</x>
+                  <y>9.997</y>
+                </vertex>
+                <vertex id="D">
+                  <x>1.688</x>
+                  <y>9.997</y>
+                </vertex>
+              </vertices>
+            </footprint2dSceneOrthoProjection>
+            <footprint2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>2.186</x>
+                  <y>2.79</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.14</x>
+                  <y>2.79</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.14</x>
+                  <y>1.231</y>
+                </vertex>
+                <vertex id="D">
+                  <x>2.186</x>
+                  <y>1.231</y>
+                </vertex>
+              </vertices>
+            </footprint2dLocal>
+          </moduleSpace>
+        </moduleSpaces>
+        <exclusionAreas>
+          <exclusionArea id="e">
+            <polygon2dSceneOrthoProjection>
+              <vertices>
+                <vertex id="A">
+                  <x>3.789</x>
+                  <y>8.0</y>
+                </vertex>
+                <vertex id="B">
+                  <x>2.5</x>
+                  <y>8.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>2.5</x>
+                  <y>7.557</y>
+                </vertex>
+                <vertex id="D">
+                  <x>3.777</x>
+                  <y>7.557</y>
+                </vertex>
+              </vertices>
+            </polygon2dSceneOrthoProjection>
+            <polygon2dLocal>
+              <vertices>
+                <vertex id="A">
+                  <x>0.0</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="B">
+                  <x>1.289</x>
+                  <y>0.0</y>
+                </vertex>
+                <vertex id="C">
+                  <x>1.289</x>
+                  <y>0.45</y>
+                </vertex>
+                <vertex id="D">
+                  <x>0.012</x>
+                  <y>0.45</y>
+                </vertex>
+              </vertices>
+            </polygon2dLocal>
+          </exclusionArea>
+        </exclusionAreas>
+      </moduleLayout>
+    </moduleLayouts>
+  </results>
+</sdt:response>

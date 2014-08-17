@@ -1127,6 +1127,44 @@ If an individual module has a tilt edge different from the common value, that ti
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="TerrainSegment">
+        <xs:complexContent>
+            <xs:extension base="arrayArea">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
+                        <xs:annotation>
+                            <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+                        <xs:annotation>
+                            <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
+                        <xs:annotation>
+                            <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="edges">
+                        <xs:annotation>
+                            <xs:documentation>Contains the set of polygon sides that define the roof face.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" minOccurs="1" name="edge"
+                                    type="polygonEdge">
+                                    <xs:annotation>
+                                        <xs:documentation>A single edge of the roof face that identifies its type. There are different setback rules applied to different types of roof face edges, so each edge's type must be defined. Each edge is defined by two points of a polygon.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
     <xs:complexType name="derateFactors">
         <xs:annotation>
             <xs:documentation>A set of environmental or component efficiency effects causing some reduction of ideal system performance. Default values correspond to NREL's PVWatts default values.</xs:documentation>
@@ -1197,25 +1235,11 @@ If an individual module has a tilt edge different from the common value, that ti
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:simpleType name="arrayAreaTypeEnum">
-        <xs:annotation>
-            <xs:documentation>Defines the type of array area.</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="ROOF_FACE"/>
-            <xs:enumeration value="GROUND"/>
-        </xs:restriction>
-    </xs:simpleType>
     <xs:complexType abstract="true" name="arrayArea">
         <xs:annotation>
             <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="type" type="arrayAreaTypeEnum">
-                <xs:annotation>
-                    <xs:documentation>Classifies the defined area as a roof face or ground area.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element minOccurs="0" name="azimuth" type="angle">
                 <xs:annotation>
                     <xs:documentation>The compass direction of the roof face, typically 90 deg. to the eave. 0 is North, and 180 is south. </xs:documentation>

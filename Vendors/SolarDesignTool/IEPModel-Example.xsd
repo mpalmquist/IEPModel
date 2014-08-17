@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 This file is used to link the SolarDesignTool API Model Schema to IEP. The paths will depend on your environment.
 
@@ -10,17 +11,18 @@ This file should never be committed to the repository (It is currently listed in
 
 
 -->
-<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
     targetNamespace="http://www.iepmodel.net"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified"
     xmlns="http://www.iepmodel.net">
-    <xs:include schemaLocation="../../../IEP/schema/Building.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/Common.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/CommonSolar.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/ArrayLayout.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/CommonSystemProperties.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/Project.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/PvSystem.xsd"/>
-    <xs:include schemaLocation="../../../IEP/schema/RoofFace.xsd"/>
-    <xs:include schemaLocation="IEPModel-Draft.xsd"/>
+    <xs:include schemaLocation="../../Building.xsd"/>
+    <xs:include schemaLocation="../../Common.xsd"/>
+    <xs:include schemaLocation="../../CommonSolar.xsd"/>
+    <xs:include schemaLocation="../../CommonElectrical.xsd"/>
+    <xs:include schemaLocation="../../PvSystem.xsd"/>
+    <xs:include schemaLocation="../../Project.xsd"/>
+    <xs:include schemaLocation="../../UtilityService.xsd"/>
+    <xs:include schemaLocation="../../Zone.xsd"/>
 </xs:schema>
+

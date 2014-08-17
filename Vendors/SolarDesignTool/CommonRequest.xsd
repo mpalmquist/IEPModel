@@ -71,20 +71,8 @@
             <xs:enumeration value="GROUND_AREA"/>
         </xs:restriction>
     </xs:simpleType>
-    
-    <xs:complexType name="ExclusionArea2dOrthoProjection">
-        <xs:all>
-            <xs:element name="polygon2dSceneOrthoProjection" type="iep:polygon2d" minOccurs="1"/>
-        </xs:all>
-        <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
     <xs:complexType name="InstallationAreaSpecification">
         <xs:all>
-            <xs:element name="type" minOccurs="0" maxOccurs="1" type="InstallationAreaSpecificationType">
-                <xs:annotation>
-                    <xs:documentation>InstallationAreaSpecificationType describes what kind of installation area it is.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element name="polygon2dSceneOrthoProjection" type="iep:polygon2d" minOccurs="1"/>
             <xs:element name="slope" minOccurs="1" type="iep:angle">
                 <xs:annotation>
@@ -113,6 +101,11 @@
                 </xs:annotation>
             </xs:element>
         </xs:all>
+        <xs:attribute name="type" use="required" type="InstallationAreaSpecificationType">
+            <xs:annotation>
+                <xs:documentation>InstallationAreaSpecificationType describes what kind of installation area it is.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="name" type="xs:string">
             <xs:annotation>

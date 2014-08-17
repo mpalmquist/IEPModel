@@ -4,17 +4,26 @@
   xmlns:iep="http://www.iepmodel.net"
   xmlns="http://www.solardesigntool.com"
   targetNamespace="http://www.solardesigntool.com" 
-  elementFormDefault="qualified" 
+  elementFormDefault="unqualified" 
+  attributeFormDefault="unqualified"
   version="1.0">
   <xs:import schemaLocation="CommonRequest.xsd"/>
   <xs:import namespace="http://www.iepmodel.net" schemaLocation="IEPModel.xsd"/>
    <xs:element name="response">
     <xs:complexType>
-      <xs:sequence>
+      <xs:all>
         <xs:element name="code" type="xs:integer"/>
+        <xs:element name="errorMessages" type="Message" minOccurs="0"/>
+        <xs:element name="warningMessages" type="Message" minOccurs="0"/>
+        <xs:element name="infoMessages" type="Message" minOccurs="0"/>
         <xs:element name="results" type="ApiResults" minOccurs="0"/>
-      </xs:sequence>
+      </xs:all>
     </xs:complexType>
   </xs:element>
   <xs:complexType name="ApiResults" abstract="true"/>
+  <xs:complexType name="Message">
+    <xs:sequence>
+      <xs:element name="message"  maxOccurs="unbounded" minOccurs="1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
