@@ -371,7 +371,14 @@ Micro-inverters are modeled by defining a single PPT with a single IndividualCir
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="pvArray" type="pvArray"/>
+            <xs:element minOccurs="0" name="pvArrays">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="pvArray"
+                            type="pvArray"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="stringInverter" type="stringInverter" minOccurs="0"
                 maxOccurs="unbounded">
                 <xs:annotation>
@@ -435,5 +442,6 @@ NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy elemen
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="optional"/>
     </xs:complexType>
 </xs:schema>

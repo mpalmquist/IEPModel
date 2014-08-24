@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    elementFormDefault="unqualified"
-    targetNamespace="http://www.iepmodel.net" attributeFormDefault="unqualified" version="1.0">
+    elementFormDefault="unqualified" targetNamespace="http://www.iepmodel.net"
+    attributeFormDefault="unqualified" version="1.0">
     <xs:annotation>
         <xs:documentation>The purpose of this schema is to define a set of types and quantities that are frequently used by other schema and can be referenced in a consistent manner.  
 
@@ -1204,32 +1204,14 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of temperature units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="C">
+            <xs:enumeration value="CELSIUS">
                 <xs:annotation>
                     <xs:documentation>Celsius</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="F">
+            <xs:enumeration value="FARHENHEIT">
                 <xs:annotation>
                     <xs:documentation>Fahrenheit</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="K">
-                <xs:annotation>
-                    <xs:documentation>Kelvin</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="R">
-                <xs:annotation>
-                    <xs:documentation>Rankine
-A thermodynamic (absolute) temperature scale named after the Scottish engineer and physicist William John Macquorn Rankine, who proposed it in 1859.</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Re">
-                <xs:annotation>
-                    <xs:documentation>The Réaumur scale (°Ré, °Re, °R), also known as the "octogesimal division",[1] is a temperature scale in which the freezing and boiling points of water are set to 0 and 80 degrees respectively. The scale is named after René Antoine Ferchault de Réaumur, who first proposed something similar in 1730.[2]
-
-AT: why are we including this? Does someone have a use case?</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>

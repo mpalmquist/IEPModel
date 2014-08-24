@@ -472,10 +472,10 @@ For example:
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
-	<xs:simpleType name="roofEdgeType">
+
+	<xs:simpleType name="roofEdgeTypeEnum">
 		<xs:annotation>
-			<xs:documentation>Set of polygon edge types. In IEP, polygons commonly used to describe areas where solar arrays can be placed, such as roof faces or ground areas. The various edges types for these areas can have a variety of setback rules associated by type.</xs:documentation>
+			<xs:documentation>Set of roof edge types. In IEP, roof areas can be described by polygons where solar arrays can be placed. The various roof edge types can have a variety of setback rules associated by type.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="eave"/>
@@ -503,9 +503,10 @@ For example:
 					<xs:documentation>ID of the second of two points in a polygon that define one of its edges.  Note that all polygon types defined for the roofFace should have the same ID for the points that represent the same polygon vertex.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="type" type="roofEdgeType" minOccurs="0"><!-- not requred for ground areas? -->
+			<xs:element name="type" type="roofEdgeTypeEnum" minOccurs="0">
+				<!-- not requred for ground areas? -->
 				<xs:annotation>
-					<xs:documentation>Type of polygon edge. In case of roof face edge, for example: ridge, eave, etc.</xs:documentation>
+					<xs:documentation>Type of roof face edge, for example: ridge, eave, etc.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

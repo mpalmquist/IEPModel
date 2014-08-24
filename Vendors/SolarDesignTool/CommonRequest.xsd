@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns="http://www.solardesigntool.com"
-    targetNamespace="http://www.solardesigntool.com"
-    xmlns:iep="http://www.iepmodel.net"
-    elementFormDefault="unqualified"
-    attributeFormDefault="unqualified"
-    version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.solardesigntool.com"
+    targetNamespace="http://www.solardesigntool.com" xmlns:iep="http://www.iepmodel.net"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.0">
     <xs:import namespace="http://www.iepmodel.net" schemaLocation="IEPModel.xsd"/>
     <xs:simpleType name="ModuleOrientationStrategy">
         <xs:annotation>
@@ -79,12 +74,13 @@
                     <xs:documentation>Roof face slope, in degrees.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="orientationLineType" minOccurs="0" maxOccurs="1" type="OrientationLineType">
+            <xs:element name="orientationLineType" minOccurs="0" maxOccurs="1"
+                type="OrientationLineType">
                 <xs:annotation>
                     <xs:documentation>Orientation line is the edge of the roof face polygon from which azimuth is determined. Typically an Eave or Ridge from which the azimuth is perpendicular to. If no eave or ridge is available to determine the azimuth from, then can simply specify a slope line.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="orientationLine" minOccurs="0" maxOccurs="1" >
+            <xs:element name="orientationLine" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Defines the orientationLine used to determine roof face azimuth.</xs:documentation>
                 </xs:annotation>
@@ -101,15 +97,15 @@
                 </xs:annotation>
             </xs:element>
         </xs:all>
-        <xs:attribute name="type" use="required" type="InstallationAreaSpecificationType">
-            <xs:annotation>
-                <xs:documentation>InstallationAreaSpecificationType describes what kind of installation area it is.</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="name" type="xs:string">
             <xs:annotation>
                 <xs:documentation>Descriptive name for the roof face.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="type" use="required" type="InstallationAreaSpecificationType">
+            <xs:annotation>
+                <xs:documentation>InstallationAreaSpecificationType describes what kind of installation area it is.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
@@ -139,8 +135,10 @@
             <xs:element name="arrayAzimuth" minOccurs="0" maxOccurs="1" type="iep:angle"/>
             <xs:element name="arrayTiltAngle" minOccurs="0" maxOccurs="1" type="iep:angle"/>
             <xs:element name="numberOfTiersInRack" minOccurs="0" maxOccurs="1" type="xs:integer"/>
-            <xs:element name="tiltedRackSpacingStrategy" minOccurs="0" maxOccurs="1" type="TiltedRackSpacingStrategy"/>
-            <xs:element maxOccurs="1" name="installationAreaSpecification" type="InstallationAreaSpecification"/>
+            <xs:element name="tiltedRackSpacingStrategy" minOccurs="0" maxOccurs="1"
+                type="TiltedRackSpacingStrategy"/>
+            <xs:element maxOccurs="1" name="installationAreaSpecification"
+                type="InstallationAreaSpecification"/>
         </xs:all>
     </xs:complexType>
 </xs:schema>
