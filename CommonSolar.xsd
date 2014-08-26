@@ -1000,6 +1000,212 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="exclusionArea2dOrthoProjection">
+        <xs:all>
+            <xs:element maxOccurs="1" minOccurs="1" name="polygon2dSceneOrthoProjection"
+                type="polygon2d"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="derateFactors">
+        <xs:annotation>
+            <xs:documentation>A set of environmental or component efficiency effects causing some reduction of ideal system performance. Default values correspond to NREL's PVWatts default values.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element default="0.95" minOccurs="0" name="moduleRatedPowerTolerance"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Manufacturers group modules together that test within a specified tolerance of the stated DC power output at STC.  Depending on how they define the group, the actual expected power of the modules may be lower than the STC ratings.  For example, if the module is rated at 200Wstc, but it has a lower power tolerance of -5%, then the assumption should be made that the modules will only output 190Wstc, and have a derate of 0.95.  If the module's lower tolerance is 0%, then the derate would be 1.0. Acceptable PVWatts range = 0.95 to 1.05.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.92" maxOccurs="1" minOccurs="0"
+                name="inverterTransformerEfficiency" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.88 to 0.98.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="dcWiringEfficiency"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.99.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.99" maxOccurs="1" minOccurs="0" name="acWiringEfficiency"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.98 to 0.993.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.995" maxOccurs="1" minOccurs="0"
+                name="diodesAndConnectionsEfficiency" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.99 to 0.997.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="moduleMismatch"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.95" maxOccurs="1" minOccurs="0" name="soiling" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.30 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="systemAvailability"
+                type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0 to 0.995.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1.0" maxOccurs="1" minOccurs="0" name="shading" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1.0" form="unqualified" maxOccurs="1" minOccurs="0"
+                name="sunTracking" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.95 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1.0" maxOccurs="1" minOccurs="0" name="age" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>Acceptable PVWatts range = 0.70 to 1.0.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType abstract="true" name="arrayInstallArea">
+        <xs:annotation>
+            <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Descriptive name for the array area (a roof face, or ground area).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="azimuth" type="angle">
+                <xs:annotation>
+                    <xs:documentation>The compass direction of the roof face, typically 90 deg. to the eave. 0 is North, and 180 is south. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="slope" type="angle">
+                <xs:annotation>
+                    <xs:documentation>If a roof face, this is the slope, in degrees, of the roof face. Slope is not defined for ground areas because the array's structure is assumed to compensate for irregularities.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="solarAccessMeasurements"
+                type="basicSolarAccessMeasurements"> </xs:element>
+            <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
+                <xs:annotation>
+                    <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+                <xs:annotation>
+                    <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
+                <xs:annotation>
+                    <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:simpleType name="presenceOfUndergroundEntitiesEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Yes (location marked)"/>
+            <xs:enumeration value="Yes (location TBD)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="groundArea">
+        <xs:annotation>
+            <xs:documentation>A description of the ground area of a site.  Helps describe areas that may be used for ground mount PV Systems.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="arrayInstallArea">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="approxArea" type="area"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="notes" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>User can capture info about other data fields, and/or describe special circumstances, such as: Types of buried lines and how marked, Equipment &amp;/or materials access issues, whether there is an existing professional soils report, if the site is in a biotic reserve (when applicable), &amp;/or whether an environmental impact report has been done</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="presenceOfBuriedLines"
+                        type="presenceOfUndergroundEntitiesEnum">
+                        <xs:annotation>
+                            <xs:documentation>Are there buried lines of any kind? In accompanying notes, user should include if mapped on some document.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0"
+                        name="presenceOfSepticTanksAndLeachFields"
+                        type="presenceOfUndergroundEntitiesEnum">
+                        <xs:annotation>
+                            <xs:documentation>Is there a septic tank &amp;/or leach field in the vicinity? Auditor needs to clearly identify their location on a site schematic.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="tractorTrencherAccessible"
+                        type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Can a tractor and/or trenching equipment access the ground location?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="moduleLayout">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="setbacks">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="setback">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="distance" type="xs:double"/>
+                                </xs:sequence>
+                                <xs:attribute name="edgeIdRef" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="moduleSpaces">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="moduleSpace"
+                            type="equipmentLocation"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="exclusionAreas">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="exclusionArea"
+                            type="exclusionArea2dOrthoProjection"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="arrayInstallAreaIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>The arrayInstallArea (either a roofFace or groundArea) on which this module layout is located.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
     <xs:complexType name="modulePosition2d">
         <xs:sequence>
             <xs:element maxOccurs="4" minOccurs="4" name="moduleCorner" type="point2d"/>
@@ -1127,121 +1333,19 @@ If an individual module has a tilt edge different from the common value, that ti
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="derateFactors">
-        <xs:annotation>
-            <xs:documentation>A set of environmental or component efficiency effects causing some reduction of ideal system performance. Default values correspond to NREL's PVWatts default values.</xs:documentation>
-        </xs:annotation>
+    <xs:complexType name="weatherData">
         <xs:sequence>
-            <xs:element default="0.95" minOccurs="0" name="moduleRatedPowerTolerance"
-                type="xs:double">
+            <xs:element minOccurs="0" name="ExpectedHighTemperature" type="xs:decimal">
                 <xs:annotation>
-                    <xs:documentation>Manufacturers group modules together that test within a specified tolerance of the stated DC power output at STC.  Depending on how they define the group, the actual expected power of the modules may be lower than the STC ratings.  For example, if the module is rated at 200Wstc, but it has a lower power tolerance of -5%, then the assumption should be made that the modules will only output 190Wstc, and have a derate of 0.95.  If the module's lower tolerance is 0%, then the derate would be 1.0. Acceptable PVWatts range = 0.95 to 1.05.</xs:documentation>
+                    <xs:documentation>Expected highest temperature in degrees Celcius at the system's location.  Used to evaluate equipment derating.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element default="0.92" maxOccurs="1" minOccurs="0"
-                name="inverterTransformerEfficiency" type="xs:double">
+            <xs:element minOccurs="0" name="ExpectedLowTemperature" type="xs:decimal">
                 <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.88 to 0.98.</xs:documentation>
+                    <xs:documentation>Expected lowest temperature in degrees Celcius at the system's location.  Used to evaluate maximum system output.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="dcWiringEfficiency"
-                type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.99.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="0.99" maxOccurs="1" minOccurs="0" name="acWiringEfficiency"
-                type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.98 to 0.993.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="0.995" maxOccurs="1" minOccurs="0"
-                name="diodesAndConnectionsEfficiency" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.99 to 0.997.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="moduleMismatch"
-                type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.97 to 0.995.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="0.95" maxOccurs="1" minOccurs="0" name="soiling" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.30 to 0.995.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="0.98" maxOccurs="1" minOccurs="0" name="systemAvailability"
-                type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0 to 0.995.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="1.0" maxOccurs="1" minOccurs="0" name="shading" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0 to 1.0.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="1.0" form="unqualified" maxOccurs="1" minOccurs="0"
-                name="sunTracking" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.95 to 1.0.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element default="1.0" maxOccurs="1" minOccurs="0" name="age" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>Acceptable PVWatts range = 0.70 to 1.0.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
+            <xs:element minOccurs="0" name="siteWeatherData" type="siteWeatherData"/>
         </xs:sequence>
-    </xs:complexType>
-    <xs:complexType abstract="true" name="arrayArea">
-        <xs:annotation>
-            <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element minOccurs="0" name="azimuth" type="angle">
-                <xs:annotation>
-                    <xs:documentation>The compass direction of the roof face, typically 90 deg. to the eave. 0 is North, and 180 is south. </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="slope" type="angle">
-                <xs:annotation>
-                    <xs:documentation>If a roof face, this is the slope, in degrees, of the roof face. Slope is not defined for ground areas because the array's structure is assumed to compensate for irregularities.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="solarAccessMeasurements"
-                type="basicSolarAccessMeasurements"> </xs:element>
-            <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
-                <xs:annotation>
-                    <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
-                <xs:annotation>
-                    <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
-                <xs:annotation>
-                    <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
-        <xs:attribute name="name" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>Descriptive name for the array area (a roof face, or ground area).</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:complexType>
-    <xs:complexType name="TerrainSegment">
-        <xs:complexContent>
-            <xs:extension base="arrayArea">
-                <xs:sequence> </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
     </xs:complexType>
 </xs:schema>

@@ -105,51 +105,6 @@ This is also used for PowerClerk/CSI program</xs:documentation>
             <xs:enumeration value="Residential"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="presenceOfUndergroundEntitiesEnum">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="None"/>
-            <xs:enumeration value="Yes (location marked)"/>
-            <xs:enumeration value="Yes (location TBD)"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:complexType name="groundArea">
-        <xs:annotation>
-            <xs:documentation>A description of the ground area of a site.  Helps describe areas that may be used for ground mount PV Systems.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence maxOccurs="unbounded" minOccurs="0">
-            <xs:element name="name" type="xs:string"/>
-            <xs:element minOccurs="0" name="approxArea" type="area"/>
-            <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="notes" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>User can capture info about other data fields, and/or describe special circumstances, such as: Types of buried lines and how marked, Equipment &amp;/or materials access issues, whether there is an existing professional soils report, if the site is in a biotic reserve (when applicable), &amp;/or whether an environmental impact report has been done</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="presenceOfBuriedLines"
-                type="presenceOfUndergroundEntitiesEnum">
-                <xs:annotation>
-                    <xs:documentation>Are there buried lines of any kind? In accompanying notes, user should include if mapped on some document.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="presenceOfSepticTanksAndLeachFields"
-                type="presenceOfUndergroundEntitiesEnum">
-                <xs:annotation>
-                    <xs:documentation>Is there a septic tank &amp;/or leach field in the vicinity? Auditor needs to clearly identify their location on a site schematic.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="tractorTrencherAccessible"
-                type="xs:boolean">
-                <xs:annotation>
-                    <xs:documentation>Can a tractor and/or trenching equipment access the ground location?</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
     <xs:complexType name="site">
         <xs:sequence>
             <xs:element maxOccurs="1" minOccurs="1" name="location" type="address">

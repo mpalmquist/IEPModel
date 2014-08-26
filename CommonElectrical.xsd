@@ -125,6 +125,19 @@
             <xs:enumeration value="DC"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:simpleType name="serviceConfigurationVoltageEnum">
+        <xs:annotation>
+            <xs:documentation>Options for electrical service configuration and voltage.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="240_120_SPLIT_PHASE"/>
+            <xs:enumeration value="240_DELTA_3_PHASE"/>
+            <xs:enumeration value="240_SPLIT_PHASE_DELTA_3_PHASE"/>
+            <xs:enumeration value="208_DELTA_3_PHASE"/>
+            <xs:enumeration value="208_DELTA_120_WYE_3_PHASE"/>
+            <xs:enumeration value="480_DELTA_277_WYE_3_PHASE"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="electricalPanelDefinition">
         <xs:annotation>
             <xs:documentation>A description of an electrical distribution device. Typically also known as "load centers" that house multiple circuit breakers.  A switch can also be modeled.</xs:documentation>
@@ -566,6 +579,8 @@ in the AcPointOfConnection's EquipmentWhereConnected element.  That ElectricPane
         <xs:complexContent>
             <xs:extension base="equipmentInstance">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="serviceConfigurationVoltage"
+                        type="serviceConfigurationVoltageEnum"/>
                     <xs:element minOccurs="0" name="energizingSourceCircuitConnection"
                         type="circuitConnection" maxOccurs="1">
                         <xs:annotation>
