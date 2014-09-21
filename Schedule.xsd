@@ -22,7 +22,7 @@
 			<xs:element ref="day" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
-		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
+		<xs:attribute name="type" use="required" type="scheduleEnum"/>
 	</xs:complexType>
 	<xs:simpleType name="beginDate">
 		<xs:restriction base="xs:date"/>
@@ -42,7 +42,7 @@
 			<xs:element ref="yearSchedule" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
-		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
+		<xs:attribute name="type" use="required" type="scheduleEnum"/>
 	</xs:complexType>
 	<xs:complexType name="scheduleValue">
 		<xs:annotation>
@@ -115,8 +115,8 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
 			<xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
-			<xs:element ref="BeginDate" minOccurs="1" maxOccurs="1"/>
-			<xs:element ref="EndDate" minOccurs="1" maxOccurs="1"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="BeginDate" type="beginDate"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="EndDate" type="endDate"/>
 			<xs:element minOccurs="1" maxOccurs="1" name="WeekScheduleId">
 				<xs:complexType>
 					<xs:attribute name="weekScheduleIdRef" type="xs:IDREF" use="required"/>
@@ -151,10 +151,11 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
 			<xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string"/>
 			<xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string"/>
-			<xs:element ref="ScheduleValue" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="ScheduleValue"
+				type="scheduleValue"/>
 		</xs:sequence>
 		<xs:attribute name="id" use="required" type="xs:ID"/>
-		<xs:attribute name="type" use="required" type="scheduleEnumType"/>
+		<xs:attribute name="type" use="required" type="scheduleEnum"/>
 	</xs:complexType>
 	<xs:complexType name="day">
 		<xs:simpleContent>
@@ -164,7 +165,7 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 						<xs:documentation>ID for operation schedules</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="dayType" use="required" type="dayEnumType"/>
+				<xs:attribute name="dayType" use="required" type="dayEnum"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>

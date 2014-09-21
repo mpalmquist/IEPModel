@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--**************************************************************************
-    schema: CommonElectrical.xsd
-    Author:  Michael Palmquist, SolarNexus Inc
+    schema: CommonElectrical.xsd v 2.0
+    Author(s):
+    v 2.0 Michael Palmquist, SolarNexus Inc
+    v 1.x Michael Palmquist, SolarNexus Inc
     Description: Schema includes elements for defining an electrical system on a site.  Includes elements that describe the distribution of circuits, such as electric panels, wiring, wireways (conduit), over-current protection devices (OCPD), and disconnects.
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
     targetNamespace="http://www.iepmodel.net" version="1.0">
     <xs:include schemaLocation="Common.xsd"/>
-    <xs:element name="circuitConnection" type="circuitConnection"/>
-    <xs:element name="electricalDistributionHierarchy" type="electricalDistributionHierarchy">
+    <xs:simpleType name="wireTypeEnum">
         <xs:annotation>
-            <xs:documentation/>
-        </xs:annotation>
-    </xs:element>
-    <xs:simpleType name="conductorMaterialEnum">
-        <xs:annotation>
-            <xs:documentation>Types of conductor material, such as "stranded Cu," "solid Cu," "stranded Al," etc..</xs:documentation>
+            <xs:documentation>Types of wire material, such as "stranded Cu," "solid Cu," "stranded Al," etc.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Stranded Cu"/>
-            <xs:enumeration value="Solid Cu"/>
-            <xs:enumeration value="Stranded Al"/>
+            <xs:enumeration value="STRANDED_CU"/>
+            <xs:enumeration value="SOLID_CU"/>
+            <xs:enumeration value="STRANDED_AL"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="conductorSizeEnum">
+    <xs:simpleType name="wireGaugeEnum">
         <xs:annotation>
             <xs:documentation>Standard wire sizes in AWG or kcmil.</xs:documentation>
         </xs:annotation>
@@ -45,12 +41,12 @@
             <xs:enumeration value="500"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="conductorJacketEnum">
+    <xs:simpleType name="wireJacketTypeEnum">
         <xs:annotation>
             <xs:documentation>ISSUE: May need additional jacket types</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="bare"/>
+            <xs:enumeration value="BARE"/>
             <xs:enumeration value="USE"/>
             <xs:enumeration value="USE-2"/>
             <xs:enumeration value="THWN"/>
@@ -59,7 +55,17 @@
             <xs:enumeration value="THHW"/>
             <xs:enumeration value="XHHW-2"/>
             <xs:enumeration value="RHW-2"/>
-            <xs:enumeration value="PV Wire"/>
+            <xs:enumeration value="PV_WIRE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="conductorRoleEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LINE"/>
+            <xs:enumeration value="NEUTRAL"/>
+            <xs:enumeration value="POSITIVE"/>
+            <xs:enumeration value="NEGATIVE"/>
+            <xs:enumeration value="EGC"/>
+            <xs:enumeration value="GEC"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="conduitDiameterEnum">
@@ -82,7 +88,8 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="EMT"/>
             <xs:enumeration value="PVC"/>
-            <xs:enumeration value="Rigid"/>
+            <xs:enumeration value="RIGID"/>
+            <xs:enumeration value="FREE_AIR"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="overCurrentProtectionDeviceEnum">
@@ -184,7 +191,7 @@
                             <xs:documentation>Do the switch circuits include fuses?</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="fuse" type="fuse">
+                    <xs:element minOccurs="0" name="fuse" type="fuseDefinition">
                         <xs:annotation>
                             <xs:documentation>If the switch includes fuses, this describes the fuses.</xs:documentation>
                         </xs:annotation>
@@ -255,22 +262,12 @@
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
-    <xs:complexType name="wirewayBox">
-        <xs:annotation>
-            <xs:documentation>A WirewayBox is any electrical box through which CircuitConnections travel as a transition from one ConduitSegment to another. A WirewayBox is modeled like a piece of conduit in that they do not have their own CircuitConnections.  Wireway boxes cannot change the current or voltage characteristics of any CircuitConnections passing through it.  They may not combine or distribute current like a DcCombiner or ElectricalPanel.  They may not change voltage characteristics such as a StringInverter. A WirewayBox may contain 1:1 wire splices or a disconnect switch (a switch does not change the current or voltage). Note that a WirewayBox may or may not refer to a defined piece of Equipment (e.g. a JunctionBoxDefintion, DisconnectSwitchDefinition, StandAloneMeterSocketDefintion). It may instead contain a free text name.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="wirewaySegment">
-                <xs:sequence>
-                    <xs:element maxOccurs="unbounded" name="segmentConnection" type="xs:IDREF"
-                        minOccurs="1">
-                        <xs:annotation>
-                            <xs:documentation>The ID Ref for another WirewaySegment.  Boxes can have many WirewaySegment connections (e.g. multiple conduit segments can terminate at a box). Conduit is a pipe with 2 ends, so it has a maximum of two WirewaySegments to which it connects.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
+    <xs:complexType name="conduitDefinition">
+        <xs:sequence>
+            <xs:element name="type" type="conduitTypeEnum" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="diameter" type="conduitDiameterEnum" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
     </xs:complexType>
     <xs:complexType name="conduitSegment">
         <xs:annotation>
@@ -279,22 +276,83 @@
         <xs:complexContent>
             <xs:extension base="wirewaySegment">
                 <xs:sequence>
-                    <xs:element name="conduitType" type="conduitTypeEnum" minOccurs="0"
-                        maxOccurs="1"/>
-                    <xs:element name="conduitDiameter" type="conduitDiameterEnum" minOccurs="0"
-                        maxOccurs="1"/>
-                    <xs:element name="conduitLength" type="xs:double" minOccurs="0">
+                    <xs:element name="length" type="xs:double" minOccurs="0">
                         <xs:annotation>
                             <xs:documentation>The length in feet of the conduit segment.  Values should be rounded up to nearest foot.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="2" name="segmentConnection" type="xs:IDREF" minOccurs="0">
-                        <xs:annotation>
-                            <xs:documentation>The ID Ref for another WirewaySegment or Equipment to which the Coduit segment connects.  Conduit is a pipe with 2 ends, so it has a maximum of two WirewaySegments or Equipment to which it connects.  Boxes can have many WirewaySegment connections.</xs:documentation>
-                        </xs:annotation>
+                    <xs:element minOccurs="0" name="segmentConnections">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="2" name="segmentConnection" type="xs:IDREF"
+                                    minOccurs="2">
+                                    <xs:annotation>
+                                        <xs:documentation>The ID Ref for another WirewaySegment or Equipment to which the Coduit segment connects.  Conduit is a pipe with 2 ends, so it has a maximum of two WirewaySegments or Equipment to which it connects.  Boxes can have many WirewaySegment connections.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
                     </xs:element>
                 </xs:sequence>
             </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="wirewayBox">
+        <xs:annotation>
+            <xs:documentation>A WirewayBox is an abstract way to describe instances of junction boxes and disconnect switches. What differentiates them from conduit segments is the ability for circuitConnections to start or end in them, as well as for multiple circuitConnections to exit from them.  electrical box through which CircuitConnections travel as a transition from one ConduitSegment to another. Wireway boxes cannot change the current or voltage characteristics of any CircuitConnections starting, ending, or passing through it.  They may not combine or distribute current like a DcCombiner or ElectricalPanel. They may not change voltage characteristics such as a StringInverter. A WirewayBox may contain 1:1 wire splices or a disconnect switch (based on its instance type). Note that a WirewayBox may or may not refer to a defined piece of Equipment (e.g. a JunctionBoxDefintion, DisconnectSwitchDefinition, StandAloneMeterSocketDefintion). It may instead contain a free text name.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="wirewaySegment">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="circuitConnections">
+                        <xs:annotation>
+                            <xs:documentation>A wireway box may have multiple circuits entering it, therefore it must have multiple circuits leaving it as well. No combining of circuits occurs at wireway boxes.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="circuitConnection"
+                                    type="circuitConnection"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="conduitSegments" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>A collection of the conduit segments connected to this box.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="conduitSegment"
+                                    type="xs:IDREF" minOccurs="1">
+                                    <xs:annotation>
+                                        <xs:documentation>The ID Ref for a conduitSegment.  Boxes can have many conduitSegment connections (e.g. multiple conduit segments can terminate at a box). Conduit is a pipe with 2 ends, so it has a maximum of two WirewaySegments to which it connects.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="junctionBox">
+        <xs:annotation>
+            <xs:documentation>A junctionBox is used to splice different circuitConnections together, as in the case of string wiring transitioning from free air to wire in conduit. circuitConnections may also pass through a junction box like it is a conduit segment. A junctionBox cannot change the current or voltage characteristics of any circuits. They may not combine or distribute current like a DcCombiner or ElectricalPanel.  They may not change voltage characteristics such as a StringInverter. Note that a juntionBox may or may not refer to a defined piece of Equipment (e.g. a JunctionBoxDefintion, DisconnectSwitchDefinition, StandAloneMeterSocketDefintion). It may instead contain a free text name.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="wirewayBox"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="disconnectBox">
+        <xs:annotation>
+            <xs:documentation>A disconnectBox can provide a break between circuitConnections via its disconnect switch. Disconnect boxes cannot change the current or voltage characteristics of any circuits. circuitConnections may start/end at a disconnect box, where circuit conductors are switched. circuitConnections may also pass through a disconnect box like it is a conduit segment. A disconnectBox may not combine or distribute current like a DcCombiner or ElectricalPanel.  They may not change voltage characteristics such as a StringInverter. Note that a disconnectBox may or may not refer to a defined piece of Equipment (e.g. a JunctionBoxDefintion, DisconnectSwitchDefinition, StandAloneMeterSocketDefintion). It may instead contain a free text name.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="wirewayBox"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="meterBox">
+        <xs:complexContent>
+            <xs:extension base="wirewayBox"/>
         </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="overCurrentProtectionDevice" abstract="true">
@@ -330,7 +388,7 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="fuse">
+    <xs:complexType name="fuseDefinition">
         <xs:annotation>
             <xs:documentation>A fuse is a disposable, one time use OCPD lacking any disconnect means.</xs:documentation>
         </xs:annotation>
@@ -346,7 +404,7 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="circuitBreaker">
+    <xs:complexType name="circuitBreakerDefinition">
         <xs:annotation>
             <xs:documentation>A circuit breaker is a re-usable OCPD which can also act as a disconnecting means.</xs:documentation>
         </xs:annotation>
@@ -378,81 +436,79 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
             <xs:enumeration value="load-side"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="conductorSegment">
+    <xs:complexType name="conductorDefinition">
         <xs:annotation>
-            <xs:documentation>A specific portion of a circuit's wiring.  This element allows for definition of multiple segments of different wire types within a single CircuitConnectionConductor.</xs:documentation>
+            <xs:documentation>Specifications of a single type of conductor.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element minOccurs="0" name="material" type="conductorMaterialEnum">
+            <xs:element minOccurs="0" name="wireType" type="wireTypeEnum">
                 <xs:annotation>
                     <xs:documentation>Types of conductor material, such as "stranded Cu," "solid Cu," "stranded Al," etc.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="jacket" type="conductorJacketEnum">
+            <xs:element minOccurs="1" name="jacketType" type="wireJacketTypeEnum">
                 <xs:annotation>
                     <xs:documentation>Type of jacketing on the conductor.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="jacketColor" type="xs:string"/>
-            <xs:element name="length" type="xs:double" minOccurs="0" maxOccurs="1">
+            <xs:element name="wireGauge" type="wireGaugeEnum">
                 <xs:annotation>
-                    <xs:documentation>Length of this conductor connection, in feet.</xs:documentation>
+                    <xs:documentation>Wire diameter, given in American Wire Gauge (AWG), or kcmil.</xs:documentation>
                 </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="conductor">
+        <xs:annotation>
+            <xs:documentation>A single conductor instance in a circuit.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="role" type="conductorRoleEnum">
+                <xs:annotation>
+                    <xs:documentation>Identifier of this conductor's role in the circuit.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="jacketColor" type="xs:string"/>
+            <xs:element minOccurs="0" name="grounded" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Is this conductor grounded?</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ocpdProtection">
+                <xs:annotation>
+                    <xs:documentation>Is this conductor protected by an overcurrent protection device (OCPD) such as a fuse or circuit breaker? If so, a reference to the OCPD's specifications are provided, as well as a reference to the equipment in which the OCPD is housed.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:attribute name="id" type="xs:ID" use="required">
+                        <xs:annotation>
+                            <xs:documentation>The ID of this ocpd instance.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="ocpdDefinitionIdRef" type="xs:IDREF" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Reference ID within the XML instance document of the OCPD's specifications (fuse, or circuit breaker).</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="equipmentWhereHousedIdRef">
+                        <xs:annotation>
+                            <xs:documentation>The equipment instance where this OCPD is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" use="required" type="xs:ID"/>
+        <xs:attribute name="conductorDefinitionIdRef" type="xs:IDREF" use="optional">
+            <xs:annotation>
+                <xs:documentation>Reference to the conductor specifications.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
-    <xs:complexType name="equipmentGroundingConductor">
-        <xs:annotation>
-            <xs:documentation>Describes the equipment grounding conductor (EGC).  It is paired with a CircuitConnection.</xs:documentation>
-        </xs:annotation>
+    <xs:complexType name="cable">
         <xs:sequence>
-            <xs:element minOccurs="0" name="egc" type="conductorMaterialEnum"/>
-            <xs:element name="egcSize" type="conductorSizeEnum"/>
-            <xs:element minOccurs="0" name="egcJacket" type="conductorJacketEnum"/>
-            <xs:element default="green" minOccurs="0" name="egcJacketColor" type="xs:string"/>
-            <xs:element minOccurs="0" name="groundingNotes" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Use to describe details on connection methods between grounding conductor and equipment.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="circuitConnectionConductor">
-        <xs:annotation>
-            <xs:documentation>A CircuitConnectionConductor can be made up of multiple segments of wire, as long as they share the same current carrying capacity, defined by its ConductorSize.  In PV Systems, for example, its common for an array's wiring to transition from wire outside of conduit into wire inside conduit.  The wire is spliced together within a box (e.g. WirewayBox). </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="conductorSize" type="conductorSizeEnum">
-                <xs:annotation>
-                    <xs:documentation>Wire diameter, given in American Wire Gauge (AWG), or kcmil.  The entire circuit connection conductor is assumed to be the same size conductor, even if it is physically made up of multiple conductor segments that are different kinds of wire.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="1" name="conductorQuantity" type="xs:integer">
-                <xs:annotation>
-                    <xs:documentation>Number of conductors used to connect the circuit. Residential 120V uses 2 conductors, whereas 240V typically uses three conductors, and commercial three phase typically is 4 conductors.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="primaryConductorSegment" type="conductorSegment">
-                <xs:annotation>
-                    <xs:documentation>This is the segment of the CircuitConductor that is connected directly to the electrical component that this CircuitConnection belongs to.  For example, let's assume that this ConductorSegment is part of a CircuitConnection for a PvString. The PvString typically starts out as USE-2 wire from the PV Modules and may transition to THWN-2 wire once inside a J-box (modeled as a Wireway box in this schema).  The USE-2 segment of the conductor is the Primary segment, while the THWN-2 wire is a secondary segment.  All CircuitConnectionConductors have a primary segment, only some have any secondary instances. If there are more than one, then the splices made beween them are described by the ConnectsToConductorSegmentId and the WirewaySegmentWhereConnectedId attributes.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="secondaryConductorSegment">
-                <xs:annotation>
-                    <xs:documentation>A portion of a CircuitConnectionConductor that is of a different type of wire than the Primary.  All CircuitConnectionConductors have a primary segment, only some have any secondary instances. If there are more than one, then the splices made beween them are described by the ConnectsToConductorSegmentId and the WirewaySegmentWhereConnectedId attributes.</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:extension base="conductorSegment">
-                            <xs:attribute name="ConnectsToConductorSegmentId" type="xs:IDREF"
-                                use="required"/>
-                            <xs:attribute name="WirewaySegmentWhereConnectedId" type="xs:IDREF"
-                                use="required"/>
-                        </xs:extension>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="cableName"/>
+            <xs:element name="conductors"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType abstract="false" name="groundingElectrodeConductor">
@@ -460,13 +516,7 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
             <xs:documentation>The conductor that serves as the main ground path for either an AC or DC system.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element default="Solid Cu" name="material" type="conductorMaterialEnum"/>
-            <xs:element name="size" type="conductorSizeEnum"/>
-            <xs:element default="bare" name="jacket" type="conductorJacketEnum">
-                <xs:annotation>
-                    <xs:documentation>Should be "bare."</xs:documentation>
-                </xs:annotation>
-            </xs:element>
+            <xs:element name="conductor" type="conductor"/>
             <xs:element minOccurs="0" name="groundingElectrode" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Grounding electrode is typically a ground rod or U-fer.  This element should include the grounding electrode's size. For example "3/4 in ground rod."</xs:documentation>
@@ -491,7 +541,41 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
                     <xs:documentation>AC or DC</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="circuitConductors" type="circuitConnectionConductor"/>
+            <xs:element name="length" type="xs:double" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Length of this conductor connection, in feet.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="conductors">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="conductor" type="conductor"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="maximumWireTemperature"/>
+            <xs:element default="load-side" minOccurs="0" name="sideOfPanelOcpdWhereConnected"
+                type="sideOfPanelOcpdWhereConnectedEnum">
+                <xs:annotation>
+                    <xs:documentation>When a circuit connection's targetComponent is an ElectricalPanel, this describes which side of a the panel's main breaker (if present) that the interconnection made (supply or load side)?
+This is a very important consideration, as the NEC dictates the maximum allowable interconnected current, and it is very different for each side of the OCPD.  For example, when tied to the load side of a panel's bus, the total of all circuits amperage can sum to 120% of the bus's current rating when using a backfed breaker.  If tied to the supply side, the allowable PV circuit amperage can go up to the maximum rated amperage of the bus (as the main breaker protects the load side).  Note that this also differs between residential and commercial systems. Most residential systems are interconnected on the load side. Conversely, most commercial systems are interconnected on the supply side because NEC 690 currently has no 120% rule on commercial load side tie-in (significantly limiting possible size), and also commercial system equipment is more likely to have connections available on the supply side (e.g. lugs).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="wirewaySegments">
+                <xs:annotation>
+                    <xs:documentation>The collection of Wireway Segments through which this circuit connection runs. Can include ConduitSegments, WirewayBoxes, or both. Note that the circuitConnection can be routed through a DisconnectSwitch or StandAloneMeterSocket without actually being switched or metered.  If the circuitConnection is disconnected or metered, it should be called out in a separate disconnect or standAloneMeter element within the circuitConnection.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="wirewaySegmentIdRef" type="xs:IDREF" minOccurs="1"
+                            maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>A single wireway segment through which this circuit connection runs. A wireway segment may be a conduit segment or a wireway box. Note that the circuitConnection can also be routed through a disconnectSwitch or standAloneMeterSocket without actually being switched or metered.  If the circuitConnection is disconnected or metered, it should be called out in a separate disconnect or standAloneMeter element within the circuitConnection. </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="includesDisconnect">
                 <xs:annotation>
                     <xs:documentation>If the CircuitConnection has a disconnect switch in it, this calls it out.</xs:documentation>
@@ -500,11 +584,6 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
                     <xs:attribute name="WirewayBoxIdRef" type="xs:IDREF" use="required">
                         <xs:annotation>
                             <xs:documentation>Reference to an instance of the DisconnectSwitch modeled generally as a WirewayBox. A disconnect switch can switch more than one CircuitConnection, so it is defined external to the CircuitConnection.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="ConductorSegmentIdRef" type="xs:IDREF" use="required">
-                        <xs:annotation>
-                            <xs:documentation>ConductorSegment that contains the disconnect switch.</xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
                 </xs:complexType>
@@ -518,57 +597,31 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
                         <xs:element name="meterSocket" type="wirewayBox"/>
                         <xs:element name="meter" type="equipmentInstance"/>
                     </xs:sequence>
-                    <xs:attribute name="ConductorSegmentIdRef" type="xs:IDREF"/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="ocpd" minOccurs="0" form="unqualified">
+            <xs:element minOccurs="0" name="sourceComponentIdRef" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>Over current protection device (OCPD). A device that protects the conductor from too much current by breaking the circuit. Fuses and circuit breakers are OCPDs.  In this schema, an OCPD is not a piece of equipment, but rather a component within a piece of equipment.  It is not necessary to include a mfr and model in most cases, but knowing the type and rating is required.</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                    <xs:choice>
-                        <xs:element name="fuse" type="fuse"/>
-                        <xs:element name="circuitBreaker" type="circuitBreaker"/>
-                    </xs:choice>
-                    <xs:attribute name="equipmentWhereLocatedIdRef">
-                        <xs:annotation>
-                            <xs:documentation>The ID referring to the equipment in which the OCPD is installed.  In most cases, it is the parent Equipment of the CircuitConnection's immediate parent element.  For example, if the CircuitConnection is within a StringInverter element, then the circuit breaker within the ElectricalPanel to which the Inverter connects will most like be the referenced OCPD.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:complexType>
-            </xs:element>
-            <xs:element default="load-side" minOccurs="0" name="sideOfPanelOcpdWhereConnected"
-                type="sideOfPanelOcpdWhereConnectedEnum">
-                <xs:annotation>
-                    <xs:documentation>When a circuit connection is made on an ElectricalPanel, which side of a the panel's main breaker (if present) is the interconnection made (supply or load side)?
-This is a very important consideration, as the NEC dictates the maximum allowable interconnected current, and it is very different for each side of the OCPD.  For example, when tied to the load side of a panel's bus, the total of all circuits amperage can sum to 120% of the bus's current rating when using a backfed breaker.  If tied to the supply side, the allowable PV circuit amperage can go up to the maximum rated amperage of the bus (as the main breaker protects the load side).  Note that this also differs between residential and commercial systems. Most residential systems are interconnected on the load side. Conversely, most commercial systems are interconnected on the supply side because NEC 690 currently has no 120% rule on commercial load side tie-in (significantly limiting possible size), and also commercial system equipment is more likely to have connections available on the supply side (e.g. lugs).</xs:documentation>
+                    <xs:documentation>The component (an equipmentInstance) where this circuitConnection originates. Refers to the ID of that equipmentInstance within the XML document instance.
+Circuit connections have two ends. One is the equipment defined by this ID, the other is defined by the targetComponentIdRef.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="conductorConnectionMechanism" type="xs:string">
+            <xs:element minOccurs="0" name="targetComponentIdRef" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>Optional description of how the conductors are phyisically connected. Examples:
--Dedicated circuit breaker (typical of load side, but breaker-can also be on service side if hot-bussed panel has breaker slot on the service side)
--lugs (supply side typical)
--wire taps (supply side typical)
-
-
-</xs:documentation>
+                    <xs:documentation>The component (an equipmentInstance) where this circuitConnection terminates. Refers to the ID of that equipmentInstance within the XML document instance.
+Circuit connections have two ends. One is defined by the sourceComponentIdRef, the other is the equipment defined by this ID.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="equipmentGroundingConductor"
-                type="equipmentGroundingConductor"/>
-            <xs:element name="wirewaySegmentIdRef" type="xs:IDREF" minOccurs="0"
-                maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="continuingCircuitIdRef" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>The Wireway Segments through which this circuit connection runs. Can include ConduitSegments, WirewayBoxes, or both. Note that the CircuitConnection can be routed through a DisconnectSwitch or StandAloneMeterSocket without actually being switched or metered.  If the CircuitConnection is disconnected or metered, it should be called out in a separate Disconnect or StandAloneMeter element within the CircuitConnection. </xs:documentation>
+                    <xs:documentation>If the circuit connection terminates within a Junction box or Disconnect, and then transitions to another circuitConnection, this identifies the circuitConnection where it continues.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="EquipmentWhereConnectedIdRef" type="xs:IDREF">
+        <xs:attribute name="id"/>
+        <xs:attribute name="circuitConnectionEndpointIdRef" type="xs:IDREF">
             <xs:annotation>
-                <xs:documentation>In cases where the CircuitConnection element is used within an EquipmentInstance that does not have a parent element to which the CircuitConnection is assumed to connect, a reference ID can be used to associate this CircuitConnection to another EquipmentInstance elsewhere in a document instance.  For example, a PvSystem may have an AcPointOfConnection that uses a new ElectricalPanel as an AC combiner for more than one Inverter.  The new electrical panel can be described by an  ElectricalPanel element in the PvDesign (which in turn refers to an ElectricalPanelDefinition element).
-
-in the AcPointOfConnection's EquipmentWhereConnected element.  That ElectricPanel's EnergizingCircuitConnection element may reference another ElectricPanel in an instance of the Project's ExistingElectricalHierarchy element.</xs:documentation>
+                <xs:documentation>The equipmentInstance where this circuitConnection terminates. Refers to the ID of that equipmentInstance within the XML document instance.
+Circuit connections have two ends. One is defined by the parent of the circuitConnection, the other is the equipment defined by this ID.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
@@ -582,19 +635,20 @@ in the AcPointOfConnection's EquipmentWhereConnected element.  That ElectricPane
                     <xs:element minOccurs="0" name="serviceConfigurationVoltage"
                         type="serviceConfigurationVoltageEnum"/>
                     <xs:element minOccurs="0" name="energizingSourceCircuitConnection"
-                        type="circuitConnection" maxOccurs="1">
+                        type="xs:IDREF">
                         <xs:annotation>
-                            <xs:documentation>Description of the conductor energizing the panel.  Should include description of OCPD / disco at source end.</xs:documentation>
+                            <xs:documentation>Reference to the circuitConnection energizing the panel.  Should include description of OCPD / disco at the circuitConnection's source end.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="mainBreaker" type="circuitBreaker" maxOccurs="1">
+                    <xs:element minOccurs="0" name="mainBreaker" type="circuitBreakerDefinition"
+                        maxOccurs="1">
                         <xs:annotation>
                             <xs:documentation>Describes an internal circuit breaker, if any, that serves as the main OCPD and power disconnect to this panel's bus.  Note that the ElectricPanel may or may not have an internal main breaker.  Panels with or without a main internal breaker may also have an OCPD on the ElectricPanel's CircuitConnection element which serves as the energizing source for this panel.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="existence" type="xs:string">
                         <xs:annotation>
-                            <xs:documentation>Is this panel existing or new (proposed)?  When the ElectricalPanel is used within the ExistingElectricalSystem element inside of a Project's Site element, this is assumed to be an existing panel.  However, if the panel is just being defined within a PvDesign's AcTie-InPanel element, then its important to know if the panel being described already exists or is new (and therefore part of the scope of work).</xs:documentation>
+                            <xs:documentation>Is this panel existing or new (proposed)?  When the ElectricalPanel is used within the existingElectricalSystem element inside of a Project's Site element, this is assumed to be an existing panel.  However, if the panel is just being defined within a PvDesign's AcTie-InPanel element, then its important to know if the panel being described already exists or is new (and therefore part of the scope of work).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="includedMeter" type="equipmentInstance">
@@ -621,28 +675,8 @@ in the AcPointOfConnection's EquipmentWhereConnected element.  That ElectricPane
                             <xs:documentation>The main service panel should have an AC system grounding conductor that runs from the grounding bus to the grounding electrode.  The grounding electrode is a ground rod, or U-fer, for example.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="subPanel" type="electricalPanel">
-                        <xs:annotation>
-                            <xs:documentation>An electrical distribution panel downstream from the parent panel.  It has the same data structure.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="electricalDistributionHierarchy">
-        <xs:annotation>
-            <xs:documentation>Describes a part of, or an entire electrical distribution system composed of one or more panels/load centers/fuse boxes in a hierarchical tree arrangement.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="electricalDistributionPanel" type="electricalPanel"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="BuildingID" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>Describes the building(s) that the electrical distribution system services.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="unbounded" name="electricalDistributionPanelDefinition"
-                type="electricalPanelDefinition"/>
-        </xs:sequence>
     </xs:complexType>
 </xs:schema>

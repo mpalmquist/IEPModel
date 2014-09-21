@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--**************************************************************************
-    schema: CommonSolar.xsd
-    Author(s):  Michael Palmquist (SolarNexus Inc), Shading elements defined by Mark Galli (Solmetric Corp)
-    Description: Schema includes elements common to defining solar electric or solar thermal systems. Includes elements that define solar exposure (orientation and shading), for example.
+    schema: CommonSolar.xsd v 2.0
+    Author(s):  
+    v 2.0 Michael Palmquist (SolarNexus Inc). Thanks to Derek Mitchell (Verdiseno) for design input.
+    v 1.x Michael Palmquist (SolarNexus Inc). Thanks to Mark Galli (Solmetric Corp) for design input.
+    Description: Schema contains the elements needed to define solar electric or solar thermal systems.
     **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
     targetNamespace="http://www.iepmodel.net" elementFormDefault="unqualified"
     attributeFormDefault="unqualified" version="1.0">
     <xs:include schemaLocation="Common.xsd"/>
+    <xs:include schemaLocation="CommonElectrical.xsd"/>
+    <xs:include schemaLocation="Building.xsd"/>
     <xs:complexType name="obstructionElevations">
         <xs:annotation>
             <xs:documentation>A description of the top of an obstruction relative to a define location.  At that location, the obstruction is in the direction define by Azimuth, and the top of that obstruction is at the elevation angle define by Elevation.</xs:documentation>
@@ -56,11 +60,21 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="basicSolarAccess">
+    <xs:complexType name="solarAccessPercentage">
         <xs:annotation>
-            <xs:documentation>Monthly solar access values. May also represent the an instance of a solar access measurement at a specific coordinate at which the measurement was taken. Typically the readings from a Solmetric SunEye or Solar Pathfinder.</xs:documentation>
+            <xs:documentation>Collection of solar access by percentage possible. May represent a solar access measurement at a specific coordinate at which the measurement was taken, or may be a summary for an entire area. May be measured using a tool like Solmetric SunEye or Solar Pathfinder, or may be simply estimated.</xs:documentation>
         </xs:annotation>
         <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element minOccurs="0" name="measurementSource" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Describes the source of the provided solar access percentages, for example: "user estimate", "Solmetric skyline", etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Use to describe the measurement. May be the name of a Solmetric Skyline, for example.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="solarAccessAnnual" type="xs:int" minOccurs="0" maxOccurs="1"
                 form="unqualified"/>
             <xs:element name="solarAccessJan" type="xs:int" minOccurs="0" maxOccurs="1"
@@ -99,19 +113,6 @@
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
-        <xs:attribute name="name" type="xs:string">
-            <xs:annotation>
-                <xs:documentation>Use to describe the measurement. May be the name of a Solmetric Skyline, for example.</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:complexType>
-    <xs:complexType name="basicSolarAccessMeasurements">
-        <xs:annotation>
-            <xs:documentation>A collection of basic solar access measurements.  For example, can be used to include basic solar access measurements of multiple points on a roof face, or solar array.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element maxOccurs="unbounded" name="basicSolarAccess" type="basicSolarAccess"/>
-        </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="trackingModeEnum">
         <xs:annotation>
@@ -158,6 +159,16 @@
             <xs:enumeration value="right"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:simpleType name="dcInputEnum">
+        <xs:annotation>
+            <xs:documentation>This is the set of possible dc circuit input types to a DC device (DC devices include combiners, and maxPowerPointTrackers).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="dcStringIndividual"/>
+            <xs:enumeration value="dcStringSet"/>
+            <xs:enumeration value="dcCombiner"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="mountingSystem">
         <xs:annotation>
             <xs:documentation>Describes the physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
@@ -174,14 +185,13 @@
                     <xs:documentation>Total number of attachment points for the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="maxSpacingBetweenAttachmentPoints" type="xs:double"
+            <xs:element minOccurs="0" name="maxAttachmentPointSpacing" type="xs:double"
                 form="unqualified">
                 <xs:annotation>
                     <xs:documentation>Given in feet, the maximum spacing allowed between attachment points. See product manual for maximum spacing allowed based on maximum design wind speed.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="totalWeightOfPanelsAndMountingSystem" type="xs:double"
-                form="unqualified">
+            <xs:element minOccurs="0" name="totalArrayWeight" type="xs:double" form="unqualified">
                 <xs:annotation>
                     <xs:documentation>Total weight in pounds (lbs) of the array's panels and its mounting structure components.</xs:documentation>
                 </xs:annotation>
@@ -201,6 +211,9 @@
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="inverterDefinition">
+        <xs:annotation>
+            <xs:documentation>Specifications of an inverter.</xs:documentation>
+        </xs:annotation>
         <xs:complexContent mixed="false">
             <xs:extension base="equipmentDefinition">
                 <xs:sequence>
@@ -220,12 +233,14 @@
                             <xs:documentation>The number of MPP Trackers within the inverter.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="minMpptVoltage" type="xs:double">
+                    <xs:element maxOccurs="1" minOccurs="0" name="inputMinMpptDcVoltage"
+                        type="xs:double">
                         <xs:annotation>
                             <xs:documentation>Lower end of the inverter's Maximum Power Point Tracker DC voltage window.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="maxMpptVoltage" type="xs:double">
+                    <xs:element maxOccurs="1" minOccurs="0" name="inputMaxMpptDcVoltage"
+                        type="xs:double">
                         <xs:annotation>
                             <xs:documentation>Higher end of the inverter's Maximum Power Point Tracker DC voltage window.</xs:documentation>
                         </xs:annotation>
@@ -447,13 +462,63 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="pvModuleDefinition">
+    <xs:complexType name="dcOptimizerDefinition">
         <xs:annotation>
-            <xs:documentation>Definition of a PV module.</xs:documentation>
+            <xs:documentation>Specifications of a dc optimizer.</xs:documentation>
         </xs:annotation>
         <xs:complexContent>
             <xs:extension base="equipmentDefinition">
                 <xs:sequence>
+                    <xs:element name="pvModuleInputs" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Quantity of PV modules that may be connected.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ratedPower" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>The rated power in watts for each pv module input.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="inputDcMaxVoltage" type="xs:decimal"/>
+                    <xs:element name="inputDcMaxCurrent" type="xs:decimal">
+                        <xs:annotation>
+                            <xs:documentation>The maximum DC current in amps per pv module input.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="inputDcMinMpptVoltage">
+                        <xs:annotation>
+                            <xs:documentation>Lower end of the optimizer's Maximum Power Point Tracker DC voltage window.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="inputMaxMpptDcVoltage">
+                        <xs:annotation>
+                            <xs:documentation>Higher end of the optimizer's Maximum Power Point Tracker DC voltage window.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="outputDcMaxVoltage" type="xs:decimal"/>
+                    <xs:element name="outputMaxDcCurrent" type="xs:decimal"/>
+                    <xs:element name="systemDcMaxVoltage" type="xs:int"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="pvModuleDefinition">
+        <xs:annotation>
+            <xs:documentation>Specifications of a PV module.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="equipmentDefinition">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="acpvModule" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is this an ACPV module sold as single unit with an integrated microInverter?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="integratedMicroInverterIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>If acpvModule = TRUE, this references the specifications for the integrated microInverter. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="pstc">
                         <xs:annotation>
                             <xs:documentation>Rated power output at Standard Test Conditions (stc).</xs:documentation>
@@ -1000,6 +1065,55 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="dcCombinerDefinition">
+        <xs:annotation>
+            <xs:documentation>Specification data defining a combiner.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="equipmentDefinition">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="acVoltageRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated AC voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="dcVoltageRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated DC voltage.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="maxContinuousCurrent" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Rating in amps.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="inputCircuitQuantity" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Max number of circuits on the input side.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ocpdMaxRating" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Maximum rated current (in Amps) of the over-current protection device (OCPD) per input circuit.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="inputMinConductorSize" type="wireGaugeEnum"/>
+                    <xs:element minOccurs="0" name="inputMaxConductorSize" type="wireGaugeEnum"/>
+                    <xs:element minOccurs="0" name="outputConductorQuantity" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>Max number of output conductors.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="outputMinConductorSize" type="wireGaugeEnum"/>
+                    <xs:element minOccurs="0" name="outputMaxConductorSize" type="wireGaugeEnum"/>
+                    <xs:element minOccurs="0" name="integratedDisconnectIncluded" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="integratedDisconnectRating" type="xs:integer"/>
+                    <xs:element minOccurs="0" name="monitoringAvailable" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="revenueGradeMonitoring" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
     <xs:complexType name="exclusionArea2dOrthoProjection">
         <xs:all>
             <xs:element maxOccurs="1" minOccurs="1" name="polygon2dSceneOrthoProjection"
@@ -1078,6 +1192,21 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="weatherData">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ExpectedHighTemperature" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Expected highest temperature in degrees Celcius at the system's location.  Used to evaluate equipment derating.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="ExpectedLowTemperature" type="xs:decimal">
+                <xs:annotation>
+                    <xs:documentation>Expected lowest temperature in degrees Celcius at the system's location.  Used to evaluate maximum system output.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="siteWeatherData" type="siteWeatherData"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType abstract="true" name="arrayInstallArea">
         <xs:annotation>
             <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
@@ -1098,8 +1227,7 @@
                     <xs:documentation>If a roof face, this is the slope, in degrees, of the roof face. Slope is not defined for ground areas because the array's structure is assumed to compensate for irregularities.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="solarAccessMeasurements"
-                type="basicSolarAccessMeasurements"> </xs:element>
+            <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"> </xs:element>
             <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
                     <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
@@ -1125,7 +1253,7 @@
             <xs:enumeration value="Yes (location TBD)"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="groundArea">
+    <xs:complexType name="groundArrayInstallArea">
         <xs:annotation>
             <xs:documentation>A description of the ground area of a site.  Helps describe areas that may be used for ground mount PV Systems.</xs:documentation>
         </xs:annotation>
@@ -1166,6 +1294,23 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="groundArrayInstallAreas">
+        <xs:annotation>
+            <xs:documentation>Collection of ground areas at the site that can be used for siting solar arrays.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="groundArrayInstallArea"
+                type="groundArrayInstallArea"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="roofArrayInstallAreas">
+        <xs:annotation>
+            <xs:documentation>Collection of roof Faces at the site that can be used for siting solar arrays.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="roofArrayInstallArea" maxOccurs="unbounded" type="roofFace"/>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="moduleLayout">
         <xs:sequence>
             <xs:element minOccurs="0" name="setbacks">
@@ -1200,9 +1345,14 @@
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
-        <xs:attribute name="arrayInstallAreaIdRef" type="xs:IDREF">
+        <xs:attribute name="roofArrayInstallAreaIdRef" type="xs:IDREF">
             <xs:annotation>
-                <xs:documentation>The arrayInstallArea (either a roofFace or groundArea) on which this module layout is located.</xs:documentation>
+                <xs:documentation>If the array is located on a defined roof face installArea, then this refers to that RoofFace element in the XML doc.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="groundArrayInstallAreaIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>If the array is located on a defined ground installArea, then this refers to that groundArea element in the XML doc.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
@@ -1216,45 +1366,308 @@
             <xs:element maxOccurs="4" minOccurs="4" name="moduleCorner" type="point3d"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="pvModuleInstance">
+    <xs:complexType name="pvModule">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="sourceCircuitIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>If defined, this refers to the dcString or acPvBranchCircuit that the pvModule is a member of.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="pvArrayIdRef" type="xs:IDREF"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="dcOptimizer">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="sourceCircuitIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>If defined, this refers to the dcString that this dcOptimizer is a member of.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="dcInputs">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="dcInput">
+                <xs:complexType>
+                    <xs:attribute name="id"/>
+                    <xs:attribute name="dcInputType" type="dcInputEnum">
+                        <xs:annotation>
+                            <xs:documentation>Calls out the type of dcInput circuit this is. Either a dcString or dcCombiner.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="dcInputIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>Reference ID within the XML document instance of the dcInput Circuit (either a dcString or a dcCombiner, which is called out in dcInputCircuitType attribute).</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dcStringSet">
         <xs:annotation>
-            <xs:documentation>Represents an instance of an individual module contained in the design.</xs:documentation>
+            <xs:documentation>A simplified description of a set of identical strings of DC PV modules connected in series. All strings in the set are identical so a single description of attributes is used for all of them for brevity. 
+
+Note that a separate dcStringIndividual type allows more detailed defintion of a single string, including a name and a set of individual PV modules that make up the string.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="modulesPerString" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Number of modules in this string.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="strings" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Number of copies of this defined string. ISSUE: then string cannot have list of individual modules. I suppose this same element could be used either way.  OR create two separate elements - one for use as a single string with module instances, and another that has no notion of individual module instances.  Need to run this by Derek.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="typicalCircuitConnection" type="circuitConnection">
+                <xs:annotation>
+                    <xs:documentation>Represents the wired connection from the string to its parent element (for example, a Combiner or InverterInput).
+
+Arrays can be made up of many strings. Each string has its own circuit connection.  Because the strings in any one array are almost always connected to their parent element in a common way, this typicalCircuitConnection element defines the commonly used connection approach from any one of the strings to the parent element (a combiner, or inverter).
+
+If circuit connections vary between strings, this element should not be used.  Instead, use the individualString element which contains its own circuitConnection element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="sourceCircuitMember">
+        <xs:annotation>
+            <xs:documentation>Describes the individual equipment members in a source circuit. For dcStrings it is a specific pvModule, or dcOptimizer + pvModule instance(s). For acPvBranchCircuits, it is the microInverter and pvModule(s) attached to it.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice minOccurs="0">
+                <xs:element minOccurs="0" name="dcOptimizerIdRef"/>
+                <xs:element minOccurs="0" name="microInverterIdRef"/>
+            </xs:choice>
+            <xs:element name="pvModules">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="pvModuleIdRef"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="sourceCircuitMembers">
+        <xs:sequence>
+            <xs:element name="sourceCircuitMember" type="sourceCircuitMember"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dcString">
+        <xs:annotation>
+            <xs:documentation>A detailed defintion of a single string of PV modules connected in series that output DC electricity. dcStrings are suitable for use with string or central inverter system architectures.
+
+Can optionally include detailed information on each individual string, including name, circuit connection, and the ability to associate individual array modules to membership in individual strings.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>A unique identifier for the string. For example "S1."</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pvModuleQuantity" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Number of modules in this string.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="dcOptimizerQuantity" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>Number of dcOptimizers (if used) in this string. Note that some dcOptimizers allow one or two modules per unit, so number of modules and dc optimizers can vary.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>Represents the wired connection from the string to its next upstream component (for example, a Junction Box, a Combiner, or Inverter).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="sourceCircuitMembers" type="sourceCircuitMembers">
+                <xs:annotation>
+                    <xs:documentation>Collection of individual dcOptimizer (if used) and pvModule instances that are members of this string. Provides mapping to individual instances of modules, or DC optimizer + module combinations that are are members of this string.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="dcOptimizerDefinitionIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>If separate dc optimizers are used in this string, this refers to the equipment defintion containing its specs.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="dcCombiner">
+        <xs:annotation>
+            <xs:documentation>A DcCombiner only combines DC inputs.  AC circuits can be combined using an AcElectricalPanel type element.
+
+The EquipmentDefinitionRefID for the DcCombiner references the ID of the associated CombinerDefinition.</xs:documentation>
         </xs:annotation>
         <xs:complexContent>
             <xs:extension base="equipmentInstance">
                 <xs:sequence>
-                    <xs:element minOccurs="0" name="locationOnPlane" type="point3d">
+                    <xs:element name="outputCircuit" type="xs:IDREF">
                         <xs:annotation>
-                            <xs:documentation>X, Y, and Z coordinates of the center of the module relative to the LayoutPlane's origin.</xs:documentation>
+                            <xs:documentation>Reference to the output circuitConnection from this Combiner to its parent (inverter or sub-combiner).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="powerOptimizerDescription" type="xs:string">
+                    <xs:element name="dcInputCircuits" type="dcInputs">
                         <xs:annotation>
-                            <xs:documentation>If a module level power optimizer is used on this module, this field is a description of which technology is used.</xs:documentation>
+                            <xs:documentation>Collection of DC input source circuits.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="individualModuleOrientation"
-                        type="panelOrientationEnum">
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="dcInputSummary">
+        <xs:annotation>
+            <xs:documentation>A summary of the total PV source inputs (modules and strings) being fed into the string inverter. This summary excludes any notion of circuit connections, combiners, etc. It only accounts for the source circuit strings that are eventually fed into a specific inverter. Use this element when no circuit connections are defined.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="modules" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Total quantity of modules feeding the inverter.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="strings" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="dcStringSet" type="dcStringSet">
+                            <xs:annotation>
+                                <xs:documentation>In most cases, there will be a single string set because all strings have the same number of modules. However, a separate stringSet can be created for each set of strings of a given number of modules.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="acPvBranchCircuit">
+        <xs:annotation>
+            <xs:documentation>An AC Branch circuit is a quantity of AC Modules connected in series.
+
+The AC Branch Circuit defintion assumes that all AC modules in the circuit share the same PvModule and Inverter Definitions.  Although micro-inverter technology allows an AC Branch to contain different makes and models in series, this is a highly unusual use case not supported by this schema.  Such a case would typically come about in a remove and replace scenario well after the project was implemented.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element name="usesAcpvModules" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Describes whether the branch circuit is composed of ACPV modules, or separate individual micro-inverters and PV modules. An ACPV module is a single unit where the micro-inverter has been integrated into the PV Module. In case of ACPV modules, there are no separate micro-inverter instances.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pvModuleQuantity" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>The number of individual pvModules in the AC PV branch circuit. 
+
+NOTE: An AC PV branch circuit may be composed of
+1) ACPV modules (a single integrated micro-inverter and PV module unit), OR 2) independent PV modules paired with separate micro-inverters. In case of separate modules and micro-inverters, the micro-inverter may accept more than one PV module per inverter, reducing the number of micro-inverters.  </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="microInverterQuantity" type="xs:int"/>
+            <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>References the electrical wiring that the acPvBranchCircuit feeds into. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="sourceCircuitMembers" type="sourceCircuitMembers">
+                <xs:annotation>
+                    <xs:documentation>Collection of individual microInverter and pvModule instances that are members of this acPvBranchCircuit.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+        <xs:attribute name="microInverterDefinitionIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>If all the modules in the AC PV branch circuit share the same microinverter, then use this attribute to contain the ID of its Equipment Definition.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="maxPowerPointTracker">
+        <xs:annotation>
+            <xs:documentation>PPT in an inverter.  An inverter may have more than one PPT.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element name="dcInputs" type="dcInputs"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="stringInverter">
+        <xs:annotation>
+            <xs:documentation>Defines a specific instance of a string inverter in a PvSystem that converts DC electricity to AC.  Includes all the possible DC inputs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="dcInputSummary" type="dcInputSummary">
                         <xs:annotation>
-                            <xs:documentation>The orientation of the rectangular module if it differs from that defined by the CommonModuleOrientation value for its array.</xs:documentation>
+                            <xs:documentation>Summary of PV module source circuit strings.  Use this element to describe the total inputs to the inverter when no circuit connections are defined.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="effectiveIndividualModuleTilt" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>A measure in degrees of the angle that this module makes with  from the horizon, if different from that defined by the SolarResource element for the array.</xs:documentation>
-                        </xs:annotation>
+                    <xs:element minOccurs="0" name="maxPowerPointTrackers">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="maxPowerPointTracker"
+                                    type="maxPowerPointTracker">
+                                    <xs:annotation>
+                                        <xs:documentation>Maximum power point tracker (MPPT) in an inverter.  An inverter may have more than one MPPT.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
                     </xs:element>
-                    <xs:element minOccurs="0" name="individualModuleTiltEdge"
-                        type="panelTiltEdgeEnum">
+                    <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
                         <xs:annotation>
-                            <xs:documentation>The tilt edge of the module if it differs from that defined by the CommonModuleTiltEdge value for its array.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="IndividualModuleStandoff" type="xs:string">
-                        <xs:annotation>
-                            <xs:documentation>Standoff describes the average spacing from the back of the modules to the installation surface (e.g. roof or ground).  
+                            <xs:documentation>The outputCircuit element references the AC side of the DC to AC Inverter.  It uses the common design pattern of each electrical equipment instance having a single circuitConnection element that describes its electrical connection to upstream electrical equipment (for example, electricalPanels, etc).  
                                 
-                                Use IndividualModuleStandoff only if it differs from the CommonModuleStandoff defined for the array.</xs:documentation>
+It relies on its optional equipmentWhereConnectedIdRef attribute to describe the upstream equipment instance to which it is connected. For string inverters, the equipmentWhereConnectedIdRef attribute should reference the electricalPanel element that represents the electrical panel where the Inverter will be (or already is) connected.
+                                
+If the PvDesign is used independently (a PvDesign document) then the equipmentWhereConnectedIdRef attribute should reference an electricalPanel element within the PvDesign element. The referenced electricalPanel can represent an existing electrical panel on the site, or a new panel (perhaps serving as an AC Combiner).
+                                
+If the PvDesign is used within a Project.xml document, and the PvDesign calls for the connection of the Inverter to an existing ElectricalPanel, the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel element within the ExistingElectricalDistributionHierarchy element of the Site.  If the PvDesign calls for the inverter to connect to a new ElectricPanel, then the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel instance within the PvDesign itself.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="dcGroundingElectrodeConductor"
+                        type="groundingElectrodeConductor">
+                        <xs:annotation>
+                            <xs:documentation>The conductor that grounds the DC system. NEC 690.47C calls out acceptable ways to install DC grounding electrode conductors.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="integratedDcCombinerInUse" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>This indicates whether the system is using the inverter's integrated disconnect switch, rather than whether the inverter has one. The InverterDefintion describes whether the inverter has one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="integratedDcDisconnectInUse" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>This indicates whether the system is using the inverter's integrated disconnect switch, rather than whether the inverter has one. The InverterDefintion describes whether the inverter has one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="integratedAcDisconnectInUse" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>This indicates whether the system is using the inverter's integrated disconnect switch, rather than whether the inverter has one. The InverterDefintion describes whether the inverter has one.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="microInverter">
+        <xs:annotation>
+            <xs:documentation>Defines a specific instance of a microInverter in a PvSystem that converts DC electricity to AC.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="sourceCircuitMembershipIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>References the AC branch circuit that this microInverter instance is a member of.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                 </xs:sequence>
@@ -1268,13 +1681,7 @@ The PvArrayType serves as a base type for either StringPvArray or AcModulePvArra
 Rather than define a specific array configuration using a specific PV module make and model, the GenericPvArray element allows an array to be defined simply as a total DC power output. The PvArray Base Type provides all the orientation, derate, and solar access parameters necessary to evaluate this "generic" array using a tool like NREL's PVWatts.  The GenericPvArray element is useful for feasibility studies where specific designs are not required.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element minOccurs="0" name="id" type="xs:ID"/>
             <xs:element minOccurs="0" name="name" type="xs:string"/>
-            <xs:element minOccurs="0" name="pvModuleDefinitionIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>ID of the PvModuleDefinition within the PvSystem instance.  The PvModuleDefintion describes the make and model of the PV module. The PvArray is assumed to use the same module for the entire array.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
             <xs:element minOccurs="0" name="moduleQuantity" type="xs:int"/>
             <xs:element minOccurs="0" name="dcRating" type="xs:integer">
                 <xs:annotation>
@@ -1304,48 +1711,35 @@ If an individual module has an orientation different from the common value, that
             <xs:element maxOccurs="1" minOccurs="0" name="commonModuleTiltEdge"
                 type="panelTiltEdgeEnum">
                 <xs:annotation>
-                    <xs:documentation>This defines the module edge on which the tilt relative to the array's RoofFace (if given) azimuth occurs.  For example, a "top" edge tilt is routinely used on a north roof to tilt the module to face south (aka "reverse tilt"). "Bottom edge" is the edge toward the azimuth direction of the roofFace.
-
-If an individual module has a tilt edge different from the common value, that tilt edge can be called out in that particular module's detail element.  That value can override the common value provided here.</xs:documentation>
+                    <xs:documentation>This defines the module edge on which the tilt relative to the array's RoofFace (if given) azimuth occurs.  For example, a "top" edge tilt is routinely used on a north roof to tilt the module to face south (aka "reverse tilt"). "Bottom edge" is the edge toward the azimuth direction of the roofFace.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="basicSolarAccess" type="basicSolarAccess"
-                maxOccurs="unbounded">
+            <xs:element minOccurs="0" name="solarAccess">
                 <xs:annotation>
-                    <xs:documentation>Each instance can support a separate point at which it is measured. The point is optional. A single instance can represent the average for the array.</xs:documentation>
+                    <xs:documentation>A collection of solar access measurements.  For example, can be used to include basic solar access measurements of multiple points on a roof face, or solar array.</xs:documentation>
                 </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="solarAccessPercentage"
+                            type="solarAccessPercentage" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Each instance can support a separate point at which it is measured. The point is optional. A single instance can represent the average for the array.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" name="mountingSystem" type="mountingSystem">
                 <xs:annotation>
                     <xs:documentation>Contains information necessary for Permitting using the Solar ABCs expedited permit process.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="roofFaceIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>If the array is roof mounted and a roofFace is defined, this references the roofFace.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="moduleInstance"
-                type="pvModuleInstance">
-                <xs:annotation>
-                    <xs:documentation>A single module of the array. Holds the individual properties of the module.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
         </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="weatherData">
-        <xs:sequence>
-            <xs:element minOccurs="0" name="ExpectedHighTemperature" type="xs:decimal">
-                <xs:annotation>
-                    <xs:documentation>Expected highest temperature in degrees Celcius at the system's location.  Used to evaluate equipment derating.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="ExpectedLowTemperature" type="xs:decimal">
-                <xs:annotation>
-                    <xs:documentation>Expected lowest temperature in degrees Celcius at the system's location.  Used to evaluate maximum system output.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="siteWeatherData" type="siteWeatherData"/>
-        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="pvModuleDefinitionIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>ID of the PvModuleDefinition within the PvSystem instance.  The PvModuleDefintion describes the make and model of the PV module. The PvArray is assumed to use the same module for the entire array.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 </xs:schema>

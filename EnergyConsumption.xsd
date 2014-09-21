@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!--**************************************************************************
-	schema: EnergyConsumption.xsd
-	Primary Author:  Michael Palmquist, SolarNexus Inc
-	Contributors: Devan Johnson, kW Engineering; Paul Cobb, SaveEnergy123
+	schema: EnergyConsumption.xsd v 2.0
+	Author(s):
+	2.0 Michael Palmquist, SolarNexus Inc
+	1.x Michael Palmquist, SolarNexus Inc, with contributors: Devan Johnson, kW Engineering; Paul Cobb, SaveEnergy123
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
 	xmlns="http://www.iepmodel.net">

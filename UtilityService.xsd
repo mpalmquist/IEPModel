@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <!--**************************************************************************
-	schema: UtilityService.xsd
-	Primary Author:  Michael Palmquist, SolarNexus Inc
+	schema: UtilityService.xsd v 2.0
+	Author(s):
+	v 2.0  Michael Palmquist, SolarNexus Inc
+	v 1.x  Michael Palmquist, SolarNexus Inc
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
 	xmlns="http://www.iepmodel.net">

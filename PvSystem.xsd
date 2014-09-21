@@ -1,310 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--**************************************************************************
-    schema: PvDesign.xsd
-    Author: Michael Palmquist (SolarNexus Inc)
-    Input From: Mark Galli (Solmetric Corporation)
-    Description: This schema contains elements which can be used for a number of purposes.
-    The PvSystem element has a number of possible uses:
-    1) It can provide detailed specifications of key electrical equipment, including PV modules, combiners, disconnects, inverters, and AC electrical panels where interconnection occurs.
-    2) It can also be used to define a physical 3D layout of modules on one or more roof surfaces.
-    3) It can be used to transfer system descriptions between software used to estimate system output. Full shading information is also available for inclusion in analyses.
-    4) It can be used to completely define a PV system to a level of detail sufficient for creating a single line electrical diagram used for permitting.
-    There are probably many other potential uses.
-    
-    Use the GenericPVArray element to describe a very simple, generic PV System. It mimics the data set required to run a PVWatts simulation. It does not require any specific equipment to be defined.
-    
-    Using the PvSystem element, one can completely define a string or micro-inverter based system.  Details for defining each can be found within the annotations of each element.
+    schema: PvDesign.xsd v 2.0
+    Author(s):
+    v 2.0 Michael Palmquist (SolarNexus Inc). Input From: Derek Mitchell (Verdiseno, SolarDesignTool.com)
+    v 1.x Michael Palmquist (SolarNexus Inc). Input From: Mark Galli (Solmetric)
+    Description: This schema defines complete PV systems. It is modular. It can define any system architiecture at
+    various levels of detail.
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
     targetNamespace="http://www.iepmodel.net">
     <xs:include schemaLocation="Common.xsd"/>
     <xs:include schemaLocation="CommonElectrical.xsd"/>
     <xs:include schemaLocation="CommonSolar.xsd"/>
-    <xs:include schemaLocation="EnergyConsumption.xsd"/>
-    <xs:element name="photovoltaicSystem" type="pvSystem">
-        <xs:annotation>
-            <xs:documentation>Root element of a PV system definition.</xs:documentation>
-        </xs:annotation>
-    </xs:element>
-    <xs:complexType name="dcCombinerDefinition">
-        <xs:annotation>
-            <xs:documentation>Specification data defining a combiner.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="equipmentDefinition">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="acVoltageRating" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Maximum rated AC voltage.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="dcVoltageRating" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Maximum rated DC voltage.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="maxContinuousCurrent" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Rating in amps.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element name="qtyInputCircuits" minOccurs="0" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Max number of circuits on the input side.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="maxOcpdRating" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Maximum rated current (in Amps) of the over-current protection device (OCPD) per input circuit.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="minInputConductorSize" type="conductorSizeEnum"/>
-                    <xs:element minOccurs="0" name="maxInputConductorSize" type="conductorSizeEnum"/>
-                    <xs:element name="qtyOutputConductors" minOccurs="0" type="xs:integer">
-                        <xs:annotation>
-                            <xs:documentation>Max number of output conductors.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="minOutputConductorSize" type="conductorSizeEnum"/>
-                    <xs:element minOccurs="0" name="maxOutputConductorSize" type="conductorSizeEnum"/>
-                    <xs:element minOccurs="0" name="integratedDisconnectIncluded" type="xs:boolean"/>
-                    <xs:element minOccurs="0" name="integratedDisconnectRating" type="xs:integer"/>
-                    <xs:element minOccurs="0" name="monitoringAvailable" type="xs:boolean"/>
-                    <xs:element minOccurs="0" name="revenueGradeMonitoring" type="xs:boolean"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="individualStringModule">
-        <xs:sequence>
-            <xs:element minOccurs="0" name="name" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Name given to a module in a specific string, for example, "S1-M1" or simply "1" of the total number of modules in the string. Typically named in a series.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="individualModuleRefId" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>If the PvArray is defined with IndividualModule elements, this element can be used to link a specific module in a string to its specific IndividualModule in a PvArray. This enables a link between the electrical connection to its physical layout defined in the PvArray.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:simpleType name="dcInputCircuitEnum">
-        <xs:annotation>
-            <xs:documentation>This is the set of possible dc circuit input types to a DC device (DC devices include combiners, and maxPowerPointTrackers).</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="dcString"/>
-            <xs:enumeration value="dcStringSet"/>
-            <xs:enumeration value="dcCombiner"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:complexType name="dcInputCircuits">
-        <xs:sequence>
-            <xs:element maxOccurs="unbounded" name="dcInputCircuit">
-                <xs:complexType>
-                    <xs:attribute name="id"/>
-                    <xs:attribute name="dcInputCircuitType" type="dcInputCircuitEnum"/>
-                    <xs:attribute name="dcInputCircuitIdRef" type="xs:IDREF"/>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="dcString">
-        <xs:annotation>
-            <xs:documentation>A string of PV modules connected in series that output DC electricity.
-
-dcStrings are suitable for use with string or central inverter system architectures.
-
-Can optionally include detailed information on each individual string. Allows ability to associate individual array modules to membership in individual strings.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="name" minOccurs="0" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>A unique identifier for the string. For example "S1."</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="moduleQuantity" type="xs:integer">
-                <xs:annotation>
-                    <xs:documentation>Number of modules in this string.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="circuitConnection" type="circuitConnection" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Represents the wired connection from the string to its parent element (for example, a Combiner or InverterInput).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="pvModules">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1"
-                            name="individualStringModule" type="individualStringModule"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="dcStringSet">
-        <xs:annotation>
-            <xs:documentation>A simplified description of a set of identical strings of DC PV modules connected in series. All strings in the set are identical so a single description of attributes is used for all of them for brevity. </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="stringQuantity" type="xs:integer" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Number of strings in this array.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="modulesPerString" type="xs:integer" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Quantity of modules in a single series string.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="typicalStringConnection" minOccurs="0" type="circuitConnection">
-                <xs:annotation>
-                    <xs:documentation>Arrays can be made up of many strings. Each string has its own circuit connection.  Because the strings in any one array are almost always connected to their parent element in a common way, this TypicalCircuitConnection element defines the commonly used connection approach from any one of the strings to the parent element (a combiner, or inverter).
-
-If circuit connections vary between strings, this element should not be used.  Instead, use the IndividualString element which contains its own CircuitConnection element.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="splitString" type="partialSourceCircuit"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="partialSourceCircuit">
-        <xs:annotation>
-            <xs:documentation>A Source Circuit is either a PvString, or an AcBranchCircuit. A PvArray may not have an even number of strings, or a branch circuit may be split across two physical arrays.  This type allows a partial source circuit (string or AC branch circuit) to be included within one array, noting how many modules of the total circuit length are in this array, and setting a reference to another array where the remainder of the circuit is included.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="qtyOfModulesInPartialCircuit" type="xs:integer">
-                <xs:annotation>
-                    <xs:documentation>Number of modules of the partial source circuit present on this array.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="arrayHoldingRemainderOfCircuit" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>Reference ID of the other array containing the remaining modules of the partial circuit.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="dcCombiner">
-        <xs:annotation>
-            <xs:documentation>A DcCombiner only combines DC inputs.  AC circuits can be combined using an AcElectricalPanel type element.
-
-The EquipmentDefinitionRefID for the DcCombiner references the ID of the associated CombinerDefinition.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="equipmentInstance">
-                <xs:sequence>
-                    <xs:element name="outputCircuit" type="circuitConnection">
-                        <xs:annotation>
-                            <xs:documentation>Output from the Combiner to its parent (inverter or sub-combiner).</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element name="dcInputCircuits" type="dcInputCircuits">
-                        <xs:annotation>
-                            <xs:documentation>Collection of DC input source circuits.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="maxPowerPointTracker">
-        <xs:annotation>
-            <xs:documentation>PPT in an inverter.  An inverter may have more than one PPT.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="name" minOccurs="0" type="xs:string"/>
-            <xs:element name="dcInputCircuits" type="dcInputCircuits"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="stringInverter">
-        <xs:annotation>
-            <xs:documentation>Defines an inverter that converts DC electricity to AC.  Includes all the possible DC inputs.  Works well for modeling string based inverters.  
-
-Micro-inverters are modeled by defining a single PPT with a single IndividualCircuitInput for the module feeding it. To define an AC Branch Circuit, use the AcTie-InCircuitConnection element to refer to the next inverter in the series circuit.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="equipmentInstance">
-                <xs:sequence>
-                    <xs:element name="maxPowerPointTrackers">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element maxOccurs="unbounded" name="maxPowerPointTracker"
-                                    type="maxPowerPointTracker">
-                                    <xs:annotation>
-                                        <xs:documentation>Maximum power point tracker (MPPT) in an inverter.  An inverter may have more than one MPPT.</xs:documentation>
-                                    </xs:annotation>
-                                </xs:element>
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="acTieInCircuitConnection" type="circuitConnection"
-                        minOccurs="0">
-                        <xs:annotation>
-                            <xs:documentation>The AcTie-InCircuitConnection element describes the AC side of the DC to AC Inverter.  It uses the common design pattern of each electrical equipment instance having a single CircuitConnection element that describes its electrical connection to upstream electrical equipment (for example, Combiners, ElectricalPanels, etc).  
-                                
-                                However, Inverters do not have a parent element to which the CircuitConnection refers. Instead, it relies on its optional EquipmentWhereConnectedIdRef attribute to describe the EquipmentInstance to which it is connected. For string inverters, the EquipmentWhereConnectedIdRef attribute should reference the ElectricalPanel element that represents the electrical panel where the Inverter will be (or already is) connected. In micro-inverter case, the EquipmentWhereConnectedIdRef attribute should reference the ID of the next micro-inverter in the circuit. The last inverter in the circuit will reference the electrical panel where interconnected.
-                                
-                                If the PvDesign is used independently (a PvDesign document) then the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel element within the PvDesign element. The referenced ElectricalPanel can represent an existing electrical panel on the site, or a new panel (perhaps serving as an AC Combiner).
-                                
-                                If the PvDesign is used within a Project.xml document, and the PvDesign calls for the connection of the Inverter to an existing ElectricalPanel, the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel element within the ExistingElectricalDistributionHierarchy element of the Site.  If the PvDesign calls for the inverter to connect to a new ElectricPanel, then the EquipmentWhereConnectedIdRef attribute should reference an ElectricalPanel instance within the PvDesign itself.
-                                
-                                NOTE: If an external AC Disconnect Switch is required, it is a part of this CircuitConnection's WirewaySegments.  One segment can be a disconnect type.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element minOccurs="0" name="dcGroundingElectrodeConductor"
-                        type="groundingElectrodeConductor">
-                        <xs:annotation>
-                            <xs:documentation>The conductor that grounds the DC system. NEC 690.47C calls out acceptable ways to install DC grounding electrode conductors.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="acPvBranchCircuit">
-        <xs:annotation>
-            <xs:documentation>An AC Branch circuit is a quantity of AC Modules connected in series.
-
-The AC Branch Circuit defintion assumes that all AC modules in the circuit share the same PvModule and Inverter Definitions.  Although micro-inverter technology allows an AC Branch to contain different makes and models in series, this is a highly unusual use case not supported by this schema.  Such a case would typically come about in a remove and replace scenario well after the project was implemented.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="name" type="xs:string" minOccurs="0"/>
-            <xs:element minOccurs="0" name="commonMicroInverterDefinitionIdRef" type="xs:IDREF">
-                <xs:annotation>
-                    <xs:documentation>If all the modules in the AC PV branch circuit share the same microinverter, then use this element to contain the ID of its Equipment Definition.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="acModuleQuantity" type="xs:int">
-                <xs:annotation>
-                    <xs:documentation>The number of AC modules tied in series. 
-
-NOTE: An AC Module is assumed to be either:
-1) an integrated micro-inverter and PV module, OR 2) an independent PV module and micro-inverter pair.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="acTieInCircuitConnection" type="circuitConnection" minOccurs="0"/>
-            <xs:element minOccurs="0" name="partialAcPvBranchCircuit" type="partialSourceCircuit">
-                <xs:annotation>
-                    <xs:documentation>When defining the AC PV Branch Circuits included in the AcPvBranchCircuitPvArray element, the PvArray may not always have an even number of circuits.  This type allows a partial branch circuit to be included in an array, noting how many modules of the total circuit length are in this array, and setting a reference to another array where the remainder of the branch circuit is included.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="microInverters">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1"
-                            name="individualMicroInverter" type="equipmentInstance"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="CommonMicroInverterDefinitionIdRef">
-            <xs:annotation>
-                <xs:documentation>If all the modules in the AC PV branch circuit share the same microinverter, then use this attribute to contain the ID of its Equipment Definition.</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:complexType>
     <xs:complexType name="pvSystem">
         <xs:annotation>
             <xs:documentation>Description of a PV System Design.</xs:documentation>
@@ -354,6 +61,14 @@ NOTE: An AC Module is assumed to be either:
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="dcOptimizerDefinitions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="dcOptimizerDefinition"
+                            type="dcOptimizerDefinition"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="dcCombinerDefinitions">
                 <xs:annotation>
                     <xs:documentation>A collection of the specifications of each DC Combiner make/model used in the PV system.</xs:documentation>
@@ -362,6 +77,14 @@ NOTE: An AC Module is assumed to be either:
                     <xs:sequence>
                         <xs:element maxOccurs="unbounded" minOccurs="1" name="dcCombinerDefinition"
                             type="dcCombinerDefinition"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="circuitBreakerDefinitions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="circuitBreakerDefintion"
+                            type="circuitBreakerDefinition"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -393,11 +116,53 @@ NOTE: An AC Module is assumed to be either:
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="moduleLayouts">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="moduleLayout" type="moduleLayout"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="pvArrays">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element maxOccurs="unbounded" minOccurs="1" name="pvArray"
                             type="pvArray"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="pvModules">
+                <xs:annotation>
+                    <xs:documentation>A collection of individual PV Modules in the system.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="pvModule" type="pvModule">
+                            <xs:annotation>
+                                <xs:documentation>A specific instance of a PV module in the system.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="dcOptimizers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="dcOptimizer" type="dcOptimizer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="microInverters">
+                <xs:annotation>
+                    <xs:documentation>A collection of the individual micro inverter instances in the system.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="microInverter" type="microInverter">
+                            <xs:annotation>
+                                <xs:documentation>A specific instance of a micro-inverter in the PV system.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -462,27 +227,58 @@ NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy elemen
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="junctionBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionBox"
+                            type="junctionBox">
+                            <xs:annotation>
+                                <xs:documentation>A junction box used in this design. circuitConnections may start/end at a junctionBox, or they may pass through. Multiple circuitConnections may pass through a junctionBox.
+Note that if the pvSystem is used in an IEPM Project file, the junctionBox does not reference any existingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="disconnectBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="disconnectBox" type="disconnectBox">
+                            <xs:annotation>
+                                <xs:documentation>A standalone disconnect box used in the design. circuitConnections may start/end at the disconnect switch, or they may pass through.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="meterBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="meterBox" type="meterBox"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="conduitSegments">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="conduitSegment" type="conduitSegment" minOccurs="1"
                             maxOccurs="unbounded">
                             <xs:annotation>
-                                <xs:documentation>A conduit segment used in this design.  Note that if the PvSystem is used in an IEPM Project file, this Wireway Segment does not reference any ExistingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition. </xs:documentation>
+                                <xs:documentation>A conduit segment used in this design.  circuitConnections pass through conduit segments. Multiple circuitConnections may share a conduitSegment.
+Note that if the PvSystem is used in an IEPM Project file, this conduitSegment does not reference any existingConduitSegments or proposedConduitSegments defined in the Site element.  Those elements are used for site survey data collection, not system definition. </xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="wirewayBoxes">
+            <xs:element minOccurs="0" name="circuitConnections">
+                <xs:annotation>
+                    <xs:documentation>A collection of the circuit connections between each of the various PV system components.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="wirewayBox"
-                            type="wirewayBox">
-                            <xs:annotation>
-                                <xs:documentation>A wireway boxes used in this design.  Note that if the PvSystem is used in an IEPM Project file, the WirewayBox does not reference any ExistingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
+                        <xs:element maxOccurs="unbounded" name="circuitConnection"
+                            type="circuitConnection"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -494,4 +290,23 @@ NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy elemen
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID" use="optional"/>
     </xs:complexType>
+    <xs:element name="pvSystem" type="pvSystem"/>
+    <xs:complexType name="pvSystemsWithArrayInstallAreas">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="roofArrayInstallAreas" type="roofArrayInstallAreas"/>
+            <xs:element minOccurs="0" name="groundArrayInstallAreas" type="groundArrayInstallAreas"/>
+            <xs:element name="pvSystems">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="pvSystem" type="pvSystem"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="pvSystemsWithArrayInstallAreas" type="pvSystemsWithArrayInstallAreas">
+        <xs:annotation>
+            <xs:documentation>Use when describing one or more PV systems that refer to specifically defined array install areas, for example, if array layouts are included.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
 </xs:schema>

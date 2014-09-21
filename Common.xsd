@@ -1,17 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--**************************************************************************
+	schema: Common.xsd v 2.0
+	Author(s):
+	v 2.0 Michael Palmquist (SolarNexus Inc)
+	v 1.x Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
+	Description: Schema defines a set of object types that are re-used across the set of IEP Model schemas.
+	**************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
     elementFormDefault="unqualified" targetNamespace="http://www.iepmodel.net"
     attributeFormDefault="unqualified" version="1.0">
-    <xs:annotation>
-        <xs:documentation>The purpose of this schema is to define a set of types and quantities that are frequently used by other schema and can be referenced in a consistent manner.  
-
-Each object is a ComplexType that includes a Value attribute and a Units attribute, which refers to an associated enumeration of units of measurement.
-
-Some objects have additional attributes that are useful for specifying additional information relevant to the value of the quantity (such as test conditions).
-
-The purpose of these classes/objects is not to indicate the way a quantity is used, but rather the value and unit of measurement of that quantity.
-
-The naming of the element or attribute, which is of a "CommonQuantities" type is the way in which we should indicate the manner in which the quantity is use</xs:documentation>
-    </xs:annotation>
     <xs:complexType name="dataOriginator">
         <xs:annotation>
             <xs:documentation>This is used to keep track from where the data was obtained.</xs:documentation>
@@ -140,14 +137,6 @@ Note that if there are more than one street address, the model forces these to b
                     <xs:documentation>Does the site have, or can get broadband internet? Dial-up only probably won't work.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="groundAreas">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="groundArea"
-                            type="groundArea"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
             <xs:element maxOccurs="1" minOccurs="0" name="weather" type="siteWeatherData"/>
             <xs:element maxOccurs="1" minOccurs="0" name="existingGenerationCapability"
                 type="xs:boolean">
@@ -159,11 +148,6 @@ Note that if there are more than one street address, the model forces these to b
                 type="xs:string">
                 <xs:annotation>
                     <xs:documentation>If site has existing generation, describe the technology. Required for CSI Rebate Reservation.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element maxOccurs="1" minOccurs="0" name="solarDHWExists" type="xs:boolean">
-                <xs:annotation>
-                    <xs:documentation>Site has existing Solar DHW system.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element maxOccurs="1" minOccurs="0" name="notes" type="xs:string"/>
@@ -1578,7 +1562,7 @@ Use the Name attribute to capture optional name for the payment. For example, if
                     <xs:documentation>How the benefit was calculated, either Estimated, Measured, or Incentive</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="DeterminationSource" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:element name="determinationSource" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Tool used to calculate the benefit.</xs:documentation>
                 </xs:annotation>
@@ -1832,6 +1816,7 @@ Included in Common.xsd because EquipmentDefinitionType element uses it, else wou
             <xs:documentation>A place where equipment can be located on the site or within the building. Can be used to capture site survey data before any systems are designed, and can be used to specify where specific proposed equipment will be placed during implementation. Note, it can be used to describe an existing equipment location in cases of remove and replace scenarios.</xs:documentation>
         </xs:annotation>
         <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element minOccurs="0" name="name"/>
             <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Detailed description of the location. Use to provide detail that can assist a user in identifying the precise location on a site, access information, etc. Typically use room names, compass directions, etc to identify the location to users.
@@ -1885,13 +1870,12 @@ When used for site surveys, should include what types of equipment are envisione
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="id"/>
         <xs:attribute name="equipmentInstanceIdRef" type="xs:IDREF">
             <xs:annotation>
                 <xs:documentation>The equipmentLocation type can be used for an element where specific equipment instances are referenced to this location.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="id"/>
-        <xs:attribute name="name"/>
     </xs:complexType>
     <xs:complexType name="lastServiced">
         <xs:annotation>
@@ -1916,7 +1900,7 @@ When used for site surveys, should include what types of equipment are envisione
         <xs:sequence>
             <xs:element minOccurs="0" name="name" type="xs:string">
                 <xs:annotation>
-                    <xs:documentation>A user provided name for convenience.  For example, an electrical panel might be the "Main service entry panel", or the "AC combiner panel."</xs:documentation>
+                    <xs:documentation>A user provided name for convenience.  For example, an electrical panel might be the "Main service entry panel", or the "AC combiner panel." A pvModule name might be to identify a specific string or AC branch circuit, for example, "S1-M1" or simply "1" of the total number of modules in the string - typically named in a series.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="serialNumber" type="serialNumber" minOccurs="0" maxOccurs="1">

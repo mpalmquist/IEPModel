@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--**************************************************************************
-	schema: Project.xsd
-	Authors:  Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
-	Description: Schema includes elements for defining an electrical system on a site.  Includes elements that describe the distribution of circuits, such as electric panels, wiring, wireways (conduit), over-current protection devices (OCPD), and disconnects.
+	schema: Project.xsd v 2.0
+	Author(s):
+	v 2.0 Michael Palmquist (SolarNexus Inc)
+	v 1.x Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
+	Description: Schema describes the entirety of a project, including participants, site details, system measures, costs, etc.
 	**************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
 	xmlns="http://www.iepmodel.net">
@@ -15,7 +17,6 @@
 	<xs:include schemaLocation="LightingSystem.xsd"/>
 	<xs:include schemaLocation="Participant.xsd"/>
 	<xs:include schemaLocation="PvSystem.xsd"/>
-	<xs:include schemaLocation="ExistingSystems.xsd"/>
 	<xs:include schemaLocation="SolarThermalSystem.xsd"/>
 	<xs:include schemaLocation="UtilityService.xsd"/>
 	<xs:include schemaLocation="WaterHeatingSystem.xsd"/>
@@ -107,9 +108,9 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="scopeOfWork">
+	<xs:complexType name="solution">
 		<xs:annotation>
-			<xs:documentation>This defines a specific scope of work from a single service provider. Benefits for the work are calculated at this level instead of at the Measure level since multiple Measures may impact a single Benefit. For example putting in a new high efficiency furnace and sealing the ducts will have different impact than the benefit for each measure taken independently.</xs:documentation>
+			<xs:documentation>Defines a specific scope of work from a single service provider. Benefits for the work are calculated at this level instead of at the Measure level since multiple Measures may impact a single Benefit. For example putting in a new high efficiency furnace and sealing the ducts will have different impact than the benefit for each measure taken independently.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="serviceProvider" type="xs:IDREF" minOccurs="0" maxOccurs="1">
@@ -209,88 +210,55 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="systemChoice">
-		<xs:annotation>
-			<xs:documentation>This contains a list of the all of the accessible systems within the specification.</xs:documentation>
-		</xs:annotation>
-		<xs:choice>
-			<xs:element minOccurs="1" name="appliance" type="appliance"/>
-			<xs:element form="unqualified" name="distribution" type="DistributionSystemType"/>
-			<xs:element maxOccurs="1" name="electricalDistributionPanel"
-				type="electricalDistributionHierarchy">
-				<xs:annotation>
-					<xs:documentation>Occasionally installation of a PV System will require a service panel upgrade.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="envelope" nillable="false" type="EnvelopeType"/>
-			<xs:element name="hvac" type="HVACSystemType"/>
-			<xs:element name="lighting" nillable="false" type="LightingSystemType"/>
-			<xs:element name="photovoltaicSystem" type="pvSystem">
-				<xs:annotation>
-					<xs:documentation>A photovoltaic (PV) system.  Generates electrical energy from sunlight.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="WaterHeating" type="WaterHeatingSystemType"/>
-			<xs:element name="solarThermalSystem" type="SolarThermalSystemType"/>
-		</xs:choice>
+	<xs:simpleType name="systemTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PV_SYSTEM"/>
+			<xs:enumeration value="SOLAR_THERMAL"/>
+			<xs:enumeration value="BUILDING_ENVELOPE"/>
+			<xs:enumeration value="HVAC"/>
+			<xs:enumeration value="LIGHTING"/>
+			<xs:enumeration value="WATER_HEATING"/>
+			<xs:enumeration value="APPLIANCE"/>
+			<xs:enumeration value="DISTRIBUTION_SYSTEM"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="systemAddition">
+		<xs:attribute name="systemType" type="systemTypeEnum"/>
+		<xs:attribute name="systemIdRef" type="xs:IDREF" use="required"/>
 	</xs:complexType>
-	<xs:complexType name="replacement">
-		<xs:sequence>
-			<xs:element name="existingSystem" type="xs:IDREF"/>
-			<xs:element name="proposedSystem" nillable="false" type="systemChoice"/>
-			<xs:element name="codeCompliantSystemReference" type="systemChoice" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>This is required here since the measure may be compared against a code compliant set of systems that is different from the existing baseline equipment. Specifically used for incentive calculations where incentives are only paid for incremental savings above code. For example: Building Energy code
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
+	<xs:complexType name="systemRemoval">
+		<xs:attribute name="systemType" type="systemTypeEnum"/>
+		<xs:attribute name="systemIdRef" type="xs:IDREF" use="required"/>
 	</xs:complexType>
-	<xs:complexType name="modification">
-		<xs:sequence>
-			<xs:element name="existingSystem" type="xs:IDREF"/>
-			<xs:element name="systemModificationData" type="systemChoice"/>
-			<xs:element name="codeCompliantSystemReference" type="systemChoice"/>
-		</xs:sequence>
+	<xs:complexType name="systemModification">
+		<xs:attribute name="systemType" type="systemTypeEnum"/>
+		<xs:attribute name="existingSystemIdRef" type="xs:IDREF" use="required"/>
+		<xs:attribute name="modifiedSystemIdRef" type="xs:IDREF" use="required"/>
+		<xs:attribute name="codeCompliantReferenceSystemIdRef" type="xs:IDREF">
+			<xs:annotation>
+				<xs:documentation>System modifications and replacements may be compared against a code compliant set of systems that is different from the existing baseline equipment. Specifically used for incentive calculations where incentives are only paid for incremental savings above code.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="systemReplacement">
+		<xs:attribute name="systemType" type="systemTypeEnum"/>
+		<xs:attribute name="existingSystemIdRef" type="xs:IDREF" use="required"/>
+		<xs:attribute name="modifiedSystemIdRef" type="xs:IDREF" use="required"/>
+		<xs:attribute name="codeCompliantReferenceSystemIdRef" type="xs:IDREF">
+			<xs:annotation>
+				<xs:documentation>System modifications and replacements may be compared against a code compliant set of systems that is different from the existing baseline equipment. Specifically used for incentive calculations where incentives are only paid for incremental savings above code.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="measureAction">
-		<xs:choice>
-			<xs:element name="addition">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="proposedSystemIdRef"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="modification"/>
-			<xs:element name="replacement">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="existingSystemIdRef"/>
-						<xs:element name="proposedSystemIdRef"/>
-						<xs:element name="codeCompliantSystemIdRef"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="removal">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="existingSystemIdRef"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-		</xs:choice>
-	</xs:complexType>
-	<xs:complexType name="measureActionOld">
 		<xs:annotation>
-			<xs:documentation>Independent actions that make up a measure implementation (i.e. removing one piece of equipment, and adding another piece would be seperate MeasureActions within a single measure).</xs:documentation>
+			<xs:documentation>Independent actions that make up a measure implementation. Each measure has a single action (i.e. removing one piece of equipment, or remove and replace, or modify, or add).</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
-			<xs:element name="addition" type="systemChoice" maxOccurs="1" minOccurs="1"/>
-			<xs:element name="modification" type="modification" maxOccurs="1" minOccurs="1"
-				nillable="false"/>
-			<xs:element name="removal" type="xs:IDREF" maxOccurs="1" minOccurs="1"/>
-			<xs:element name="replacement" type="replacement" maxOccurs="1" minOccurs="1"/>
+			<xs:element name="systemAddition" type="systemAddition"> </xs:element>
+			<xs:element name="systemModification" type="systemModification"/>
+			<xs:element name="systemReplacement" type="systemReplacement"> </xs:element>
+			<xs:element name="systemRemoval" type="systemRemoval"> </xs:element>
 		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="measure">
@@ -339,7 +307,6 @@
 					<xs:documentation>This is intended to define the actions to be taken on the system at a high level, either adding, removing or modifying the system</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="measureActionNew"/>
 			<xs:element name="incentiveProgramCategory" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Used for filtering measures based on what incentive program category.</xs:documentation>
@@ -574,11 +541,16 @@ Included reference to Utility Service here instead of in Building since Project 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element minOccurs="0" name="existingSystems" type="existingSystems"/>
+			<xs:element minOccurs="0" name="roofArrayInstallAreas" type="roofArrayInstallAreas">
+				<xs:annotation>
+					<xs:documentation>Collection of site areas that can be used for siting solar arrays.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="groundArrayInstallAreas" type="groundArrayInstallAreas"/>
 			<xs:element minOccurs="0" name="measures">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element maxOccurs="unbounded" minOccurs="0" name="measure"
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="measure"
 							type="measure">
 							<xs:annotation>
 								<xs:documentation>This is a list of requested and/or proposed and/or additional optional measures</xs:documentation>
@@ -587,10 +559,95 @@ Included reference to Utility Service here instead of in Building since Project 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="scopeOfWork" type="scopeOfWork" minOccurs="0" maxOccurs="unbounded">
+			<xs:element minOccurs="0" name="solutions">
 				<xs:annotation>
-					<xs:documentation>ScopeOfWork captures all the data about the proposed work to be done, inlcuding labor and materials, schedule, pricing, financing, etc.</xs:documentation>
+					<xs:documentation>A collection of defined solutions to attain the project's goals.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="solution" type="solution">
+							<xs:annotation>
+								<xs:documentation>A solution is a definition of the proposed work to be done, inlcuding one or more measures, labor and materials items, schedule, pricing, financing, etc. Each solution may be from a specific service provider.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="pvSystems" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Collection of PV system definitions. Multiple PV system options may be defined and proposed for a particular project. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="pvSystem" type="pvSystem"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="solarThermalSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="solarThermalSystem"
+							type="SolarThermalSystemType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="appliances">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="existingAppliance"
+							type="appliance"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="hvacSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HVACSystem" type="HVACSystemType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="lightingSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="lightingSystem"
+							type="LightingSystemType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="waterHeatingSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="waterHeatingSystem"
+							type="WaterHeatingSystemType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="distributionSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="distributionSystem"
+							type="DistributionSystemType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="schedules">
+				<xs:annotation>
+					<xs:documentation>This is a container for all schedule definitions for the systems within the project.
+
+This design is modeled on the gbxml Schedule.
+
+The organization is consistent in many energy management systems and programable controllers. Typically schedules for these are created first by creating the Day schedule and then build Week schedules upon Day schedules and Year schedules built off of Week schedules.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="DaySchedule"
+							type="daySchedule"/>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="WeekSchedule"
+							type="weekSchedule"/>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="Schedule"
+							type="schedule"/>
+					</xs:sequence>
+				</xs:complexType>
 			</xs:element>
 			<xs:element minOccurs="0" name="extension">
 				<xs:annotation>

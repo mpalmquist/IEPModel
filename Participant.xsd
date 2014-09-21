@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
 	xmlns="http://www.iepmodel.net">
 	<xs:annotation>
-		<xs:documentation>This is intended to cover all participants including Consumers, Service Providers, etc.
+		<xs:documentation>Schema defines project participants. It is intended to cover all types of participants, including consumers, service providers, etc.
 		</xs:documentation>
 	</xs:annotation>
 	<xs:include schemaLocation="Common.xsd"/>
