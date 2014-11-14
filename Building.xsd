@@ -8,7 +8,6 @@ Consider extending BuildingType and SpaceType in the Space xml class to cover mo
 </xs:documentation>
 	</xs:annotation>
 	<xs:include schemaLocation="Common.xsd"/>
-	<xs:include schemaLocation="CommonSolar.xsd"/>
 	<xs:include schemaLocation="EnergyConsumption.xsd"/>
 	<xs:include schemaLocation="Zone.xsd"/>
 	<xs:element name="building" type="building"/>
@@ -426,33 +425,62 @@ For example:
 		<xs:attribute name="id" type="xs:ID"/>
 	</xs:complexType>
 	<xs:complexType name="roofFace">
-		<xs:complexContent>
-			<xs:extension base="arrayInstallArea">
-				<xs:sequence>
-					<xs:element minOccurs="0" name="edges">
-						<xs:annotation>
-							<xs:documentation>Contains the set of polygon sides that define the roof face.</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:sequence>
-								<xs:element maxOccurs="unbounded" minOccurs="1" name="edge"
-									type="roofEdge">
-									<xs:annotation>
-										<xs:documentation>A single edge of the roof face that identifies its type. There are different setback rules applied to different types of roof face edges, so each edge's type must be defined. Each edge is defined by two points of a polygon.</xs:documentation>
-									</xs:annotation>
-								</xs:element>
-							</xs:sequence>
-						</xs:complexType>
-					</xs:element>
-					<xs:element form="unqualified" minOccurs="0" name="structure"
-						type="roofFaceStructure">
-						<xs:annotation>
-							<xs:documentation>This element describes the roof face's structural attributes.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:annotation>
+			<xs:documentation>A single external plane of an entire roof structure.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name">
+				<xs:annotation>
+					<xs:documentation>Descriptive name for the roof face array area.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="azimuth" type="angle">
+				<xs:annotation>
+					<xs:documentation>The compass direction of the roof face, typically 90 deg. to the eave. 0 is North, and 180 is south.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="slope" type="angle">
+				<xs:annotation>
+					<xs:documentation>The slope, in degrees, of the roof face.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
+			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
+				<xs:annotation>
+					<xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+				<xs:annotation>
+					<xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
+				<xs:annotation>
+					<xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="edges">
+				<xs:annotation>
+					<xs:documentation>Contains the set of polygon sides that define the roof face.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="edge" type="roofEdge">
+							<xs:annotation>
+								<xs:documentation>A single edge of the roof face that identifies its type. There are different setback rules applied to different types of roof face edges, so each edge's type must be defined. Each edge is defined by two points of a polygon.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element form="unqualified" minOccurs="0" name="structure" type="roofFaceStructure">
+				<xs:annotation>
+					<xs:documentation>This element describes the roof face's structural attributes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
 	</xs:complexType>
 	<xs:complexType name="roof">
 		<xs:sequence>

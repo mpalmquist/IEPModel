@@ -12,108 +12,6 @@
     <xs:include schemaLocation="Common.xsd"/>
     <xs:include schemaLocation="CommonElectrical.xsd"/>
     <xs:include schemaLocation="Building.xsd"/>
-    <xs:complexType name="obstructionElevations">
-        <xs:annotation>
-            <xs:documentation>A description of the top of an obstruction relative to a define location.  At that location, the obstruction is in the direction define by Azimuth, and the top of that obstruction is at the elevation angle define by Elevation.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="azimuth" maxOccurs="1" minOccurs="1" type="angle">
-                <xs:annotation>
-                    <xs:documentation>Direction to the obstruction, in degrees.  0 degrees is North, 90 degress is East, etc.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="elevation" maxOccurs="1" minOccurs="1" type="angle">
-                <xs:annotation>
-                    <xs:documentation>Elevation, in degrees, of the top of the obstruction.  0 degrees is the horizon, and 90 degress is straight up.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="obstructionElevationsMeasurement">
-        <xs:sequence>
-            <xs:element name="obstructionElevation" type="obstructionElevations" minOccurs="0"
-                maxOccurs="unbounded">
-                <xs:annotation>
-                    <xs:documentation>Collection of the tops of obstructions surrounding the measurement location that define the skylie.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="measurementLocation2dSceneOrthoProjection" type="point2d"
-                minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="timeIntervalShadingMeasurment">
-        <xs:annotation>
-            <xs:documentation>A description of the shade for an entire year at the measurement locThe year is broken into equal increments (i.e. 1 hour increments) and for each increment the data value is 1 if at that location it is not shaded for that hour, and 0 if at that location it is shaded for that hour.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="intervalShading" type="yearIntervalDataDouble" maxOccurs="1"
-                minOccurs="1"/>
-            <xs:element name="measurementLocation2dSceneOrthoProjection" type="point2d"
-                minOccurs="0" maxOccurs="1">
-                <xs:annotation>
-                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="solarAccessPercentage">
-        <xs:annotation>
-            <xs:documentation>Collection of solar access by percentage possible. May represent a solar access measurement at a specific coordinate at which the measurement was taken, or may be a summary for an entire area. May be measured using a tool like Solmetric SunEye or Solar Pathfinder, or may be simply estimated.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence minOccurs="0" maxOccurs="1">
-            <xs:element minOccurs="0" name="measurementSource" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Describes the source of the provided solar access percentages, for example: "user estimate", "Solmetric skyline", etc.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="name" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Use to describe the measurement. May be the name of a Solmetric Skyline, for example.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="solarAccessAnnual" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessJan" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessFeb" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessMar" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessApr" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="SolarAccessMay" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessJun" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessJul" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessAug" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessSep" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessOct" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessNov" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="solarAccessDec" type="xs:int" minOccurs="0" maxOccurs="1"
-                form="unqualified"/>
-            <xs:element name="measurementLocation2d" type="point2d" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>2d coordinate location in the site's scene where the solar access measurement was taken.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="measurementLocation3d" type="point3d">
-                <xs:annotation>
-                    <xs:documentation>3d coordinate location in the site's scene where the solar access measurement was taken.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
     <xs:simpleType name="trackingModeEnum">
         <xs:annotation>
             <xs:documentation>Enumeration of eligible tracking modes for a PV mounting structure.</xs:documentation>
@@ -1114,14 +1012,6 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="exclusionArea2dOrthoProjection">
-        <xs:all>
-            <xs:element maxOccurs="1" minOccurs="1" name="polygon2dSceneOrthoProjection"
-                type="polygon2d"/>
-            <xs:element maxOccurs="1" minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
-        </xs:all>
-        <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
     <xs:complexType name="derateFactors">
         <xs:annotation>
             <xs:documentation>A set of environmental or component efficiency effects causing some reduction of ideal system performance. Default values correspond to NREL's PVWatts default values.</xs:documentation>
@@ -1207,27 +1097,37 @@
             <xs:element minOccurs="0" name="siteWeatherData" type="siteWeatherData"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType abstract="true" name="arrayInstallArea">
+    <xs:complexType name="exclusionArea2dOrthoProjection">
+        <xs:all>
+            <xs:element maxOccurs="1" minOccurs="1" name="polygon2dSceneOrthoProjection"
+                type="polygon2d"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:simpleType name="presenceOfUndergroundEntitiesEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Yes (location marked)"/>
+            <xs:enumeration value="Yes (location TBD)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="roofFaceInstallArea">
+        <xs:complexContent>
+            <xs:extension base="roofFace"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="groundArrayInstallArea">
         <xs:annotation>
-            <xs:documentation>Describes the geometry of an area identified for placement of a solar array.</xs:documentation>
+            <xs:documentation>A description of the ground area of a site that may be used for ground mount PV Systems.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element minOccurs="0" name="name" type="xs:string">
+            <xs:element name="name">
                 <xs:annotation>
-                    <xs:documentation>Descriptive name for the array area (a roof face, or ground area).</xs:documentation>
+                    <xs:documentation>Descriptive name for the ground area.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="azimuth" type="angle">
-                <xs:annotation>
-                    <xs:documentation>The compass direction of the roof face, typically 90 deg. to the eave. 0 is North, and 180 is south. </xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="slope" type="angle">
-                <xs:annotation>
-                    <xs:documentation>If a roof face, this is the slope, in degrees, of the roof face. Slope is not defined for ground areas because the array's structure is assumed to compensate for irregularities.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"> </xs:element>
+            <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
             <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
                     <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
@@ -1243,56 +1143,37 @@
                     <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="approxArea" type="area"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="notes" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>User can capture info about other data fields, and/or describe special circumstances, such as: Types of buried lines and how marked, Equipment &amp;/or materials access issues, whether there is an existing professional soils report, if the site is in a biotic reserve (when applicable), &amp;/or whether an environmental impact report has been done</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="presenceOfBuriedLines"
+                type="presenceOfUndergroundEntitiesEnum">
+                <xs:annotation>
+                    <xs:documentation>Are there buried lines of any kind? In accompanying notes, user should include if mapped on some document.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="presenceOfSepticTanksAndLeachFields"
+                type="presenceOfUndergroundEntitiesEnum">
+                <xs:annotation>
+                    <xs:documentation>Is there a septic tank &amp;/or leach field in the vicinity? Auditor needs to clearly identify their location on a site schematic.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="tractorTrencherAccessible"
+                type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Can a tractor and/or trenching equipment access the ground location?</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
-    </xs:complexType>
-    <xs:simpleType name="presenceOfUndergroundEntitiesEnum">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="None"/>
-            <xs:enumeration value="Yes (location marked)"/>
-            <xs:enumeration value="Yes (location TBD)"/>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:complexType name="groundArrayInstallArea">
-        <xs:annotation>
-            <xs:documentation>A description of the ground area of a site.  Helps describe areas that may be used for ground mount PV Systems.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="arrayInstallArea">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="approxArea" type="area"/>
-                    <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
-                        <xs:annotation>
-                            <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="notes" type="xs:string">
-                        <xs:annotation>
-                            <xs:documentation>User can capture info about other data fields, and/or describe special circumstances, such as: Types of buried lines and how marked, Equipment &amp;/or materials access issues, whether there is an existing professional soils report, if the site is in a biotic reserve (when applicable), &amp;/or whether an environmental impact report has been done</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="presenceOfBuriedLines"
-                        type="presenceOfUndergroundEntitiesEnum">
-                        <xs:annotation>
-                            <xs:documentation>Are there buried lines of any kind? In accompanying notes, user should include if mapped on some document.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0"
-                        name="presenceOfSepticTanksAndLeachFields"
-                        type="presenceOfUndergroundEntitiesEnum">
-                        <xs:annotation>
-                            <xs:documentation>Is there a septic tank &amp;/or leach field in the vicinity? Auditor needs to clearly identify their location on a site schematic.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element maxOccurs="1" minOccurs="0" name="tractorTrencherAccessible"
-                        type="xs:boolean">
-                        <xs:annotation>
-                            <xs:documentation>Can a tractor and/or trenching equipment access the ground location?</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="groundArrayInstallAreas">
         <xs:annotation>

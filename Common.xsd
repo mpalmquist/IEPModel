@@ -2014,6 +2014,108 @@ TODO: Look at consiolidating with the Schedule schema, also look at newly discov
             <xs:element maxOccurs="1" minOccurs="0" name="timeZone" type="xs:double"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="obstructionElevations">
+        <xs:annotation>
+            <xs:documentation>A description of the top of an obstruction relative to a define location.  At that location, the obstruction is in the direction define by Azimuth, and the top of that obstruction is at the elevation angle define by Elevation.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="azimuth" type="angle">
+                <xs:annotation>
+                    <xs:documentation>Direction to the obstruction, in degrees.  0 degrees is North, 90 degress is East, etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="1" name="elevation" type="angle">
+                <xs:annotation>
+                    <xs:documentation>Elevation, in degrees, of the top of the obstruction.  0 degrees is the horizon, and 90 degress is straight up.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="obstructionElevationsMeasurement">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="obstructionElevation"
+                type="obstructionElevations">
+                <xs:annotation>
+                    <xs:documentation>Collection of the tops of obstructions surrounding the measurement location that define the skylie.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="measurementLocation2dSceneOrthoProjection"
+                type="point2d">
+                <xs:annotation>
+                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="timeIntervalShadingMeasurment">
+        <xs:annotation>
+            <xs:documentation>A description of the shade for an entire year at the measurement locThe year is broken into equal increments (i.e. 1 hour increments) and for each increment the data value is 1 if at that location it is not shaded for that hour, and 0 if at that location it is shaded for that hour.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="intervalShading"
+                type="yearIntervalDataDouble"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="measurementLocation2dSceneOrthoProjection"
+                type="point2d">
+                <xs:annotation>
+                    <xs:documentation>Location relative to some define origing, where this measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="solarAccessPercentage">
+        <xs:annotation>
+            <xs:documentation>Collection of solar access by percentage possible. May represent a solar access measurement at a specific coordinate at which the measurement was taken, or may be a summary for an entire area. May be measured using a tool like Solmetric SunEye or Solar Pathfinder, or may be simply estimated.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence maxOccurs="1" minOccurs="0">
+            <xs:element minOccurs="0" name="measurementSource" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Describes the source of the provided solar access percentages, for example: "user estimate", "Solmetric skyline", etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Use to describe the measurement. May be the name of a Solmetric Skyline, for example.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessAnnual"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessJan"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessFeb"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessMar"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessApr"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="SolarAccessMay"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessJun"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessJul"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessAug"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessSep"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessOct"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessNov"
+                type="xs:int"/>
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessDec"
+                type="xs:int"/>
+            <xs:element minOccurs="0" name="measurementLocation2d" type="point2d">
+                <xs:annotation>
+                    <xs:documentation>2d coordinate location in the site's scene where the solar access measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="measurementLocation3d" type="point3d">
+                <xs:annotation>
+                    <xs:documentation>3d coordinate location in the site's scene where the solar access measurement was taken.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
     <xs:complexType name="extension">
         <xs:annotation>
             <xs:documentation>Use to extend the content of an instance document to meet a specific use case, particularly useful when needing to incorporate API parameters for working on a basic data set. </xs:documentation>
