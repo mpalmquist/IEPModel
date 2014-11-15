@@ -1127,6 +1127,16 @@
                     <xs:documentation>Descriptive name for the ground area.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="azimuth" type="angle">
+                <xs:annotation>
+                    <xs:documentation>IF the ground area is essentially a sloped plane, the azimuth is the compass direction of its slope. For convention, 0 is North, and 180 is south.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="slope" type="angle">
+                <xs:annotation>
+                    <xs:documentation>If the ground area is essentially a sloping plane, this is the average slope in degrees.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
             <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
