@@ -1143,7 +1143,7 @@
                     <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="approxArea" type="area"/>
+            <xs:element minOccurs="0" name="area" type="area"/>
             <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>

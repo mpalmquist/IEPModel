@@ -460,6 +460,7 @@ For example:
 					<xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="0" name="area" type="area"/>
 			<xs:element minOccurs="0" name="edges">
 				<xs:annotation>
 					<xs:documentation>Contains the set of polygon sides that define the roof face.</xs:documentation>
