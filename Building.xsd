@@ -444,6 +444,7 @@ For example:
 					<xs:documentation>The slope, in degrees, of the roof face.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="0" name="area" type="area"/>
 			<xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
 			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
 				<xs:annotation>
@@ -460,7 +461,30 @@ For example:
 					<xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="area" type="area"/>
+			<xs:element minOccurs="0" name="holes">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="hole">
+							<xs:annotation>
+								<xs:documentation>A hole is a polygon completely contained within a roof face. Holes may represent outlines of chimneys, skylights, dormers, vents, etc.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element minOccurs="0" name="polygon2dOrthoProjection"
+										type="polygon2d"/>
+									<xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
+									<xs:element minOccurs="0" name="polygon3dScene" type="polygon3d"
+									/>
+								</xs:sequence>
+								<xs:attribute name="id"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:element minOccurs="0" name="edges">
 				<xs:annotation>
 					<xs:documentation>Contains the set of polygon sides that define the roof face.</xs:documentation>

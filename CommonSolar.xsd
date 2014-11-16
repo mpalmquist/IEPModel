@@ -1137,6 +1137,7 @@
                     <xs:documentation>If the ground area is essentially a sloping plane, this is the average slope in degrees.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="area" type="area"/>
             <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
             <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
@@ -1153,7 +1154,27 @@
                     <xs:documentation>An array area defined in 3 dimensional space. The area's coordinates exist in a larger scene that may contain multiple roof faces and/or ground areas.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="area" type="area"/>
+            <xs:element minOccurs="0" name="holes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="hole">
+                            <xs:annotation>
+                                <xs:documentation>A hole is a polygon that is fully enclosed by the ground area polygon. It represents the outline of any object where the array cannot be placed. </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection"
+                                        type="polygon2d"/>
+                                    <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
+                                    <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d"
+                                    />
+                                </xs:sequence>
+                                <xs:attribute name="id"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element maxOccurs="1" minOccurs="0" name="soilCharacter" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>A description of the soil type found here. May be a subjective description, such as rocky, clay, sandy, etc.</xs:documentation>
@@ -1633,4 +1654,27 @@ If an individual module has an orientation different from the common value, that
             </xs:annotation>
         </xs:attribute>
     </xs:complexType>
+    <xs:element name="holes">
+        <xs:annotation>
+            <xs:documentation/>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="hole">
+                    <xs:annotation>
+                        <xs:documentation>A hole is a polygon completely contained within a roof face. Holes may represent outlines of chimneys, skylights, dormers, vents, etc.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="polygon2dOrthoProjection"
+                                type="polygon2d"/>
+                            <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
+                            <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d"/>
+                        </xs:sequence>
+                        <xs:attribute name="id"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
