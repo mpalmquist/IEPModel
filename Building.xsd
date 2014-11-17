@@ -476,8 +476,15 @@ For example:
 									<xs:element minOccurs="0" name="polygon2dOrthoProjection"
 										type="polygon2d"/>
 									<xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
-									<xs:element minOccurs="0" name="polygon3dScene" type="polygon3d"
-									/>
+									<xs:element minOccurs="0" name="polygon3dScene" type="polygon3d"/>
+									<xs:element minOccurs="0" name="edges">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="edge"
+												type="roofEdge"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
 								</xs:sequence>
 								<xs:attribute name="id"/>
 							</xs:complexType>
