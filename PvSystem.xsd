@@ -8,9 +8,7 @@
     various levels of detail.
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    targetNamespace="http://www.iepmodel.net">
-    <xs:include schemaLocation="Common.xsd"/>
-    <xs:include schemaLocation="CommonElectrical.xsd"/>
+    targetNamespace="http://www.iepmodel.net" elementFormDefault="qualified">
     <xs:include schemaLocation="CommonSolar.xsd"/>
     <xs:complexType name="pvSystem">
         <xs:annotation>

@@ -7,7 +7,7 @@
 	Description: Schema describes the entirety of a project, including participants, site details, system measures, costs, etc.
 	**************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:include schemaLocation="Appliance.xsd"/>
 	<xs:include schemaLocation="Building.xsd"/>
 	<xs:include schemaLocation="Common.xsd"/>
@@ -461,8 +461,8 @@ Included reference to Utility Service here instead of in Building since Project 
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element minOccurs="0" name="Id" type="xs:string"/>
-						<xs:element minOccurs="0" name="Name" type="xs:string"/>
+						<xs:element minOccurs="0" name="id" type="xs:string"/>
+						<xs:element minOccurs="0" name="name" type="xs:string"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

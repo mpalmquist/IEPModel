@@ -6,8 +6,11 @@
 	v 1.x Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
 	Description: Schema defines a set of object types that are re-used across the set of IEP Model schemas.
 	**************************************************************************** -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    elementFormDefault="unqualified" targetNamespace="http://www.iepmodel.net"
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.iepmodel.net"
+    elementFormDefault="qualified"
+    targetNamespace="http://www.iepmodel.net"
     attributeFormDefault="unqualified" version="1.0">
     <xs:complexType name="dataOriginator">
         <xs:annotation>
@@ -1856,12 +1859,17 @@ When used for site surveys, should include what types of equipment are envisione
             </xs:element>
             <xs:element minOccurs="0" name="footprint2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
-                    <xs:documentation>Use to decribe a the footprint of an equipment location within a 2d scene which may include multiple equipment locations within the same scene. Useful to describe relative locations on a single site.</xs:documentation>
+                    <xs:documentation>Use to describe the footprint of an equipment location within a 2d scene which may include multiple equipment locations within the same scene. Useful to describe relative locations on a single site.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="footprint2dLocal" type="polygon2d">
                 <xs:annotation>
-                    <xs:documentation>Use to decribe a the footprint of an equipment location within a 2d graph that only includes a single equipment location. Useful for describing the shape of a footprint.</xs:documentation>
+                    <xs:documentation>Use to describe the footprint of an equipment location within a 2d graph that only includes a single equipment location. Useful for describing the shape of a footprint.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="footprint2dSceneCameraView" type="polygon2d">
+                <xs:annotation>
+                    <xs:documentation>Use to describe the footprint of an equipment location within a 2d graph taken from an aerial camera that only includes a single equipment location. Useful for describing the shape of a footprint.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="zoneIdRef" type="xs:IDREF">
@@ -2087,7 +2095,7 @@ TODO: Look at consiolidating with the Schedule schema, also look at newly discov
                 type="xs:int"/>
             <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessApr"
                 type="xs:int"/>
-            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="SolarAccessMay"
+            <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessMay"
                 type="xs:int"/>
             <xs:element form="unqualified" maxOccurs="1" minOccurs="0" name="solarAccessJun"
                 type="xs:int"/>

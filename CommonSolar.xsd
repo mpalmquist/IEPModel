@@ -7,7 +7,7 @@
     Description: Schema contains the elements needed to define solar electric or solar thermal systems.
     **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    targetNamespace="http://www.iepmodel.net" elementFormDefault="unqualified"
+    targetNamespace="http://www.iepmodel.net" elementFormDefault="qualified"
     attributeFormDefault="unqualified" version="1.0">
     <xs:include schemaLocation="Common.xsd"/>
     <xs:include schemaLocation="CommonElectrical.xsd"/>
@@ -72,13 +72,18 @@
             <xs:documentation>Describes the physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="manufacturer" type="xs:string" form="unqualified"/>
-            <xs:element name="componentsDescription" type="xs:string" form="unqualified">
+            <xs:element name="manufacturer" type="xs:string"/>
+            <xs:element name="componentsDescription" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Include model numbers and descriptions of mounting system components.  Note, if there is more than one manufacturer's parts used, list the secondary mfr's name here with its component.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="attachmentPoints" type="xs:integer" form="unqualified">
+            <xs:element minOccurs="0" name="numberOfRowsPerRack" type="xs:int" default="1">
+                <xs:annotation>
+                    <xs:documentation>Describes the quantity of module rows within a single rack structure. Ground mount tilted racks typically have multiple module rows.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="attachmentPoints" type="xs:integer">
                 <xs:annotation>
                     <xs:documentation>Total number of attachment points for the array.</xs:documentation>
                 </xs:annotation>
@@ -89,19 +94,17 @@
                     <xs:documentation>Given in feet, the maximum spacing allowed between attachment points. See product manual for maximum spacing allowed based on maximum design wind speed.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="totalArrayWeight" type="xs:double" form="unqualified">
+            <xs:element minOccurs="0" name="totalArrayWeight" type="xs:double">
                 <xs:annotation>
                     <xs:documentation>Total weight in pounds (lbs) of the array's panels and its mounting structure components.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="totalPanelSurfaceArea" type="xs:double"
-                form="unqualified">
+            <xs:element minOccurs="0" name="totalPanelSurfaceArea" type="xs:double">
                 <xs:annotation>
                     <xs:documentation>The total surface area (in square feet) of all the panels in the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="roofPenetrationWeatherProofing" type="xs:string"
-                form="unqualified">
+            <xs:element minOccurs="0" name="roofPenetrationWeatherProofing" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Description of the method used to weatherproof roof penetrations (e.g. flashing, caulk) </xs:documentation>
                 </xs:annotation>
@@ -117,7 +120,7 @@
                 <xs:sequence>
                     <xs:element minOccurs="0" name="inverterCategory" type="xs:string">
                         <xs:annotation>
-                            <xs:documentation>An optional description of the inverter's type, such as "Micro-inverter - Grid-tie," "String Inverter - Grid-tie," "Battery-based Inverter - Grid-tie/Off-grid," "Battery-based Inverter - Off-grid," "Centraal Inverter"</xs:documentation>
+                            <xs:documentation>An optional description of the inverter's type, such as "Micro-inverter - Grid-tie," "String Inverter - Grid-tie," "Battery-based Inverter - Grid-tie/Off-grid," "Battery-based Inverter - Off-grid," "Central Inverter"</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="isMicroInverter" type="xs:boolean">
@@ -125,10 +128,32 @@
                             <xs:documentation>Provides a definitive way of differentiating the inverter architecture as a String or Micro-Inverter. If TRUE, then the inverter is intended to be placed in series into an AC PV branch circuit.  All other inverters essentially conform to a string architecture. </xs:documentation>
                         </xs:annotation>
                     </xs:element>
+                    <xs:element minOccurs="0" name="isAcpvIntegratedMicroInverter" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>(if isMicroInverter == true) describes whether the micro-inverter is integrated as part of an ACPV module rather than sold as a separate device. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="maxNumberOfInvertersPerBranch" type="xs:integer">
+                        <xs:annotation>
+                            <xs:documentation>The maximum number of inverters of this type that may be wired together in a branch. This applies only to microinverters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="mppTrackerQuantity"
                         type="xs:integer">
                         <xs:annotation>
                             <xs:documentation>The number of MPP Trackers within the inverter.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="inputMinDcOperatingVoltage"
+                        type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Lower end of the inverter's DC operating voltage window.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="inputMaxMpptDcCurrent"
+                        type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>The maximum DC input current for each MPPT</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="inputMinMpptDcVoltage"
@@ -1588,9 +1613,7 @@ If the PvDesign is used within a Project.xml document, and the PvDesign calls fo
     </xs:complexType>
     <xs:complexType abstract="false" name="pvArray">
         <xs:annotation>
-            <xs:documentation>A PV Array is defined as a group of modules that share the same location, and orientation. They usually share the same make and model.  A PV Array may feed one or more inverter instances (may be string/central inverter or multiple micro-inverters, one per module). 
-The PvArrayType serves as a base type for either StringPvArray or AcModulePvArrays based on their respective inverter architectures.
-Rather than define a specific array configuration using a specific PV module make and model, the GenericPvArray element allows an array to be defined simply as a total DC power output. The PvArray Base Type provides all the orientation, derate, and solar access parameters necessary to evaluate this "generic" array using a tool like NREL's PVWatts.  The GenericPvArray element is useful for feasibility studies where specific designs are not required.</xs:documentation>
+            <xs:documentation>A PV Array is defined as a group of modules that share the same location, and orientation. They usually share the same make and model.  A PV Array may feed one or more inverter instances (may be string/central inverter or multiple micro-inverters, one per module).</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element minOccurs="0" name="name" type="xs:string"/>
@@ -1643,7 +1666,12 @@ If an individual module has an orientation different from the common value, that
             </xs:element>
             <xs:element minOccurs="0" name="mountingSystem" type="mountingSystem">
                 <xs:annotation>
-                    <xs:documentation>Contains information necessary for Permitting using the Solar ABCs expedited permit process.</xs:documentation>
+                    <xs:documentation>TO DO. Projected to contain information necessary for permitting using the Solar ABCs, or state of California's expedited permit process.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="moduleLayout" type="moduleLayout">
+                <xs:annotation>
+                    <xs:documentation>Physical layout positions of the modules within the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
