@@ -437,9 +437,21 @@
                             <xs:documentation>Is this an ACPV module sold as single unit with an integrated microInverter?</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="integratedMicroInverterIdRef" type="xs:IDREF">
+                    <xs:element minOccurs="0" name="integratedMicroInverter"
+                        type="inverterDefinition">
                         <xs:annotation>
-                            <xs:documentation>If acpvModule = TRUE, this references the specifications for the integrated microInverter. </xs:documentation>
+                            <xs:documentation>If acpvModule = TRUE, the inverter is built into the PV module and its definition is incorporated here. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="includesDcOptimizer" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>Is the PV Module sold with an integrated DC optimizer built in?</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="integratedDcOptimizer"
+                        type="dcOptimizerDefinition">
+                        <xs:annotation>
+                            <xs:documentation>If the PV module incorporates an integrated DC optimizer, this element defines its properties.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="pstc">

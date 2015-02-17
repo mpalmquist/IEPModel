@@ -254,6 +254,11 @@
                     <xs:documentation>Is the conduit exposed to high temperatures?  For example, sitting on a roof in direct sun.  If so, any conductors contained within the segment may have to have their rated current carrying capacity derated.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="elevationAboveRoof" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>If located on a rooftop, the segments elevation above the surface. This affects the temperature.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID" use="required"/>
         <xs:attribute name="equipmentDefinitionIdRef" type="xs:IDREF">
