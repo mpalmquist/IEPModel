@@ -1966,12 +1966,12 @@ When used for site surveys, should include what types of equipment are envisione
                     <xs:documentation>Type of weather dataset, such as TMY, TMY2, IWEC, etc.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="maxTemperature" type="xs:integer">
+            <xs:element minOccurs="0" name="highestMonthlyAverageHighTemperature" type="xs:integer">
                 <xs:annotation>
-                    <xs:documentation>Maximum historic high temperature.</xs:documentation>
+                    <xs:documentation>Of the monthly average high temperatures for the site, the highest one.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="MinTemperature" type="xs:integer">
+            <xs:element minOccurs="0" name="recordLowTemperture" type="xs:integer">
                 <xs:annotation>
                     <xs:documentation>Lowest historic temperature. Typically used to calculate highest PV system string voltage when cold and sunny, and therefore longest possible string. </xs:documentation>
                 </xs:annotation>
