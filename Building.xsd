@@ -364,16 +364,16 @@ For example:
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="1" minOccurs="0" name="structuralMemberCrossSectionWidth"
-				type="xs:decimal"/>
-			<xs:element minOccurs="0" name="structuralMemberCrossSectionDepth" type="xs:decimal"/>
-			<xs:element maxOccurs="1" minOccurs="0" name="structuralMemberSpacing" type="xs:decimal">
+				type="xs:double"/>
+			<xs:element minOccurs="0" name="structuralMemberCrossSectionDepth" type="xs:double"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="structuralMemberSpacing" type="xs:double">
 				<xs:annotation>
-					<xs:documentation>Dimensions given in inches. SolarABCs expedited permit process steps through a check of rafter beam spacing.</xs:documentation>
+					<xs:documentation>Spacing center to center of adjacent structural members. Expedited permit process steps through a check of rafter beam spacing.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="structuralMemberMaxUnsupportedSpan" type="xs:decimal">
+			<xs:element minOccurs="0" name="structuralMemberMaxUnsupportedSpan" type="xs:double">
 				<xs:annotation>
-					<xs:documentation>Length in feet, of the maximum span of any rafter of the roof plane.</xs:documentation>
+					<xs:documentation>Length of maximum horizontally measured span of unsupported roof structural member.  That is, it is NOT the measured length of rafters, it is the horizontal projection of rafter length along the greatest unsupported length. See Figure 4 of CA Permitting Guidelines structural checklist.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="1" minOccurs="0" name="beamsExposedToInteriorSpace"
