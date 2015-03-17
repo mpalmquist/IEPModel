@@ -83,15 +83,36 @@
                     <xs:documentation>Describes the quantity of module rows within a single rack structure. Ground mount tilted racks typically have multiple module rows.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="attachmentPoints" type="xs:integer">
+            <xs:element minOccurs="0" name="anchorTotal" type="xs:integer">
                 <xs:annotation>
                     <xs:documentation>Total number of attachment points for the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="maxAttachmentPointSpacing" type="xs:double"
+            <xs:element minOccurs="0" name="anchorMaxHorizontalSpacing" type="xs:double"
                 form="unqualified">
                 <xs:annotation>
-                    <xs:documentation>Given in feet, the maximum spacing allowed between attachment points. See product manual for maximum spacing allowed based on maximum design wind speed.</xs:documentation>
+                    <xs:documentation>The maximum horizontal spacing allowed between attachment points. See racking product manual for maximum spacing allowed based on maximum design wind speed, and permitting guidelines for maximum spacing allowed for structural load. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="anchorFastenersMeetManufacturerGuidelines"
+                type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Do the proposed anchor fasteners meet the manufacturer’s guidelines, if provided? If yes, may be suitable enough to not require defining anchor fastener diameter and embedment.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="anchorFastenerDiameter" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>For expedited permitting, if cannot verify that proposed anchor fasteners suit racking manufacturer guidelines, then need to specify the diameter of lag screw, hanger bolt, or self-drilling screw used to fasten anchors.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="anchorFastenerEmbedmentDepth" type="xs:double">
+                <xs:annotation>
+                    <xs:documentation>For expedited permitting, if cannot verify that proposed anchor fasteners suit racking manufacturer guidelines, then need to specify the depth that anchor fasteners will be embedded into roof's structural members (i.e. rafters).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element default="1" minOccurs="0" name="anchorFastenersPerAnchor" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Typically one screw per anchor.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="totalArrayWeight" type="xs:double">

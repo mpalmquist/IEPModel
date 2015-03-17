@@ -1968,12 +1968,17 @@ When used for site surveys, should include what types of equipment are envisione
             </xs:element>
             <xs:element minOccurs="0" name="highestMonthlyAverageHighTemperature" type="xs:integer">
                 <xs:annotation>
-                    <xs:documentation>Of the monthly average high temperatures for the site, the highest one.</xs:documentation>
+                    <xs:documentation>Required for configuring inverter circuits. Of the monthly average high temperatures for the site, the highest one.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="recordLowTemperture" type="xs:integer">
                 <xs:annotation>
-                    <xs:documentation>Lowest historic temperature. Typically used to calculate highest PV system string voltage when cold and sunny, and therefore longest possible string. </xs:documentation>
+                    <xs:documentation>Lowest historic temperature. Required for configuring PV inverter circuits. Used to find highest PV system string voltage when cold and sunny, and therefore longest possible string. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="designWindSpeed" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Required for PV system structural validations. For CA permitting guidebook, speed must be less than 110mph. This is based from ASCE 7-10, risk category II for CA.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>

@@ -612,6 +612,11 @@ For example:
 					<xs:documentation>Place for user to include additional notes/description.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="0" name="yearBuilt" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Known or approximate year that the building's construction was completed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element minOccurs="0" name="buildingNumber" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Identifies the number of a building where multiple buildings share a common street address (case where a site with a single address contains multiple buildings).
