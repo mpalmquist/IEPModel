@@ -6,11 +6,8 @@
 	v 1.x Michael Palmquist (SolarNexus Inc), Devan Johnson (kW Engineering), Paul Cobb (SaveEnergy123)
 	Description: Schema defines a set of object types that are re-used across the set of IEP Model schemas.
 	**************************************************************************** -->
-<xs:schema 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.iepmodel.net"
-    elementFormDefault="qualified"
-    targetNamespace="http://www.iepmodel.net"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
+    elementFormDefault="qualified" targetNamespace="http://www.iepmodel.net"
     attributeFormDefault="unqualified" version="1.0">
     <xs:complexType name="dataOriginator">
         <xs:annotation>
@@ -1954,12 +1951,12 @@ When used for site surveys, should include what types of equipment are envisione
             <xs:documentation>Describes what weather data to use in an analysis.  Provides a means to specify a location and type of weather file dataset to use in an analysis.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element form="unqualified" name="stationCategory" type="xs:string">
+            <xs:element form="unqualified" name="stationCategory" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Describes the set of weather stations, or geographic cells used to specify the site's weather.  Examples include: WBAN, WMO, NREL 40km Monthly Grid Cell, etc. </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element form="unqualified" minOccurs="1" name="stationId" type="xs:string">
+            <xs:element form="unqualified" minOccurs="0" name="stationId" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>The ID number used within the associated Station Category system.  If the Station Category is "WBAN," then this element would contain the WBAN number for the desired station.  For example, San Francisco, CA is WBAN "23234."  And Cairo, Egypt is WMO "623660."</xs:documentation>
                 </xs:annotation>
@@ -1967,6 +1964,16 @@ When used for site surveys, should include what types of equipment are envisione
             <xs:element form="unqualified" minOccurs="0" name="weatherDataset" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Type of weather dataset, such as TMY, TMY2, IWEC, etc.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="maxTemperature" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Maximum historic high temperature.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="MinTemperature" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Lowest historic temperature. Typically used to calculate highest PV system string voltage when cold and sunny, and therefore longest possible string. </xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
