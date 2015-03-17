@@ -346,11 +346,10 @@ For example:
 	</xs:simpleType>
 	<xs:simpleType name="roofConstructionEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="beams and purlins"/>
-			<xs:enumeration value="rafters with attic"/>
-			<xs:enumeration value="truss with attic"/>
-			<xs:enumeration value="vaulted 2x"/>
-			<xs:enumeration value="vaulted beams"/>
+			<xs:enumeration value="BEAMS_AND_PURLINS"/>
+			<xs:enumeration value="RAFTERS"/>
+			<xs:enumeration value="MANUFACTURED_TRUSS"/>
+			<xs:enumeration value="VAULTED_BEAMS"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="roofFaceStructure">
