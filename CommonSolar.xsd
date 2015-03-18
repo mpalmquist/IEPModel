@@ -85,13 +85,13 @@
             </xs:element>
             <xs:element minOccurs="0" name="anchorTotal" type="xs:integer">
                 <xs:annotation>
-                    <xs:documentation>Total number of attachment points for the array.</xs:documentation>
+                    <xs:documentation>Total number of attachment points for the array. Anchors are also known as “stand-offs”, “feet”, “mounts” or “points of attachment.”</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="anchorMaxHorizontalSpacing" type="xs:double"
                 form="unqualified">
                 <xs:annotation>
-                    <xs:documentation>The maximum horizontal spacing allowed between attachment points. See racking product manual for maximum spacing allowed based on maximum design wind speed, and permitting guidelines for maximum spacing allowed for structural load. </xs:documentation>
+                    <xs:documentation>The maximum horizontal spacing allowed between attachment points. Horizontal anchor spacing is also known as “cross-slope” or “east-west” anchor spacing. See racking product manual for maximum spacing allowed based on maximum design wind speed, and permitting guidelines for maximum spacing allowed for structural load. </xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="anchorFastenersMeetManufacturerGuidelines"
@@ -1699,12 +1699,17 @@ If an individual module has an orientation different from the common value, that
             </xs:element>
             <xs:element minOccurs="0" name="mountingSystem" type="mountingSystem">
                 <xs:annotation>
-                    <xs:documentation>TO DO. Projected to contain information necessary for permitting using the Solar ABCs, or state of California's expedited permit process.</xs:documentation>
+                    <xs:documentation>Information used to describe the mounting system and if roof mounted, assess the structural support underlying the mounting system. For example, the State of California's expedited permit process.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="moduleLayout" type="moduleLayout">
                 <xs:annotation>
                     <xs:documentation>Physical layout positions of the modules within the array.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="modulesOverhangRoofEdges" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Expedited permit processes dictate that modules be fully contained within the perimeter of the roof edges on which it is installed.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>

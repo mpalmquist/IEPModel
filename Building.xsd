@@ -357,28 +357,53 @@ For example:
 			<xs:documentation>Describes a roof face's structural attributes important to knowing whether the roof can support the additional weight of added equipment, such as solar panels.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element maxOccurs="1" minOccurs="0" name="structuralMembers" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="rafters" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Type of structural support for the roofing deck. Example values might include: "Wood 2byX, Fir#2 Or Better", "Wood 2byX", "Wood I-beam", "Steel I-beam", "Steel C-channel", etc</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="structuralMemberCrossSectionWidth"
-				type="xs:double"/>
-			<xs:element minOccurs="0" name="structuralMemberCrossSectionDepth" type="xs:double"/>
-			<xs:element maxOccurs="1" minOccurs="0" name="structuralMemberSpacing" type="xs:double">
+			<xs:element maxOccurs="1" minOccurs="0" name="rafterCrossSectionWidth" type="xs:double"/>
+			<xs:element minOccurs="0" name="rafterCrossSectionDepth" type="xs:double"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="rafterSpacing" type="xs:double">
 				<xs:annotation>
-					<xs:documentation>Spacing center to center of adjacent structural members. Expedited permit process steps through a check of rafter beam spacing.</xs:documentation>
+					<xs:documentation>Spacing center to center of adjacent rafters (or other structural members). Expedited permit process steps through a check of rafter beam spacing.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="structuralMemberMaxUnsupportedSpan" type="xs:double">
+			<xs:element minOccurs="0" name="rafterSpan" type="xs:double">
 				<xs:annotation>
-					<xs:documentation>Length of maximum horizontally measured span of unsupported roof structural member.  That is, it is NOT the measured length of rafters, it is the horizontal projection of rafter length along the greatest unsupported length. See Figure 4 of CA Permitting Guidelines structural checklist.</xs:documentation>
+					<xs:documentation>Length of rafter (or other structural member) supporting the roof deck. Used in determining if sag is acceptable or not.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="rafterSag" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>The maximum deflection in a roof face's rafter (or other structural member) span.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="rafterMaxHorizontalSpan" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>Longest horizontally measured length of unsupported rafter or roof deck structural member.  That is, it is NOT the measured length of rafters, it is the horizontal projection of rafter length along the greatest unsupported length. See Figure 4 of CA Permitting Guidelines structural checklist.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ridgeBeamSpan" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>If relevant, measured length of the ridge beam for this roof face.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="ridgeBeamSag" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>If roof face includes a ridge beam, this is the maximum deflection in its span.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="1" minOccurs="0" name="beamsExposedToInteriorSpace"
 				type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>If using wooden beams as structural members, are the beams exposed to the occupied spaces below?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="disallowedHolesOrNotchesInStructuralMembers"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Are there any visually apparent disallowed notches or holes in rafters, or diagonal/vertical truss members? According to CA expedited permitting guidebook: holes are only allowed in middle half of member's span, holes may be no larger than 1/4 of rafter depth (D), holes may only be in middle third of rafter depth, minimum spacing between holes is at least rafter depth, notches may be no deeper than 1/4" along top or bottom of rafter, bird's mouth notches at end of rafter are OK.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -546,10 +571,20 @@ For example:
 					<xs:documentation>Roof surface material.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element default="1" minOccurs="0" name="surfaceLayers" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Number of roofing surface layers. For example, a single re-roof overlay would make 2 surface layers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="color" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="area" type="area" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This is a convenience value based on the average tilt of the roof and the floor space of the building and may be overridden by the LayoutPlane dimensions</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="meanRoofHeight" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>Mean height of roof faces (typically where PV arrays will be installed).</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="parapetWall" type="xs:boolean" minOccurs="0" maxOccurs="1">
@@ -558,10 +593,19 @@ For example:
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="parapetWallHeight" type="dimension" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="signsOfLeaksDamageOrDeterioration" type="xs:string" minOccurs="0"
-				maxOccurs="1">
+			<xs:element minOccurs="0" name="evidenceOfLeaksOrDeterioration" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Use as a notes field. Look for things like: Existing roof leaks, signs of poor drainage (such as stains), uneven roof decks, etc</xs:documentation>
+					<xs:documentation>Are there signs of leaks, poor drainage, uneven roof surface, exessive sagging, etc. Use conditionNotes to capture details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="structuralDecayOrFireDamage" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Is there any visually apparent structural decay or un-repaired fire damage? Use conditionNotes to record details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conditionNotes" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Use as a notes field to more fully describe basic findings. Describe evidence of leaks, poor drainage (such as stains), structural decay, or fire damage.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="yearBuiltOrReplaced" minOccurs="0" maxOccurs="1">
