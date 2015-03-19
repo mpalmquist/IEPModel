@@ -1664,7 +1664,7 @@ If the PvDesign is used within a Project.xml document, and the PvDesign calls fo
             <xs:element minOccurs="0" name="azimuth" type="angle"/>
             <xs:element minOccurs="0" name="tilt" type="angle"/>
             <xs:element default="fixed" minOccurs="0" name="trackingMode" type="trackingModeEnum"/>
-            <xs:element minOccurs="0" name="commonModuleStandoff" type="xs:string">
+            <xs:element minOccurs="0" name="commonModuleStandoff" type="xs:double">
                 <xs:annotation>
                     <xs:documentation>Standoff describes the average spacing from the back of the modules to the installation surface (e.g. roof or ground).  Standoff is used in calculating system output when the calculator considers heat effects of reduced air circulation to the back of the modules.  Many incentive programs reduce incentive payments when air circulation is minimal.</xs:documentation>
                 </xs:annotation>

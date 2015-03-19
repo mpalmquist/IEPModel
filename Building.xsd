@@ -352,6 +352,16 @@ For example:
 			<xs:enumeration value="VAULTED_BEAMS"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="deckSheathingEnum">
+		<xs:annotation>
+			<xs:documentation>ENUM of roof deck sheathing types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_>=_7/16&quot;_THICK"/>
+			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_&lt;_7/16&quot;_THICK"/>
+			<xs:enumeration value="1X_SKIP_SHEATHING"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="roofFaceStructure">
 		<xs:annotation>
 			<xs:documentation>Describes a roof face's structural attributes important to knowing whether the roof can support the additional weight of added equipment, such as solar panels.</xs:documentation>
@@ -574,6 +584,11 @@ For example:
 			<xs:element default="1" minOccurs="0" name="surfaceLayers" type="xs:integer">
 				<xs:annotation>
 					<xs:documentation>Number of roofing surface layers. For example, a single re-roof overlay would make 2 surface layers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="deckSheathing" type="deckSheathingEnum">
+				<xs:annotation>
+					<xs:documentation>Type of roof decking material.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="color" type="xs:string" minOccurs="0" maxOccurs="1"/>
