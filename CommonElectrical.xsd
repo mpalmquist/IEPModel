@@ -541,6 +541,11 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
                     <xs:documentation>An optional free text identifier.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element default="1" minOccurs="0" name="instances" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>A single circuitConnection element may be used to represent a set of multiple identical circuit connection instances. For example, from a dcStringSet element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="currentType" minOccurs="0" type="currentEnum">
                 <xs:annotation>
                     <xs:documentation>AC or DC</xs:documentation>

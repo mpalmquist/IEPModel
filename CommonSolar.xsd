@@ -1399,13 +1399,13 @@ Note that a separate dcStringIndividual type allows more detailed defintion of a
                     <xs:documentation>Number of copies of this defined string. ISSUE: then string cannot have list of individual modules. I suppose this same element could be used either way.  OR create two separate elements - one for use as a single string with module instances, and another that has no notion of individual module instances.  Need to run this by Derek.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="typicalCircuitConnection" type="circuitConnection">
+            <xs:element minOccurs="0" name="typicalCircuitConnection" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>Represents the wired connection from the string to its parent element (for example, a Combiner or InverterInput).
+                    <xs:documentation>References the set of wired connections from the set of strings to its parent element (for example, a Combiner or InverterInput).
 
 Arrays can be made up of many strings. Each string has its own circuit connection.  Because the strings in any one array are almost always connected to their parent element in a common way, this typicalCircuitConnection element defines the commonly used connection approach from any one of the strings to the parent element (a combiner, or inverter).
 
-If circuit connections vary between strings, this element should not be used.  Instead, use the individualString element which contains its own circuitConnection element.</xs:documentation>
+If circuit connections vary between strings, this element should not be used.  Instead, use the individual dcString element which contains its own circuitConnection reference.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
