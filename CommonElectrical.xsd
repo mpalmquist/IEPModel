@@ -586,28 +586,15 @@ This is a very important consideration, as the NEC dictates the maximum allowabl
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="includesDisconnect">
+            <xs:element minOccurs="0" name="includedDisconnect" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>If the CircuitConnection has a disconnect switch in it, this calls it out.</xs:documentation>
                 </xs:annotation>
-                <xs:complexType>
-                    <xs:attribute name="WirewayBoxIdRef" type="xs:IDREF" use="required">
-                        <xs:annotation>
-                            <xs:documentation>Reference to an instance of the DisconnectSwitch modeled generally as a WirewayBox. A disconnect switch can switch more than one CircuitConnection, so it is defined external to the CircuitConnection.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="includesStandAloneMeter">
+            <xs:element minOccurs="0" name="includedStandAloneMeter" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>If the CircuitConnection is metered (for example the utility's revenue meter), this element describes the meter socket and meter.  The meter and socket are individual entities. The MeterSocket is modeled as a simple WirewayBox.</xs:documentation>
                 </xs:annotation>
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="meterSocket" type="wirewayBox"/>
-                        <xs:element name="meter" type="equipmentInstance"/>
-                    </xs:sequence>
-                </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" name="sourceComponentIdRef" type="xs:IDREF">
                 <xs:annotation>
@@ -628,12 +615,6 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id"/>
-        <xs:attribute name="circuitConnectionEndpointIdRef" type="xs:IDREF">
-            <xs:annotation>
-                <xs:documentation>The equipmentInstance where this circuitConnection terminates. Refers to the ID of that equipmentInstance within the XML document instance.
-Circuit connections have two ends. One is defined by the parent of the circuitConnection, the other is the equipment defined by this ID.</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
     </xs:complexType>
     <xs:complexType name="electricalPanel">
         <xs:annotation>

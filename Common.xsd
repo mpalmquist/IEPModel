@@ -1667,6 +1667,17 @@ Use the Name attribute to capture optional name for the payment. For example, if
             <xs:element name="fuelConnector" type="fuelConnector" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:simpleType name="terminalTempRatingEnum">
+        <xs:annotation>
+            <xs:documentation>Enumeration of possible temperature ratings of an equipment's electrical terminals.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="60C"/>
+            <xs:pattern value=""/>
+            <xs:enumeration value="75C"/>
+            <xs:enumeration value="90C"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="nemaRatingEnum">
         <xs:annotation>
             <xs:documentation>NEMA provides ratings on equipment enclosures that describe its protection from weather/elements.
@@ -1745,6 +1756,7 @@ Included in Common.xsd because EquipmentDefinitionType element uses it, else wou
                     <xs:documentation>Equipment enclosures typically have a NEMA rating that describes its protection from weather/elements.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="terminalTempRating" type="terminalTempRatingEnum"/>
             <xs:element minOccurs="0" name="listingAgency" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Agency under which the equipment was listed per the associated standard.  Examples include ETL, UL, CSA, etc</xs:documentation>
