@@ -83,14 +83,6 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="circuitBreakerDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="circuitBreakerDefintion"
-                            type="circuitBreakerDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
             <xs:element minOccurs="0" name="junctionBoxDefinitions">
                 <xs:complexType>
                     <xs:sequence>
@@ -116,6 +108,22 @@
                                 <xs:documentation>Specifications for an AC electric panel where a String Inverter or AC PV Branch Circuit may be connected. A PvSystem may contain more than one AC electric panel make and model (each Inverter or AC PV Branch Circuit can connect to different equipment).</xs:documentation>
                             </xs:annotation>
                         </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="circuitBreakerDefinitions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="circuitBreakerDefintion"
+                            type="circuitBreakerDefinition"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="fuseDefintions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="fuseDefinition"
+                            type="fuseDefinition"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -148,10 +156,29 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="stringInverters">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="stringInverter"
+                            type="stringInverter">
+                            <xs:annotation>
+                                <xs:documentation>String (or Central) Inverters that make up the system.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="dcOptimizers">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element maxOccurs="unbounded" name="dcOptimizer" type="dcOptimizer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="dcStrings">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="dcString" type="dcString"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -164,32 +191,6 @@
                         <xs:element maxOccurs="unbounded" name="microInverter" type="microInverter">
                             <xs:annotation>
                                 <xs:documentation>A specific instance of a micro-inverter in the PV system.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="dcStrings">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="dcString" type="dcString"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="dcCombiners">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="dcCombiner" type="dcCombiner"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="stringInverters">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="stringInverter"
-                            type="stringInverter">
-                            <xs:annotation>
-                                <xs:documentation>String (or Central) Inverters that make up the system.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
@@ -210,23 +211,10 @@ NOTE: An AC Module is assumed to be either:
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="electricalPanels">
+            <xs:element minOccurs="0" name="dcCombiners">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="electricalPanel"
-                            type="electricalPanel">
-                            <xs:annotation>
-                                <xs:documentation>Optional. The ElectricalPanel on which an Inverter can make its AC system tie-in. May also include parent ElectricalPanels.
-
-Use of this element is somewhat dependent on what XSDs are used. This element is always used to describe a new electrical panel which will be added to a site to accommodate the addition of a PV system (perhaps serving as an AC Combiner). If PvDesign xml document is used independently from a broader Project XML document, then this element can also be used to define existing ElectricalPanel(s) where the PV system may be interconnected.
-
-This element is not required when the PvDesign is used within a broader Project XML instance that contains an ExistingElectricalDitributionHierarchy and the PvDesign's Inverter(s) are to be connected to the ElectricalPanel(s) defined there.
-
-NOTE: The EquipmentWhereConnectedIdRef within the Inverter's AcCircuitConnection should reference either this element, or a similar ElectricalPanel instance within an ExistingElectricalDistributionHierarchy element of a Project.xml.
-
-NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy element. It can only be associated with an ElectricalDistributionHierarchy via EquipmentWhereConnectedIdRef attribute of the Inverter's AcTie-InCircuitConnection element.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
+                        <xs:element maxOccurs="unbounded" name="dcCombiner" type="dcCombiner"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -258,6 +246,40 @@ Note that if the pvSystem is used in an IEPM Project file, the junctionBox does 
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element maxOccurs="unbounded" name="meterBox" type="meterBox"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="electricalPanels">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="electricalPanel"
+                            type="electricalPanel">
+                            <xs:annotation>
+                                <xs:documentation>Optional. The ElectricalPanel on which an Inverter can make its AC system tie-in. May also include parent ElectricalPanels.
+
+Use of this element is somewhat dependent on what XSDs are used. This element is always used to describe a new electrical panel which will be added to a site to accommodate the addition of a PV system (perhaps serving as an AC Combiner). If PvDesign xml document is used independently from a broader Project XML document, then this element can also be used to define existing ElectricalPanel(s) where the PV system may be interconnected.
+
+This element is not required when the PvDesign is used within a broader Project XML instance that contains an ExistingElectricalDitributionHierarchy and the PvDesign's Inverter(s) are to be connected to the ElectricalPanel(s) defined there.
+
+NOTE: The EquipmentWhereConnectedIdRef within the Inverter's AcCircuitConnection should reference either this element, or a similar ElectricalPanel instance within an ExistingElectricalDistributionHierarchy element of a Project.xml.
+
+NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy element. It can only be associated with an ElectricalDistributionHierarchy via EquipmentWhereConnectedIdRef attribute of the Inverter's AcTie-InCircuitConnection element.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="circuitBreakers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="circuitBreaker" type="circuitBreaker"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="fuses">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="fuse" type="fuse"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>

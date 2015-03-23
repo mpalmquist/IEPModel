@@ -480,27 +480,10 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
                     <xs:documentation>Is this conductor grounded?</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ocpdProtection">
+            <xs:element minOccurs="0" name="ocpdIdRef" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>Is this conductor protected by an overcurrent protection device (OCPD) such as a fuse or circuit breaker? If so, a reference to the OCPD's specifications are provided, as well as a reference to the equipment in which the OCPD is housed.</xs:documentation>
+                    <xs:documentation>If this conductor protected by an overcurrent protection device (OCPD) such as a fuse or circuit breaker, this provides the reference to the OCPD instance in the XML document.</xs:documentation>
                 </xs:annotation>
-                <xs:complexType>
-                    <xs:attribute name="id" type="xs:ID" use="required">
-                        <xs:annotation>
-                            <xs:documentation>The ID of this ocpd instance.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="ocpdDefinitionIdRef" type="xs:IDREF" use="required">
-                        <xs:annotation>
-                            <xs:documentation>Reference ID within the XML instance document of the OCPD's specifications (fuse, or circuit breaker).</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="equipmentWhereHousedIdRef">
-                        <xs:annotation>
-                            <xs:documentation>The equipment instance where this OCPD is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:complexType>
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" use="required" type="xs:ID"/>
@@ -664,6 +647,32 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                         type="groundingElectrodeConductor">
                         <xs:annotation>
                             <xs:documentation>The main service panel should have an AC system grounding conductor that runs from the grounding bus to the grounding electrode.  The grounding electrode is a ground rod, or U-fer, for example.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="fuse">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>The equipment instance where this fuse is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="circuitBreaker">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>The equipment instance where this circuit breaker is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                 </xs:sequence>

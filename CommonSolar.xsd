@@ -1482,7 +1482,7 @@ The EquipmentDefinitionRefID for the DcCombiner references the ID of the associa
         <xs:complexContent>
             <xs:extension base="equipmentInstance">
                 <xs:sequence>
-                    <xs:element name="outputCircuit" type="xs:IDREF">
+                    <xs:element name="outputCircuitIdRef" type="xs:IDREF">
                         <xs:annotation>
                             <xs:documentation>Reference to the output circuitConnection from this Combiner to its parent (inverter or sub-combiner).</xs:documentation>
                         </xs:annotation>
