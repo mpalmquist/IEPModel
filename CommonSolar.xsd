@@ -1511,7 +1511,7 @@ The EquipmentDefinitionRefID for the DcCombiner references the ID of the associa
                     <xs:sequence>
                         <xs:element maxOccurs="unbounded" name="dcStringSet" type="dcStringSet">
                             <xs:annotation>
-                                <xs:documentation>In most cases, there will be a single string set because all strings have the same number of modules. However, a separate stringSet can be created for each set of strings of a given number of modules.</xs:documentation>
+                                <xs:documentation>In many cases, there will be a single string set because all strings have the same number of modules. However, a separate stringSet can be created for each set of strings of a given number of modules.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
@@ -1592,7 +1592,7 @@ NOTE: An AC PV branch circuit may be composed of
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
-                    <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
+                    <xs:element minOccurs="0" name="outputCircuitIdRef" type="xs:IDREF">
                         <xs:annotation>
                             <xs:documentation>The outputCircuit element references the AC side of the DC to AC Inverter.  It uses the common design pattern of each electrical equipment instance having a single circuitConnection element that describes its electrical connection to upstream electrical equipment (for example, electricalPanels, etc).  
                                 
