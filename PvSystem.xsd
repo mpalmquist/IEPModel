@@ -357,5 +357,4 @@ Note that if the PvSystem is used in an IEPM Project file, this conduitSegment d
             <xs:documentation>Use when describing one or more PV systems that refer to specifically defined array install areas, for example, if array layouts are included.</xs:documentation>
         </xs:annotation>
     </xs:element>
-    <xs:element name="meters"/>
 </xs:schema>
