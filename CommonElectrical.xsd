@@ -608,10 +608,10 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                 <xs:sequence>
                     <xs:element minOccurs="0" name="serviceConfigurationVoltage"
                         type="serviceConfigurationVoltageEnum"/>
-                    <xs:element minOccurs="0" name="energizingSourceCircuitConnection"
+                    <xs:element minOccurs="0" name="energizingSourceCircuitConnectionIdRef"
                         type="xs:IDREF">
                         <xs:annotation>
-                            <xs:documentation>Reference to the circuitConnection energizing the panel.  Should include description of OCPD / disco at the circuitConnection's source end.</xs:documentation>
+                            <xs:documentation>Reference to the circuitConnection energizing the panel.  The circuitConnection will reference the OCPD / disco at the energizing source's end.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="mainBreaker" type="circuitBreakerDefinition"

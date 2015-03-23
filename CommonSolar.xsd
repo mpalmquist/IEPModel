@@ -1541,7 +1541,7 @@ NOTE: An AC PV branch circuit may be composed of
                 </xs:annotation>
             </xs:element>
             <xs:element name="microInverterQuantity" type="xs:int"/>
-            <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
+            <xs:element minOccurs="0" name="outputCircuitIdRef" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>References the electrical wiring that the acPvBranchCircuit feeds into. </xs:documentation>
                 </xs:annotation>
