@@ -99,6 +99,22 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="meterDefinitions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="meterDefinition"
+                            type="meterDefinition"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="meterBoxDefinitions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="meterBoxDefinitions"
+                            type="meterBoxDefintion"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="electricalPanelDefinitions">
                 <xs:complexType>
                     <xs:sequence>
@@ -242,6 +258,13 @@ Note that if the pvSystem is used in an IEPM Project file, the junctionBox does 
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="meters">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="meter" type="meter"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="meterBoxes">
                 <xs:complexType>
                     <xs:sequence>
@@ -334,4 +357,5 @@ Note that if the PvSystem is used in an IEPM Project file, this conduitSegment d
             <xs:documentation>Use when describing one or more PV systems that refer to specifically defined array install areas, for example, if array layouts are included.</xs:documentation>
         </xs:annotation>
     </xs:element>
+    <xs:element name="meters"/>
 </xs:schema>

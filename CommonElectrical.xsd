@@ -221,7 +221,10 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="standAloneMeterSocketDefintion">
+    <xs:complexType name="meterBoxDefintion">
+        <xs:annotation>
+            <xs:documentation>A stand alone meter box.</xs:documentation>
+        </xs:annotation>
         <xs:complexContent>
             <xs:extension base="equipmentDefinition"/>
         </xs:complexContent>
@@ -355,7 +358,15 @@
             <xs:extension base="wirewayBox"/>
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="meter">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance"/>
+        </xs:complexContent>
+    </xs:complexType>
     <xs:complexType name="meterBox">
+        <xs:annotation>
+            <xs:documentation>An instance of a stand alone meter box.</xs:documentation>
+        </xs:annotation>
         <xs:complexContent>
             <xs:extension base="wirewayBox"/>
         </xs:complexContent>
@@ -512,6 +523,32 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="circuitBreaker">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>The equipment instance where this circuit breaker is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="fuse">
+        <xs:complexContent>
+            <xs:extension base="equipmentInstance">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>The equipment instance where this fuse is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
     <xs:complexType name="circuitConnection">
         <xs:annotation>
             <xs:documentation>A CircuitConnection defines a portion of an electrical circuit connecting two distinct components of an electrical system (for example, the connection of a PV String to a CombinerBox).  A CircuitConnection is made by conductors. One end of the CircuitConnection is the element in which the CircuitConnection exists, and the other end is typically the parent element of the element in which the CircuitConnection element resides. For example, a CombinerBox element can have multiple PvString elements within it.  Each PvString element contains a CircuitConnection element which defines its connection to the CombinerBox.  A CombinerBox has a CircuitConnection element which defines its connection to an InverterDcInput, for example.
@@ -625,9 +662,9 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                             <xs:documentation>Is this panel existing or new (proposed)?  When the ElectricalPanel is used within the existingElectricalSystem element inside of a Project's Site element, this is assumed to be an existing panel.  However, if the panel is just being defined within a PvDesign's AcTie-InPanel element, then its important to know if the panel being described already exists or is new (and therefore part of the scope of work).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="includedMeter" type="equipmentInstance">
+                    <xs:element minOccurs="0" name="includedMeterIdRef" type="xs:IDREF">
                         <xs:annotation>
-                            <xs:documentation>If the panel is an "All in One", it has a meter socket.  This element describes the meter in that socket.</xs:documentation>
+                            <xs:documentation>If the panel is an "All in One", it has a meter socket.  This element references the meter in that socket.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="sumOfExistingFeederBreakerAmps"
@@ -647,32 +684,6 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                         type="groundingElectrodeConductor">
                         <xs:annotation>
                             <xs:documentation>The main service panel should have an AC system grounding conductor that runs from the grounding bus to the grounding electrode.  The grounding electrode is a ground rod, or U-fer, for example.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="fuse">
-        <xs:complexContent>
-            <xs:extension base="equipmentInstance">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
-                        <xs:annotation>
-                            <xs:documentation>The equipment instance where this fuse is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="circuitBreaker">
-        <xs:complexContent>
-            <xs:extension base="equipmentInstance">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="equipmentWhereHousedIdRef" type="xs:IDREF">
-                        <xs:annotation>
-                            <xs:documentation>The equipment instance where this circuit breaker is located. Refers to the equipment instance's ID within the XML instance document.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                 </xs:sequence>
