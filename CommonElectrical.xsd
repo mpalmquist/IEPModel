@@ -73,12 +73,18 @@
             <xs:documentation>List of industry standard electrical conduit diameters in inches.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="1/2"/>
-            <xs:enumeration value="3/4"/>
+            <xs:enumeration value="0.5"/>
+            <xs:enumeration value="0.75"/>
             <xs:enumeration value="1"/>
-            <xs:enumeration value="1 1/4"/>
-            <xs:enumeration value="1 1/2"/>
+            <xs:enumeration value="1.25"/>
+            <xs:enumeration value="1.5"/>
             <xs:enumeration value="2"/>
+            <xs:enumeration value="2.5"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="3.5"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="conduitTypeEnum">
@@ -88,7 +94,12 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="EMT"/>
             <xs:enumeration value="PVC"/>
+            <xs:enumeration value="PVC_40"/>
+            <xs:enumeration value="PVC_80"/>
             <xs:enumeration value="RIGID"/>
+            <xs:enumeration value="FMC"/>
+            <xs:enumeration value="LFMC"/>
+            <xs:enumeration value="LFNC"/>
             <xs:enumeration value="FREE_AIR"/>
         </xs:restriction>
     </xs:simpleType>
