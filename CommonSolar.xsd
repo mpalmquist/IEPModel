@@ -1592,6 +1592,11 @@ NOTE: An AC PV branch circuit may be composed of
                             </xs:sequence>
                         </xs:complexType>
                     </xs:element>
+                    <xs:element minOccurs="0" name="dcInputs" type="dcInputs">
+                        <xs:annotation>
+                            <xs:documentation>Use this element to describe the dc inputs for string inverters that do not have maximum power point trackers. DO NOT use this element if the inverter has maximum power point trackers.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:element minOccurs="0" name="outputCircuitIdRef" type="xs:IDREF">
                         <xs:annotation>
                             <xs:documentation>The outputCircuit element references the AC side of the DC to AC Inverter.  It uses the common design pattern of each electrical equipment instance having a single circuitConnection element that describes its electrical connection to upstream electrical equipment (for example, electricalPanels, etc).  
