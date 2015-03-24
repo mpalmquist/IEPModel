@@ -1367,17 +1367,19 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" name="dcInput">
                 <xs:complexType>
-                    <xs:attribute name="id"/>
-                    <xs:attribute name="dcInputType" type="dcInputEnum">
-                        <xs:annotation>
-                            <xs:documentation>Calls out the type of dcInput circuit this is. Either a dcString or dcCombiner.</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="dcInputIdRef" type="xs:IDREF">
-                        <xs:annotation>
-                            <xs:documentation>Reference ID within the XML document instance of the dcInput Circuit (either a dcString or a dcCombiner, which is called out in dcInputCircuitType attribute).</xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="dcInputType" type="dcInputEnum">
+                            <xs:annotation>
+                                <xs:documentation>Calls out the type of dcInput circuit this is. Either a dcString or dcCombiner.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="dcInputIdRef" type="xs:IDREF">
+                            <xs:annotation>
+                                <xs:documentation>Reference ID within the XML document instance of the dcInput Circuit (either a dcString or a dcCombiner, which is called out in dcInputCircuitType attribute).</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required"/>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -1396,10 +1398,10 @@ Note that a separate dcStringIndividual type allows more detailed defintion of a
             </xs:element>
             <xs:element name="strings" type="xs:integer">
                 <xs:annotation>
-                    <xs:documentation>Number of copies of this defined string. ISSUE: then string cannot have list of individual modules. I suppose this same element could be used either way.  OR create two separate elements - one for use as a single string with module instances, and another that has no notion of individual module instances.  Need to run this by Derek.</xs:documentation>
+                    <xs:documentation>Number of copies of this defined string.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="typicalCircuitConnection" type="xs:IDREF">
+            <xs:element minOccurs="0" name="typicalCircuitConnectionIdRef" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>References the set of wired connections from the set of strings to its parent element (for example, a Combiner or InverterInput).
 
@@ -1455,7 +1457,7 @@ Can optionally include detailed information on each individual string, including
                     <xs:documentation>Number of dcOptimizers (if used) in this string. Note that some dcOptimizers allow one or two modules per unit, so number of modules and dc optimizers can vary.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="outputCircuit" type="xs:IDREF">
+            <xs:element minOccurs="0" name="outputCircuitIdRef" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>Represents the wired connection from the string to its next upstream component (for example, a Junction Box, a Combiner, or Inverter).</xs:documentation>
                 </xs:annotation>
