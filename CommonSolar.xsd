@@ -1487,7 +1487,7 @@ The EquipmentDefinitionRefID for the DcCombiner references the ID of the associa
                             <xs:documentation>Reference to the output circuitConnection from this Combiner to its parent (inverter or sub-combiner).</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element name="dcInputCircuits" type="dcInputs">
+                    <xs:element name="dcInputs" type="dcInputs">
                         <xs:annotation>
                             <xs:documentation>Collection of DC input source circuits.</xs:documentation>
                         </xs:annotation>
