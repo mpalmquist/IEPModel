@@ -95,6 +95,11 @@
 Utiility interconnections may require meter number. Utility incentive programs may require meter id as well.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="0" name="electricDIstributionSystemIdRef" type="xs:IDREF">
+				<xs:annotation>
+					<xs:documentation>Reference to the associated physical service electric distribution system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element minOccurs="0" name="spaces">
 				<xs:complexType>
 					<xs:sequence>

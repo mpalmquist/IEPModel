@@ -537,7 +537,7 @@ Included reference to Utility Service here instead of in Building since Project 
 			<xs:element minOccurs="0" name="buildings">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element maxOccurs="unbounded" ref="building"/>
+						<xs:element maxOccurs="unbounded" name="building" type="building"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -570,6 +570,14 @@ Included reference to Utility Service here instead of in Building since Project 
 								<xs:documentation>A solution is a definition of the proposed work to be done, inlcuding one or more measures, labor and materials items, schedule, pricing, financing, etc. Each solution may be from a specific service provider.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="electricDIstributionSystems">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="electricDIstributionSystem"
+							type="electricDistributionSystem"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

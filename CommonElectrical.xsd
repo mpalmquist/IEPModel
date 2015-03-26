@@ -598,7 +598,7 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
             <xs:element default="load-side" minOccurs="0" name="sideOfPanelOcpdWhereConnected"
                 type="sideOfPanelOcpdWhereConnectedEnum">
                 <xs:annotation>
-                    <xs:documentation>When a circuit connection's targetComponent is an ElectricalPanel, this describes which side of a the panel's main breaker (if present) that the interconnection made (supply or load side)?
+                    <xs:documentation>When a circuit connection's targetComponent is an ElectricalPanel, this describes which side of a the panel's main breaker (if present) that the interconnection is made (supply or load side)?
 This is a very important consideration, as the NEC dictates the maximum allowable interconnected current, and it is very different for each side of the OCPD.  For example, when tied to the load side of a panel's bus, the total of all circuits amperage can sum to 120% of the bus's current rating when using a backfed breaker.  If tied to the supply side, the allowable PV circuit amperage can go up to the maximum rated amperage of the bus (as the main breaker protects the load side).  Note that this also differs between residential and commercial systems. Most residential systems are interconnected on the load side. Conversely, most commercial systems are interconnected on the supply side because NEC 690 currently has no 120% rule on commercial load side tie-in (significantly limiting possible size), and also commercial system equipment is more likely to have connections available on the supply side (e.g. lugs).</xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -647,6 +647,16 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
         </xs:sequence>
         <xs:attribute name="id"/>
     </xs:complexType>
+    <xs:simpleType name="distributionRole">
+        <xs:annotation>
+            <xs:documentation>Role that an electrical panel plays in the distribution system.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MAIN_PANEL"/>
+            <xs:pattern value=""/>
+            <xs:enumeration value="SUB_PANEL"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="electricalPanel">
         <xs:annotation>
             <xs:documentation>Describes any sort of electrical distribution panel, for example a fused panel, a breaker panel, etc.  Can be a main or sub-panel.</xs:documentation>
@@ -654,6 +664,7 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
         <xs:complexContent>
             <xs:extension base="equipmentInstance">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="distributionRole" type="distributionRole"/>
                     <xs:element minOccurs="0" name="serviceConfigurationVoltage"
                         type="serviceConfigurationVoltageEnum"/>
                     <xs:element minOccurs="0" name="energizingSourceCircuitConnectionIdRef"
@@ -671,6 +682,11 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                     <xs:element minOccurs="0" name="existence" type="xs:string">
                         <xs:annotation>
                             <xs:documentation>Is this panel existing or new (proposed)?  When the ElectricalPanel is used within the existingElectricalSystem element inside of a Project's Site element, this is assumed to be an existing panel.  However, if the panel is just being defined within a PvDesign's AcTie-InPanel element, then its important to know if the panel being described already exists or is new (and therefore part of the scope of work).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="buildingIdRef" type="xs:IDREF">
+                        <xs:annotation>
+                            <xs:documentation>Optional reference to the building that this electrical panel services.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element minOccurs="0" name="includedMeterIdRef" type="xs:IDREF">
@@ -700,5 +716,84 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="electricDistributionSystem">
+        <xs:annotation>
+            <xs:documentation>Defintion of a physical electric service distribution system.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="utilityServiceIdRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>Reference to a defined utilityService element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="electricServiceEntryEquipmentIdRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>The initial component in the electric distribution system where the electric service enters. This is the start of the distribution tree.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="electricalPanels">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="electricalPanel"
+                            type="electricalPanel"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="circuitBreakers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="circuitBreaker"
+                            type="circuitBreaker"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="fuses">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="fuse" type="fuse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="junctionBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="junctionBox" type="junctionBox"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="disconnectBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="disconnectBox"
+                            type="disconnectBox"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="meterBoxes">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="meterBox" type="meterBox"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="circuitConnections">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="circuitConnection"
+                            type="circuitConnection"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="conduitSegments">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="conduitSegment"
+                            type="conduitSegment"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" use="required"/>
     </xs:complexType>
 </xs:schema>
