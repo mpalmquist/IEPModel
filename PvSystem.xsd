@@ -83,66 +83,18 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="junctionBoxDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionBoxDefintion"
-                            type="junctionBoxDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="disconnectSwitchDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1"
-                            name="disconnectSwitchDefinition" type="disconnectSwitchDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="meterDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="meterDefinition"
-                            type="meterDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="meterBoxDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="meterBoxDefinitions"
-                            type="meterBoxDefintion"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="electricalPanelDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1"
-                            name="electricalPanelDefinition" type="electricalPanelDefinition">
-                            <xs:annotation>
-                                <xs:documentation>Specifications for an AC electric panel where a String Inverter or AC PV Branch Circuit may be connected. A PvSystem may contain more than one AC electric panel make and model (each Inverter or AC PV Branch Circuit can connect to different equipment).</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="circuitBreakerDefinitions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="circuitBreakerDefintion"
-                            type="circuitBreakerDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="fuseDefintions">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="fuseDefinition"
-                            type="fuseDefinition"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:element minOccurs="0" name="junctionBoxDefinitions" type="junctionBoxDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="disconnectSwitchDefinitions"
+                type="disconnectSwitchDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="meterDefinitions" type="meterDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="meterBoxDefinitions" type="meterBoxDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="electricalPanelDefinitions"
+                type="electricalPanelDefinitions"/>
+            <xs:element minOccurs="0" name="circuitBreakerDefinitions"
+                type="circuitBreakerDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="fuseDefintions" type="fuseDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="conductorDefinitions" type="conductorDefinitions"/>
+            <xs:element minOccurs="0" name="conduitDefinitions" type="conduitDefinitions"/>
             <xs:element minOccurs="0" name="moduleLayouts">
                 <xs:complexType>
                     <xs:sequence>
@@ -234,101 +186,19 @@ NOTE: An AC Module is assumed to be either:
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element minOccurs="0" name="junctionBoxes">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="junctionBox"
-                            type="junctionBox">
-                            <xs:annotation>
-                                <xs:documentation>A junction box used in this design. circuitConnections may start/end at a junctionBox, or they may pass through. Multiple circuitConnections may pass through a junctionBox.
-Note that if the pvSystem is used in an IEPM Project file, the junctionBox does not reference any existingWirewaySegments or ProposedWirewaySegments defined in the Site element.  Those elements are used for site survey data collection, not system definition.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="disconnectBoxes">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="disconnectBox" type="disconnectBox">
-                            <xs:annotation>
-                                <xs:documentation>A standalone disconnect box used in the design. circuitConnections may start/end at the disconnect switch, or they may pass through.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="meters">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="meter" type="meter"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="meterBoxes">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="meterBox" type="meterBox"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="electricalPanels">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="electricalPanel"
-                            type="electricalPanel">
-                            <xs:annotation>
-                                <xs:documentation>Optional. The ElectricalPanel on which an Inverter can make its AC system tie-in. May also include parent ElectricalPanels.
-
-Use of this element is somewhat dependent on what XSDs are used. This element is always used to describe a new electrical panel which will be added to a site to accommodate the addition of a PV system (perhaps serving as an AC Combiner). If PvDesign xml document is used independently from a broader Project XML document, then this element can also be used to define existing ElectricalPanel(s) where the PV system may be interconnected.
-
-This element is not required when the PvDesign is used within a broader Project XML instance that contains an ExistingElectricalDitributionHierarchy and the PvDesign's Inverter(s) are to be connected to the ElectricalPanel(s) defined there.
-
-NOTE: The EquipmentWhereConnectedIdRef within the Inverter's AcCircuitConnection should reference either this element, or a similar ElectricalPanel instance within an ExistingElectricalDistributionHierarchy element of a Project.xml.
-
-NOTE: A PvDesign cannot be used within an ElectricalDistributionHierarchy element. It can only be associated with an ElectricalDistributionHierarchy via EquipmentWhereConnectedIdRef attribute of the Inverter's AcTie-InCircuitConnection element.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="circuitBreakers">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element minOccurs="0" name="circuitBreaker" type="circuitBreaker"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="fuses">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="fuse" type="fuse"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="conduitSegments">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="conduitSegment" type="conduitSegment" minOccurs="1"
-                            maxOccurs="unbounded">
-                            <xs:annotation>
-                                <xs:documentation>A conduit segment used in this design.  circuitConnections pass through conduit segments. Multiple circuitConnections may share a conduitSegment.
-Note that if the PvSystem is used in an IEPM Project file, this conduitSegment does not reference any existingConduitSegments or proposedConduitSegments defined in the Site element.  Those elements are used for site survey data collection, not system definition. </xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element minOccurs="0" name="circuitConnections">
+            <xs:element minOccurs="0" name="junctionBoxes" type="junctionBoxes"> </xs:element>
+            <xs:element minOccurs="0" name="disconnectBoxes" type="disconnectBoxes"> </xs:element>
+            <xs:element minOccurs="0" name="meters" type="meters"> </xs:element>
+            <xs:element minOccurs="0" name="meterBoxes" type="meterBoxes"> </xs:element>
+            <xs:element minOccurs="0" name="electricalPanels" type="electricalPanels"> </xs:element>
+            <xs:element minOccurs="0" name="circuitBreakers" type="circuitBreakers"> </xs:element>
+            <xs:element minOccurs="0" name="fuses" type="fuses"> </xs:element>
+            <xs:element minOccurs="0" name="conduitSegments" form="qualified" type="conduitSegments"
+                > </xs:element>
+            <xs:element minOccurs="0" name="circuitConnections" type="circuitConnections">
                 <xs:annotation>
                     <xs:documentation>A collection of the circuit connections between each of the various PV system components.</xs:documentation>
                 </xs:annotation>
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="circuitConnection"
-                            type="circuitConnection"/>
-                    </xs:sequence>
-                </xs:complexType>
             </xs:element>
             <xs:element name="sceneOriginGeoTag" type="geoLocation" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
