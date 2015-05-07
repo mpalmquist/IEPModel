@@ -157,12 +157,15 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:enumeration value="Customer"/>
 			<xs:enumeration value="Occupant"/>
 			<xs:enumeration value="PV System Owner"/>
+			<xs:enumeration value="Property Owner"/>
 			<xs:enumeration value="Incentive Payee"/>
 			<xs:enumeration value="Seller"/>
 			<xs:enumeration value="Financer"/>
-			<xs:enumeration value="General Contractor"/>
-			<xs:enumeration value="Installer"/>
 			<xs:enumeration value="Referrer"/>
+			<xs:enumeration value="Installer"/>
+			<xs:enumeration value="Electrician"/>
+			<xs:enumeration value="Roofer"/>
+			<xs:enumeration value="General Contractor"/>
 			<xs:enumeration value="Auditor"/>
 			<xs:enumeration value="Inspector"/>
 			<xs:enumeration value="Engineer"/>

@@ -73,9 +73,9 @@
             <xs:enumeration value="Non-separable Thermosiphon"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="SolarCollectorDefinitionType">
+    <xs:complexType name="SolarCollectorDefinition">
         <xs:complexContent>
-            <xs:extension base="EquipmentDefinitionType">
+            <xs:extension base="equipmentDefinition">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="OpticType" type="CollectorOpticEnumType"/>
                     <xs:element name="Fluid" minOccurs="0" type="xs:string"/>
@@ -148,13 +148,13 @@
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="SolarCollectorDefinition"
-                type="SolarCollectorDefinitionType">
+                type="SolarCollectorDefinition">
                 <xs:annotation>
                     <xs:documentation>Reference ID of the solar thermal collector equipment definition.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="SolarCollectorQuantity" type="xs:integer"/>
-            <xs:element minOccurs="0" name="TotalArea" type="AreaType">
+            <xs:element minOccurs="0" name="TotalArea" type="area">
                 <xs:annotation>
                     <xs:documentation>Area assumed to be square feet.</xs:documentation>
                 </xs:annotation>
@@ -200,7 +200,7 @@
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="SolarEnergyFactor" type="xs:float"/>
-            <xs:element minOccurs="0" name="InstallationStyle" type="ArrayInstallStyleEnumType">
+            <xs:element minOccurs="0" name="InstallationStyle" type="arrayInstallStyleEnum">
                 <xs:annotation>
                     <xs:documentation>Describes the installation style used for the array. The installation style categorizes the type of racking and mounting equipment used.</xs:documentation>
                 </xs:annotation>
@@ -220,8 +220,8 @@
             </xs:element>
             <xs:element minOccurs="0" name="CollectorStandoff" type="xs:string"/>
             <xs:element minOccurs="0" name="CollectorOrientation" type="PanelOrientationEnumType"/>
-            <xs:element minOccurs="0" name="MountingSystem" type="MountingSystemType"/>
-            <xs:element minOccurs="0" name="RoofPlane" type="RoofPlaneType" maxOccurs="unbounded"/>
+            <xs:element minOccurs="0" name="MountingSystem" type="mountingSystem"/>
+            <xs:element minOccurs="0" name="RoofFace" type="roofFace" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

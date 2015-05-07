@@ -187,7 +187,8 @@ NOTE: An AC Module is assumed to be either:
                 </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" name="junctionBoxes" type="junctionBoxes"> </xs:element>
-            <xs:element minOccurs="0" name="disconnectBoxes" type="disconnectBoxes"> </xs:element>
+            <xs:element minOccurs="0" name="disconnectSwitches" type="disconnectSwitches"
+                nillable="false"> </xs:element>
             <xs:element minOccurs="0" name="meters" type="meters"> </xs:element>
             <xs:element minOccurs="0" name="meterBoxes" type="meterBoxes"> </xs:element>
             <xs:element minOccurs="0" name="electricalPanels" type="electricalPanels"> </xs:element>
