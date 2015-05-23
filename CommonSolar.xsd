@@ -1757,9 +1757,17 @@ If an individual module has an orientation different from the common value, that
             <xs:documentation>The point of connection (POC) of a pvSystem to the existing AC electical distribution system.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="electricalPanelWhereConnected" type="xs:IDREF"/>
+            <xs:element name="electricalPanelIdRef" type="xs:IDREF">
+                <xs:annotation>
+                    <xs:documentation>Electrical Panel where connection is made.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="sideOfPanelOcpdWhereConnected"
-                type="sideOfPanelOcpdWhereConnectedEnum"/>
+                type="sideOfPanelOcpdWhereConnectedEnum">
+                <xs:annotation>
+                    <xs:documentation>Describes which side of the electical panel's overcurrent protection device that the connection is or will be made. This affects the allowable ampacity.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id"/>
     </xs:complexType>
