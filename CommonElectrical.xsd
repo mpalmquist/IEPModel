@@ -108,9 +108,9 @@
             <xs:documentation>Types of over current protection devices</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="circuit breaker"/>
-            <xs:enumeration value="fuse"/>
-            <xs:enumeration value="none"/>
+            <xs:enumeration value="CIRCUIT_BREAKER"/>
+            <xs:enumeration value="FUSE"/>
+            <xs:enumeration value="NONE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="switchContactActionEnum">
@@ -130,8 +130,8 @@
     </xs:simpleType>
     <xs:simpleType name="switchDutyEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="General-Duty"/>
-            <xs:enumeration value="Heavy-Duty"/>
+            <xs:enumeration value="GENERAL_DUTY"/>
+            <xs:enumeration value="HEAVY_DUTY"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="currentEnum">
@@ -161,8 +161,8 @@
             <xs:documentation>When an interconnection is made on an electrical panel with a breaker separating the supply side and load side of the panel, these list the two sides.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="supply-side"/>
-            <xs:enumeration value="load-side"/>
+            <xs:enumeration value="SUPPLY_SIDE"/>
+            <xs:enumeration value="LOAD_SIDE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="distributionRoleEnum">

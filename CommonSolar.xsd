@@ -1414,7 +1414,7 @@ If circuit connections vary between strings, this element should not be used.  I
     </xs:complexType>
     <xs:complexType name="sourceCircuitMember">
         <xs:annotation>
-            <xs:documentation>Describes the individual equipment members in a source circuit. For dcStrings it is a specific pvModule, or dcOptimizer + pvModule instance(s). For acPvBranchCircuits, it is the microInverter and pvModule(s) attached to it.</xs:documentation>
+            <xs:documentation>Describes the equipment making up an individual source circuit member. For dcStrings it is a specific pvModule, or dcOptimizer + pvModule instance(s). For acPvBranchCircuits, it is the microInverter and pvModule(s) attached to it. Note that there is a collection of pvModules because some DC optimizers and micro-inverters support input of more than one module.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:choice minOccurs="0">
@@ -1429,10 +1429,12 @@ If circuit connections vary between strings, this element should not be used.  I
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="id"/>
     </xs:complexType>
     <xs:complexType name="sourceCircuitMembers">
         <xs:sequence>
-            <xs:element name="sourceCircuitMember" type="sourceCircuitMember"/>
+            <xs:element name="sourceCircuitMember" type="sourceCircuitMember" maxOccurs="unbounded"
+            />
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="dcString">
@@ -1750,4 +1752,15 @@ If an individual module has an orientation different from the common value, that
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="acPointOfConnection">
+        <xs:annotation>
+            <xs:documentation>The point of connection (POC) of a pvSystem to the existing AC electical distribution system.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="electricalPanelWhereConnected" type="xs:IDREF"/>
+            <xs:element name="sideOfPanelOcpdWhereConnected"
+                type="sideOfPanelOcpdWhereConnectedEnum"/>
+        </xs:sequence>
+        <xs:attribute name="id"/>
+    </xs:complexType>
 </xs:schema>
