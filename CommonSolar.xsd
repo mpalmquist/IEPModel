@@ -1486,7 +1486,7 @@ The EquipmentDefinitionRefID for the DcCombiner references the ID of the associa
         <xs:complexContent>
             <xs:extension base="equipmentInstance">
                 <xs:sequence>
-                    <xs:element name="outputCircuitIdRef" type="xs:IDREF">
+                    <xs:element name="outputCircuitIdRef" type="xs:IDREF" minOccurs="0">
                         <xs:annotation>
                             <xs:documentation>Reference to the output circuitConnection from this Combiner to its parent (inverter or sub-combiner).</xs:documentation>
                         </xs:annotation>
@@ -1657,7 +1657,7 @@ If the PvDesign is used within a Project.xml document, and the PvDesign calls fo
         <xs:annotation>
             <xs:documentation>A PV Array is defined as a group of modules that share the same location, and orientation. They usually share the same make and model.  A PV Array may feed one or more inverter instances (may be string/central inverter or multiple micro-inverters, one per module).</xs:documentation>
         </xs:annotation>
-        <xs:sequence>
+        <xs:all>
             <xs:element minOccurs="0" name="name" type="xs:string"/>
             <xs:element minOccurs="0" name="moduleQuantity" type="xs:int"/>
             <xs:element minOccurs="0" name="dcRating" type="xs:integer">
@@ -1721,7 +1721,7 @@ If an individual module has an orientation different from the common value, that
                     <xs:documentation>Expedited permit processes dictate that modules be fully contained within the perimeter of the roof edges on which it is installed.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-        </xs:sequence>
+        </xs:all>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="pvModuleDefinitionIdRef" type="xs:IDREF">
             <xs:annotation>
@@ -1756,7 +1756,7 @@ If an individual module has an orientation different from the common value, that
         <xs:annotation>
             <xs:documentation>The point of connection (POC) of a pvSystem to the existing AC electical distribution system.</xs:documentation>
         </xs:annotation>
-        <xs:sequence>
+        <xs:all>
             <xs:element name="electricalPanelIdRef" type="xs:IDREF">
                 <xs:annotation>
                     <xs:documentation>Electrical Panel where connection is made.</xs:documentation>
@@ -1768,7 +1768,7 @@ If an individual module has an orientation different from the common value, that
                     <xs:documentation>Describes which side of the electical panel's overcurrent protection device that the connection is or will be made. This affects the allowable ampacity.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-        </xs:sequence>
+        </xs:all>
         <xs:attribute name="id"/>
     </xs:complexType>
 </xs:schema>

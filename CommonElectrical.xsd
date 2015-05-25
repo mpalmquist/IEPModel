@@ -555,6 +555,7 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
     <xs:complexType name="circuitBreakerDefinition">
         <xs:annotation>
@@ -684,8 +685,8 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
                     <xs:element minOccurs="0" name="segmentConnections">
                         <xs:complexType>
                             <xs:sequence>
-                                <xs:element maxOccurs="2" name="segmentConnection" type="xs:IDREF"
-                                    minOccurs="2">
+                                <xs:element maxOccurs="2" name="segmentConnectionIdRef"
+                                    type="xs:IDREF" minOccurs="2">
                                     <xs:annotation>
                                         <xs:documentation>The ID Ref for another WirewaySegment or Equipment to which the Coduit segment connects.  Conduit is a pipe with 2 ends, so it has a maximum of two WirewaySegments or Equipment to which it connects.  Boxes can have many WirewaySegment connections.</xs:documentation>
                                     </xs:annotation>
@@ -726,7 +727,7 @@ Note that this type does not extend EquipmentDefinition nor EquipmentInstance.  
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="id" use="required"/>
+        <xs:attribute name="id" use="required" type="xs:ID"/>
     </xs:complexType>
     <xs:complexType name="conductorDefinitions">
         <xs:annotation>
@@ -820,7 +821,7 @@ Optionally, the CircuitConnectionType contains an optional EquipmentWhereConnect
                 </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" name="maximumWireTemperature"/>
-            <xs:element default="load-side" minOccurs="0" name="sideOfPanelOcpdWhereConnected"
+            <xs:element default="LOAD_SIDE" minOccurs="0" name="sideOfPanelOcpdWhereConnected"
                 type="sideOfPanelOcpdWhereConnectedEnum">
                 <xs:annotation>
                     <xs:documentation>When a circuit connection's targetComponent is an ElectricalPanel, this describes which side of a the panel's main breaker (if present) that the interconnection is made (supply or load side)?
