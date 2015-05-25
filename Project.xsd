@@ -668,5 +668,6 @@ The organization is consistent in many energy management systems and programable
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID"/>
 	</xs:complexType>
 </xs:schema>
