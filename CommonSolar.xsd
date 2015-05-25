@@ -1776,6 +1776,6 @@ If an individual module has an orientation different from the common value, that
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="id"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 </xs:schema>

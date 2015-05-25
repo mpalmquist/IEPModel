@@ -24,6 +24,7 @@
             <xs:documentation>Standard wire sizes in AWG or kcmil.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
+            <xs:enumeration value="14"/>
             <xs:enumeration value="12"/>
             <xs:enumeration value="10"/>
             <xs:enumeration value="8"/>
