@@ -223,5 +223,6 @@
             <xs:element minOccurs="0" name="MountingSystem" type="mountingSystem"/>
             <xs:element minOccurs="0" name="RoofFace" type="roofFace" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute name="id"/>
     </xs:complexType>
 </xs:schema>
