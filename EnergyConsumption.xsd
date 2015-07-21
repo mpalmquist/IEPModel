@@ -27,11 +27,11 @@ Note that we currently use UtilityService XSD for capturing simple rough consump
 			<xs:documentation>This enumeration indicates where the energy consumption data originated.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Utility Bill"/>
-			<xs:enumeration value="Simulated"/>
-			<xs:enumeration value="Rated"/>
-			<xs:enumeration value="Measured"/>
-			<xs:enumeration value="Estimated"/>
+			<xs:enumeration value="UTILITY_BILL"/>
+			<xs:enumeration value="SIMULATED"/>
+			<xs:enumeration value="RATED"/>
+			<xs:enumeration value="MEASURED"/>
+			<xs:enumeration value="ESTIMATED"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="energyValue">

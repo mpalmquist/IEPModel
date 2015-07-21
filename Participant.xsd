@@ -122,19 +122,10 @@ mailing addresses are closely associated with the role of the participant, not t
 			</xs:element>
 			<xs:element name="skypeAccount" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="website" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="preferredContactMethod" type="preferredContactMethodEnum"
-				minOccurs="0" maxOccurs="1"/>
+			<xs:element name="preferredContactMethod" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="bestTimeOfDayToReach" type="xs:string" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="preferredContactMethodEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Home Phone"/>
-			<xs:enumeration value="Work Phone"/>
-			<xs:enumeration value="Cell Phone"/>
-			<xs:enumeration value="Email"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="participantRoleEnum">
 		<xs:annotation>
 			<xs:documentation>Host Customer - "utility account holder"</xs:documentation>
@@ -153,23 +144,23 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:documentation>Program Administrator - "A party who oversees any incentive or regulatory work."</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Host Customer"/>
-			<xs:enumeration value="Customer"/>
-			<xs:enumeration value="Occupant"/>
-			<xs:enumeration value="PV System Owner"/>
-			<xs:enumeration value="Property Owner"/>
-			<xs:enumeration value="Incentive Payee"/>
-			<xs:enumeration value="Seller"/>
-			<xs:enumeration value="Financer"/>
-			<xs:enumeration value="Referrer"/>
-			<xs:enumeration value="Installer"/>
-			<xs:enumeration value="Electrician"/>
-			<xs:enumeration value="Roofer"/>
-			<xs:enumeration value="General Contractor"/>
-			<xs:enumeration value="Auditor"/>
-			<xs:enumeration value="Inspector"/>
-			<xs:enumeration value="Engineer"/>
-			<xs:enumeration value="Program Administrator"/>
+			<xs:enumeration value="HOST_CUSTOMER"/>
+			<xs:enumeration value="CUSTOMER"/>
+			<xs:enumeration value="OCCUPANT"/>
+			<xs:enumeration value="PV_SYSTEM_OWNER"/>
+			<xs:enumeration value="PROPERTY_OWNER"/>
+			<xs:enumeration value="INCENTIVE_PAYEE"/>
+			<xs:enumeration value="SELLER"/>
+			<xs:enumeration value="FINANCER"/>
+			<xs:enumeration value="REFERRER"/>
+			<xs:enumeration value="INSTALLER"/>
+			<xs:enumeration value="ELECTRICIAN"/>
+			<xs:enumeration value="ROOFER"/>
+			<xs:enumeration value="GENERAL_CONTRACTOR"/>
+			<xs:enumeration value="AUDITOR"/>
+			<xs:enumeration value="INSPECTOR"/>
+			<xs:enumeration value="ENGINEER"/>
+			<xs:enumeration value="PROGRAM_ADMINISTRATOR"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="credential">
@@ -261,13 +252,13 @@ This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)<
 
 	<xs:simpleType name="phoneNumberEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Business"/>
-			<xs:enumeration value="Business Fax"/>
-			<xs:enumeration value="Home"/>
-			<xs:enumeration value="Home Fax"/>
-			<xs:enumeration value="Mobile"/>
-			<xs:enumeration value="Pager"/>
-			<xs:enumeration value="Skype"/>
+			<xs:enumeration value="BUSINESS"/>
+			<xs:enumeration value="BUSINESS_FAX"/>
+			<xs:enumeration value="HOME"/>
+			<xs:enumeration value="HOME_FAX"/>
+			<xs:enumeration value="MOBILE"/>
+			<xs:enumeration value="PAGER"/>
+			<xs:enumeration value="SKYPE"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="emailAddress">
@@ -279,9 +270,9 @@ This is only used for Service Providers(i.e. Seller, Installer, Referrer, etc.)<
 	</xs:complexType>
 	<xs:simpleType name="emailAddressEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Work"/>
-			<xs:enumeration value="Home"/>
-			<xs:enumeration value="Alternate"/>
+			<xs:enumeration value="WORK"/>
+			<xs:enumeration value="HOME"/>
+			<xs:enumeration value="ALTERNATE"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="certifyingAuthority">

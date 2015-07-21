@@ -51,9 +51,9 @@
     </xs:simpleType>
     <xs:simpleType name="addressUseEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Mailing"/>
-            <xs:enumeration value="Shipping"/>
-            <xs:enumeration value="Project"/>
+            <xs:enumeration value="MAILING"/>
+            <xs:enumeration value="SHIPPING"/>
+            <xs:enumeration value="PROJECT"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="address">
@@ -98,8 +98,8 @@
 This is also used for PowerClerk/CSI program</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Commercial"/>
-            <xs:enumeration value="Residential"/>
+            <xs:enumeration value="COMMERCIAL"/>
+            <xs:enumeration value="RESIDENTIAL"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="site">
@@ -313,8 +313,8 @@ This is contained in Common to allow for use in both Building.xsd and UtilitySer
     </xs:complexType>
     <xs:simpleType name="residentialEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Single-Family"/>
-            <xs:enumeration value="Multi-Family"/>
+            <xs:enumeration value="SINGLE-FAMILY"/>
+            <xs:enumeration value="MULTI-FAMILY"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="commercialBuildingClass">
@@ -336,18 +336,18 @@ This is contained in Common to allow for use in both Building.xsd and UtilitySer
                 This enumeration lists the CEUS building types.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="College"/>
-            <xs:enumeration value="Food Store"/>
-            <xs:enumeration value="Health"/>
-            <xs:enumeration value="Large Office (>=30k ft2)"/>
-            <xs:enumeration value="Lodging"/>
-            <xs:enumeration value="Miscellaneous"/>
-            <xs:enumeration value="Refrigerated Warehouse"/>
-            <xs:enumeration value="Restaurant"/>
-            <xs:enumeration value="Retail"/>
-            <xs:enumeration value="School"/>
-            <xs:enumeration value="Small Office (&lt;30k ft2)"/>
-            <xs:enumeration value="Unrefrigerated Warehouse"/>
+            <xs:enumeration value="COLLEGE"/>
+            <xs:enumeration value="FOOD_STORE"/>
+            <xs:enumeration value="HEALTH"/>
+            <xs:enumeration value="LARGE_OFFICE_(>=30K_FT2)"/>
+            <xs:enumeration value="LODGING"/>
+            <xs:enumeration value="MISCELLANEOUS"/>
+            <xs:enumeration value="REFRIGERATED_WAREHOUSE"/>
+            <xs:enumeration value="RESTAURANT"/>
+            <xs:enumeration value="RETAIL"/>
+            <xs:enumeration value="SCHOOL"/>
+            <xs:enumeration value="SMALL_OFFICE_(&lt;30K_FT2)"/>
+            <xs:enumeration value="UNREFRIGERATED_WAREHOUSE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="deerBuildingEnum">
@@ -359,29 +359,29 @@ This is contained in Common to allow for use in both Building.xsd and UtilitySer
                 http://www.deeresources.com/deer0911planning/downloads/DEER2008%20Database%20Description%20%28version%202.05%29.xls</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Education - Community College"/>
-            <xs:enumeration value="Education - Primary School"/>
-            <xs:enumeration value="Education - Secondary School"/>
-            <xs:enumeration value="Education - University"/>
-            <xs:enumeration value="Grocery"/>
-            <xs:enumeration value="Health/Medical - Hospital"/>
-            <xs:enumeration value="Health/Medical - Nursing Home"/>
-            <xs:enumeration value="Lodging - Guest Rooms"/>
-            <xs:enumeration value="Lodging - Hotel"/>
-            <xs:enumeration value="Lodging - Motel"/>
-            <xs:enumeration value="Manufacturing - Light Industrial"/>
-            <xs:enumeration value="Office - Large"/>
-            <xs:enumeration value="Office - Small"/>
-            <xs:enumeration value="Residential - Indoor"/>
-            <xs:enumeration value="Residential - Outdoor"/>
-            <xs:enumeration value="Restaurant - Fast-Food"/>
-            <xs:enumeration value="Restaurant - Sit-Down"/>
-            <xs:enumeration value="Retail - 3-Story Large"/>
-            <xs:enumeration value="Retail - Single-Story Large"/>
-            <xs:enumeration value="Retail - Small"/>
-            <xs:enumeration value="Storage - Conditioned"/>
-            <xs:enumeration value="Storage - Unconditioned"/>
-            <xs:enumeration value="Warehouse - Refrigerated"/>
+            <xs:enumeration value="EDUCATION-COMMUNITY_COLLEGE"/>
+            <xs:enumeration value="EDUCATION-PRIMARY_SCHOOL"/>
+            <xs:enumeration value="EDUCATION-SECONDARY_SCHOOL"/>
+            <xs:enumeration value="EDUCATION-UNIVERSITY"/>
+            <xs:enumeration value="GROCERY"/>
+            <xs:enumeration value="HEALTH/MEDICAL-HOSPITAL"/>
+            <xs:enumeration value="HEALTH/MEDICAL-NURSING HOME"/>
+            <xs:enumeration value="LODGING-GUEST_ROOMS"/>
+            <xs:enumeration value="LODGING-HOTEL"/>
+            <xs:enumeration value="LODGING-MOTEL"/>
+            <xs:enumeration value="MANUFACTURING-LIGHT_INDUSTRIAL"/>
+            <xs:enumeration value="OFFICE-LARGE"/>
+            <xs:enumeration value="OFFICE-SMALL"/>
+            <xs:enumeration value="RESIDENTIAL-INDOOR"/>
+            <xs:enumeration value="RESIDENTIAL-OUTDOOR"/>
+            <xs:enumeration value="RESTAURANT-FAST-FOOD"/>
+            <xs:enumeration value="RESTAURANT-SIT-DOWN"/>
+            <xs:enumeration value="RETAIL-3-STORY_LARGE"/>
+            <xs:enumeration value="RETAIL-SINGLE-STORY_LARGE"/>
+            <xs:enumeration value="RETAIL-SMALL"/>
+            <xs:enumeration value="STORAGE-CONDITIONED"/>
+            <xs:enumeration value="STORAGE-UNCONDITIONED"/>
+            <xs:enumeration value="WAREHOUSE-REFRIGERATED"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="energyStarBuildingEnum">
@@ -393,25 +393,25 @@ This is contained in Common to allow for use in both Building.xsd and UtilitySer
                 http://www.energystar.gov/index.cfm?c=eligibility.bus_portfoliomanager_eligibility_mixed</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Office"/>
-            <xs:enumeration value="Bank/Financial Institution"/>
-            <xs:enumeration value="Courthouse"/>
-            <xs:enumeration value="Dormitory / Residence Hall"/>
-            <xs:enumeration value="K-12 School"/>
-            <xs:enumeration value="Hospital (Acute Care and Children's)"/>
-            <xs:enumeration value="House of Worship"/>
-            <xs:enumeration value="Hotel"/>
-            <xs:enumeration value="Retail Store"/>
-            <xs:enumeration value="Supermarket"/>
-            <xs:enumeration value="Senior Care Facility"/>
-            <xs:enumeration value="Residence Halls/Dormitorie"/>
-            <xs:enumeration value="Warehouse"/>
-            <xs:enumeration value="Medical Office"/>
-            <xs:enumeration value="Wastewater Facility"/>
-            <xs:enumeration value="Data Center"/>
-            <xs:enumeration value="Swimming Pool"/>
-            <xs:enumeration value="Parking"/>
-            <xs:enumeration value="Other"/>
+            <xs:enumeration value="OFFICE"/>
+            <xs:enumeration value="BANK/FINANCIAL_INSTITUTION"/>
+            <xs:enumeration value="COURTHOUSE"/>
+            <xs:enumeration value="DORMITORY/RESIDENCE_HALL"/>
+            <xs:enumeration value="K-12_SCHOOL"/>
+            <xs:enumeration value="HOSPITAL_(ACUTE_CARE_AND_CHILREN'S)"/>
+            <xs:enumeration value="HOUSE_OF_WORSHIP"/>
+            <xs:enumeration value="HOTEL"/>
+            <xs:enumeration value="RETAIL_STORE"/>
+            <xs:enumeration value="SUPERMARKET"/>
+            <xs:enumeration value="SENIOR_CARE_FACILITY"/>
+            <xs:enumeration value="RESIDENCE_HALLS/DORMITORIE"/>
+            <xs:enumeration value="WAREHOUSE"/>
+            <xs:enumeration value="MEDICAL_OFFICE"/>
+            <xs:enumeration value="WASTEWATER_FACILITY"/>
+            <xs:enumeration value="DATA_CENTER"/>
+            <xs:enumeration value="SWIMMING_POOL"/>
+            <xs:enumeration value="PARKING"/>
+            <xs:enumeration value="OTHER"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="space">
@@ -729,9 +729,9 @@ ISSUES / TO DO:
             <xs:documentation>This is an enumeration of angular units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="degrees"/>
-            <xs:enumeration value="&quot;in 12&quot;"/>
-            <xs:enumeration value="radians"/>
+            <xs:enumeration value="DEGREES"/>
+            <xs:enumeration value="IN_12"/>
+            <xs:enumeration value="RADIANS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="area">
@@ -740,7 +740,7 @@ ISSUES / TO DO:
         </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="xs:double">
-                <xs:attribute name="unit" type="areaUnitEnum" use="optional" default="SquareMeters">
+                <xs:attribute name="unit" type="areaUnitEnum" use="optional" default="SQUARE_METERS">
                     <xs:annotation>
                         <xs:documentation>Unit of measurement.</xs:documentation>
                     </xs:annotation>
@@ -753,14 +753,14 @@ ISSUES / TO DO:
             <xs:documentation>This is an enumeration of area units of measurement. Taken directly from gbXML.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="SquareCentimeters"/>
-            <xs:enumeration value="SquareFeet"/>
-            <xs:enumeration value="SquareInches"/>
-            <xs:enumeration value="SquareKilometers"/>
-            <xs:enumeration value="SquareMeters"/>
-            <xs:enumeration value="SquareMiles"/>
-            <xs:enumeration value="SquareMillimeters"/>
-            <xs:enumeration value="SquareYards"/>
+            <xs:enumeration value="SQUARE_CENTIMETERS"/>
+            <xs:enumeration value="SQUARE_FEET"/>
+            <xs:enumeration value="SQUARE_INCHES"/>
+            <xs:enumeration value="SQUARE_KILOMETERS"/>
+            <xs:enumeration value="SQUARE_METERS"/>
+            <xs:enumeration value="SQUARE_MILES"/>
+            <xs:enumeration value="SQUARE_MILLIMETERS"/>
+            <xs:enumeration value="SQUARE_YARDS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="dimension">
@@ -769,7 +769,7 @@ ISSUES / TO DO:
         </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="xs:double">
-                <xs:attribute name="unit" type="dimensionUnitEnum" use="optional" default="Meters">
+                <xs:attribute name="unit" type="dimensionUnitEnum" use="optional" default="METERS">
                     <xs:annotation>
                         <xs:documentation>Unit of measurement.</xs:documentation>
                     </xs:annotation>
@@ -782,14 +782,14 @@ ISSUES / TO DO:
             <xs:documentation>This is an enumeration of one-dimensional spatial units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Centimeters"/>
-            <xs:enumeration value="Feet"/>
-            <xs:enumeration value="Inches"/>
-            <xs:enumeration value="Kilometers"/>
-            <xs:enumeration value="Meters"/>
-            <xs:enumeration value="Miles"/>
-            <xs:enumeration value="Millimeters"/>
-            <xs:enumeration value="Yards"/>
+            <xs:enumeration value="CENTIMETERS"/>
+            <xs:enumeration value="FEET"/>
+            <xs:enumeration value="INCHES"/>
+            <xs:enumeration value="KILOMETERS"/>
+            <xs:enumeration value="METERS"/>
+            <xs:enumeration value="MILES"/>
+            <xs:enumeration value="MILLIMETERS"/>
+            <xs:enumeration value="YARDS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="efficiency">
@@ -826,7 +826,7 @@ ISSUES / TO DO:
                     <xs:documentation>The annual fuel utilization efficiency (AFUE; pronounced 'A'-'Few') is a thermal efficiency measure of combustion equipment like furnaces, boilers, and water heaters. The AFUE differs from the true 'thermal efficiency' in that it is not a steady-state, peak measure of conversion efficiency, but instead attempts to represent the actual, season-long, average efficiency of that piece of equipment, including the operating transients.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="BoilerEff">
+            <xs:enumeration value="BOILER_EFF">
                 <xs:annotation>
                     <xs:documentation>???</xs:documentation>
                 </xs:annotation>
@@ -841,12 +841,12 @@ ISSUES / TO DO:
                     <xs:documentation>The Energy Efficiency Ratio (EER) of a particular cooling device is the ratio of output cooling (in Btu/hr) to input electrical power (in Watts) at a given operating point (indoor and outdoor temperature and humidity conditions). The EER is related to the coefficient of performance (COP) commonly used in thermodynamics, with the primary difference being that the COP of a cooling device is unit-less: the cooling load and the electrical power needed to run the device are both measured using the same units, e.g. watts. </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="effectiveness">
+            <xs:enumeration value="EFFECTIVENESS">
                 <xs:annotation>
                     <xs:documentation>???</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="EnergyFactor">
+            <xs:enumeration value="ENERGY_FACTOR">
                 <xs:annotation>
                     <xs:documentation>"Energy Factor is the ratio of useful energy output from the water heater to the total amount of energy delivered to the water heater. The higher the EF is, the more efficient the water heater." - http://www.energystar.gov/index.cfm?c=water_heat.pr_crit_water_heaters
 
@@ -856,7 +856,7 @@ Energy Factor = 392 x Volume (ft³) / Annual Energy Usage (kWh) -
 http://www.energystar.gov/index.cfm?fuseaction=clotheswash.display_column_definitions</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="FanEff">
+            <xs:enumeration value="FAN_EFF">
                 <xs:annotation>
                     <xs:documentation>is this Specific Fan power?</xs:documentation>
                 </xs:annotation>
@@ -868,27 +868,27 @@ http://www.energystar.gov/index.cfm?fuseaction=clotheswash.display_column_defini
 The efficiency of air conditioners are often rated by the Heating Seasonal Performance Factor (HSPF) as defined by the Air Conditioning, Heating, and Refrigeration Institute in its standard 210/240 Performance Rating of Unitary Air-Conditioning and Air-Source Heat Pump Equipment last updated in 2008. </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="kWPerkW">
+            <xs:enumeration value="KW_PER_KW">
                 <xs:annotation>
                     <xs:documentation>???</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="kWPerTon">
+            <xs:enumeration value="KW_PER_TON">
                 <xs:annotation>
                     <xs:documentation>kiloWatts per Ton - power to weight ratio of an engine</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="LumensPerWatt">
+            <xs:enumeration value="LUMENS_PER_WATT">
                 <xs:annotation>
                     <xs:documentation>The ratio of luminous flux in lumens to power measured in watts. </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="MechanicalEff">
+            <xs:enumeration value="MECHANICAL_EFF">
                 <xs:annotation>
                     <xs:documentation>???</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="MotorEff">
+            <xs:enumeration value="MOTOR_EFF">
                 <xs:annotation>
                     <xs:documentation>???</xs:documentation>
                 </xs:annotation>
@@ -898,7 +898,7 @@ The efficiency of air conditioners are often rated by the Heating Seasonal Perfo
                     <xs:documentation>The Seasonal Energy Efficiency Ratio (SEER) has the same units of Btu/W·hr, but instead of being evaluated at a single operating condition, it represents the expected overall performance for a typical year's weather in a given location.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="ThermalEff">
+            <xs:enumeration value="THERMAL_EFF">
                 <xs:annotation>
                     <xs:documentation>In thermodynamics, the thermal efficiency is a dimensionless performance measure of a device that uses thermal energy, such as  a boiler, a furnace, or a refrigerator.</xs:documentation>
                 </xs:annotation>
@@ -927,7 +927,7 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
                     <xs:documentation>Air-Conditioning, Heating and Refrigeration Institute</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="Full Load"/>
+            <xs:enumeration value="FULL_LOAD"/>
             <xs:enumeration value="NEMA">
                 <xs:annotation>
                     <xs:documentation>National Electrical Manufacturers Association</xs:documentation>
@@ -969,17 +969,17 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of volume units of measurement. Taken directly from gbXML.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="CubicCentimeters"/>
-            <xs:enumeration value="CubicFeet"/>
-            <xs:enumeration value="CubicInches"/>
-            <xs:enumeration value="CubicKilometers"/>
-            <xs:enumeration value="CubicMeters"/>
-            <xs:enumeration value="CubicMiles"/>
-            <xs:enumeration value="CubicMillimeters"/>
-            <xs:enumeration value="CubicYards"/>
-            <xs:enumeration value="Gallons"/>
-            <xs:enumeration value="Liters"/>
-            <xs:enumeration value="Foot-Acres"/>
+            <xs:enumeration value="CUBIC_CENTIMETERS"/>
+            <xs:enumeration value="CUBIC_FEET"/>
+            <xs:enumeration value="CUBIC_INCHES"/>
+            <xs:enumeration value="CUBIC_KILOMETERS"/>
+            <xs:enumeration value="CUBIC_METERS"/>
+            <xs:enumeration value="CUBIC_MILES"/>
+            <xs:enumeration value="CUBIC_MILLIMETERS"/>
+            <xs:enumeration value="CUBIC_YARDS"/>
+            <xs:enumeration value="GALLONS"/>
+            <xs:enumeration value="LITERS"/>
+            <xs:enumeration value="FOOT-ACRES"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="powerUnitEnum">
@@ -987,17 +987,17 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of common power units of measurement used in the solar and building industry.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="BtuPerHour"/>
-            <xs:enumeration value="BtuPerSecond"/>
-            <xs:enumeration value="Candela"/>
-            <xs:enumeration value="Footcandle"/>
-            <xs:enumeration value="FootPoundForcePerSecond"/>
-            <xs:enumeration value="Horsepower"/>
-            <xs:enumeration value="KilocaloriesPerSecond"/>
-            <xs:enumeration value="KilogramForceMeterPerSecond"/>
-            <xs:enumeration value="Kilowatt"/>
-            <xs:enumeration value="Lumen"/>
-            <xs:enumeration value="Watt"/>
+            <xs:enumeration value="BTU_PER_HOUR"/>
+            <xs:enumeration value="BTU_PER_SECOND"/>
+            <xs:enumeration value="CANDELA"/>
+            <xs:enumeration value="FOOT_CANDLE"/>
+            <xs:enumeration value="FOOT_POUND_FORCE_PER_SECOND"/>
+            <xs:enumeration value="HORSEPOWER"/>
+            <xs:enumeration value="KILOCALORIES_PER_SECOND"/>
+            <xs:enumeration value="KILOGRAM_FORCE_METER_PER_SECOND"/>
+            <xs:enumeration value="KILOWATT"/>
+            <xs:enumeration value="LUMEN"/>
+            <xs:enumeration value="WATT"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="powerTypeAndUnitsEnum">
@@ -1041,7 +1041,7 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
                 <xs:attribute name="fuel" type="energyClassEnum" use="optional"
-                    default="Electricity">
+                    default="ELECTRICITY">
                     <xs:annotation>
                         <xs:documentation>Fuel type specified as an enum. This should be used for defining the type value's fuel. If the proper enum is not listed, please use the FuelDesc field to specify the units. These are all optional attributes in order to allow for a simplified value descriptions since these are used throughout the IEP schemas. Additionally the FuelDesc may contain a default type.</xs:documentation>
                     </xs:annotation>
@@ -1061,39 +1061,39 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
 "Fuel Oil (No. 2)" is the diesel fuel that trucks and some cars run on, leading to the name "road diesel". It is the same thing as heating oil.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Coal (anthracite)"/>
-            <xs:enumeration value="Coal (bituminous)"/>
-            <xs:enumeration value="Coke"/>
-            <xs:enumeration value="Diesel"/>
-            <xs:enumeration value="District Chilled Water"/>
-            <xs:enumeration value="District Hot Water"/>
-            <xs:enumeration value="District Steam"/>
-            <xs:enumeration value="Electricity"/>
-            <xs:enumeration value="Fuel Oil"/>
-            <xs:enumeration value="Fuel Oil (No. 1)">
+            <xs:enumeration value="COAL_ANTHRACITE"/>
+            <xs:enumeration value="COAL_BITUMINOUS"/>
+            <xs:enumeration value="COKE"/>
+            <xs:enumeration value="DIESEL"/>
+            <xs:enumeration value="DISTRICT_CHILLED_WATER"/>
+            <xs:enumeration value="DISTRICT_HOT_WATER"/>
+            <xs:enumeration value="DISTRICT_STEAM"/>
+            <xs:enumeration value="ELECTRICITY"/>
+            <xs:enumeration value="FUEL_OIL"/>
+            <xs:enumeration value="FUEL_OIL_(NO_1)">
                 <xs:annotation>
                     <xs:documentation>Number 1 is similar to kerosene and is the fraction that boils off right after gasoline.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="Fuel Oil (No. 2)"/>
-            <xs:enumeration value="Fuel Oil (No. 4)">
+            <xs:enumeration value="FUEL_OIL_(NO_2)"/>
+            <xs:enumeration value="FUEL_OIL_(NO_4)">
                 <xs:annotation>
                     <xs:documentation>Number 4 fuel oil is usually a blend of distillate and residual fuel oils, such as No. 2 and 6; however, sometimes it is just a heavy distillate. No. 4 may be classified as diesel, distillate or residual fuel oil.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="Fuel Oil (No. 5 and No. 6)">
+            <xs:enumeration value="FUEL_OIL_(NO_5_AND_NO_6)">
                 <xs:annotation>
                     <xs:documentation>Number 5 fuel oil and Number 6 fuel oil are called residual fuel oils (RFO) or heavy fuel oils. More Number 6 oil is produced compared to Number 5 oil, the terms heavy fuel oil and residual fuel oil  are sometimes used as names for Number 6. Number 5 and 6 are what remains of the crude oil after gasoline and the distillate fuel oils are extracted through distillation. Number 5 fuel oil is a mixture of 75-80 % Number 6 oil and 25-20% of Number 2 oil. Number 6 oil may also contain a small amount of No. 2 to get it to meet specifications.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="Geothermal"/>
-            <xs:enumeration value="Kerosene"/>
-            <xs:enumeration value="Liquid Propane"/>
-            <xs:enumeration value="Natural Gas"/>
-            <xs:enumeration value="Other"/>
-            <xs:enumeration value="Propane"/>
-            <xs:enumeration value="Steam"/>
-            <xs:enumeration value="Wood"/>
+            <xs:enumeration value="GEOTHERMAL"/>
+            <xs:enumeration value="KEROSENE"/>
+            <xs:enumeration value="LIQUID_PROPANE"/>
+            <xs:enumeration value="NATURAL_GAS"/>
+            <xs:enumeration value="OTHER"/>
+            <xs:enumeration value="PROPANE"/>
+            <xs:enumeration value="STEAM"/>
+            <xs:enumeration value="WOOD"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="energyUnitEnum">
@@ -1102,9 +1102,9 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="BTU"/>
-            <xs:enumeration value="Joules"/>
-            <xs:enumeration value="KilowattHours"/>
-            <xs:enumeration value="Therms"/>
+            <xs:enumeration value="JOULES"/>
+            <xs:enumeration value="KILOWATT_HOURS"/>
+            <xs:enumeration value="THERMS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="energy">
@@ -1148,7 +1148,7 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
                     <xs:documentation>Celsius</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="FARHENHEIT">
+            <xs:enumeration value="FAHRENHEIT">
                 <xs:annotation>
                     <xs:documentation>Fahrenheit</xs:documentation>
                 </xs:annotation>
@@ -1174,18 +1174,18 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of pressure units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Atmospheres"/>
-            <xs:enumeration value="CentimetersOfH2O"/>
-            <xs:enumeration value="CentimetersOfMercury"/>
-            <xs:enumeration value="InchesOfH2O"/>
-            <xs:enumeration value="InchesOfMercury"/>
-            <xs:enumeration value="kPa">
+            <xs:enumeration value="ATMOSPHERES"/>
+            <xs:enumeration value="CENTIMETERS_OF_H2O"/>
+            <xs:enumeration value="CENTIMETERS_OF_MERCURY"/>
+            <xs:enumeration value="INCHES_OF_H2O"/>
+            <xs:enumeration value="INCHES_OF_MERCURY"/>
+            <xs:enumeration value="KPA">
                 <xs:annotation>
                     <xs:documentation>kiloPascals</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="MillimetersOfMercury"/>
-            <xs:enumeration value="Pascals"/>
+            <xs:enumeration value="MILLIMETERS_OF_MERCURY"/>
+            <xs:enumeration value="PASCALS"/>
             <xs:enumeration value="PSI">
                 <xs:annotation>
                     <xs:documentation>Pounds per Square Inch</xs:documentation>
@@ -1213,11 +1213,11 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="CFM"/>
-            <xs:enumeration value="CubicMPerHr"/>
-            <xs:enumeration value="CubicMPerMin"/>
+            <xs:enumeration value="CUBIC_M_PER_HR"/>
+            <xs:enumeration value="CUBIC_M_PER_MIN"/>
             <xs:enumeration value="GPH"/>
             <xs:enumeration value="GPM"/>
-            <xs:enumeration value="LPerSec"/>
+            <xs:enumeration value="L_PER_SEC"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="flow">
@@ -1239,9 +1239,9 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of weight units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Kilograms"/>
-            <xs:enumeration value="Pounds"/>
-            <xs:enumeration value="Tons"/>
+            <xs:enumeration value="KILOGRAMS"/>
+            <xs:enumeration value="POUNDS"/>
+            <xs:enumeration value="TONS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="weight">
@@ -1277,13 +1277,13 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of velocity units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="FeetPerMinute"/>
-            <xs:enumeration value="FeetPerSecond"/>
-            <xs:enumeration value="KilometerPerHour"/>
-            <xs:enumeration value="Knots"/>
-            <xs:enumeration value="MetersPerMinute"/>
-            <xs:enumeration value="MetersPerSecond"/>
-            <xs:enumeration value="MilesPerHour"/>
+            <xs:enumeration value="FEET_PER_MINUTE"/>
+            <xs:enumeration value="FEET_PER_SECOND"/>
+            <xs:enumeration value="KILOMETER_PER_HOUR"/>
+            <xs:enumeration value="KNOTS"/>
+            <xs:enumeration value="METERS_PER_MINUTE"/>
+            <xs:enumeration value="METERS_PER_SECOND"/>
+            <xs:enumeration value="MILES_PER_HOUR"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="densityUnitEnum">
@@ -1291,10 +1291,10 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of density units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="GramsPerCubicCm"/>
-            <xs:enumeration value="KgPerCubicM"/>
-            <xs:enumeration value="LbsPerCubicFt"/>
-            <xs:enumeration value="LbsPerCubicIn"/>
+            <xs:enumeration value="GRAMS_PER_CUBIC_CM"/>
+            <xs:enumeration value="KG_PER_CUBIC_M"/>
+            <xs:enumeration value="LBS_PER_CUBIC_FT"/>
+            <xs:enumeration value="LBS_PER_CUBIC_IN"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="density">
@@ -1313,13 +1313,13 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
     </xs:complexType>
     <xs:simpleType name="monetaryUnitEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="$ US dollars"/>
-            <xs:enumeration value="$ / kWh"/>
-            <xs:enumeration value="$ / MWh"/>
-            <xs:enumeration value="$ / peak kW load"/>
-            <xs:enumeration value="$ / therm"/>
-            <xs:enumeration value="$ / BTU"/>
-            <xs:enumeration value="$ / Gal"/>
+            <xs:enumeration value="$_US_DOLLARS"/>
+            <xs:enumeration value="$/KWH"/>
+            <xs:enumeration value="$/MWH"/>
+            <xs:enumeration value="$/PEAK_KW_LOAD"/>
+            <xs:enumeration value="$/THERM"/>
+            <xs:enumeration value="$/BTU"/>
+            <xs:enumeration value="$/GAL"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="monetary">
@@ -1334,7 +1334,7 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:enumeration value="CO2"/>
             <xs:enumeration value="NOX"/>
             <xs:enumeration value="SOX"/>
-            <xs:enumeration value="Methane"/>
+            <xs:enumeration value="METHANE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="emissionsTypeAndUnitsEnum">
@@ -1375,13 +1375,13 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>This is an enumeration of time units of measurement.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Day"/>
-            <xs:enumeration value="Hour"/>
-            <xs:enumeration value="Minute"/>
-            <xs:enumeration value="Month"/>
-            <xs:enumeration value="Second"/>
-            <xs:enumeration value="Week"/>
-            <xs:enumeration value="Year"/>
+            <xs:enumeration value="DAY"/>
+            <xs:enumeration value="HOUR"/>
+            <xs:enumeration value="MINUTE"/>
+            <xs:enumeration value="MONTH"/>
+            <xs:enumeration value="SECOND"/>
+            <xs:enumeration value="WEEK"/>
+            <xs:enumeration value="YEAR"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="timePeriod">
@@ -1410,24 +1410,24 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>An enumeration of time periods.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Hourly"/>
-            <xs:enumeration value="Daily"/>
-            <xs:enumeration value="Weekly"/>
-            <xs:enumeration value="Monthly"/>
-            <xs:enumeration value="Annually"/>
-            <xs:enumeration value="Jan"/>
-            <xs:enumeration value="Feb"/>
-            <xs:enumeration value="Mar"/>
-            <xs:enumeration value="Apr"/>
-            <xs:enumeration value="May"/>
-            <xs:enumeration value="Jun"/>
-            <xs:enumeration value="Jul"/>
-            <xs:enumeration value="Aug"/>
-            <xs:enumeration value="Sep"/>
-            <xs:enumeration value="Oct"/>
-            <xs:enumeration value="Nov"/>
-            <xs:enumeration value="Dec"/>
-            <xs:enumeration value="Billing Period"/>
+            <xs:enumeration value="HOURLY"/>
+            <xs:enumeration value="DAILY"/>
+            <xs:enumeration value="WEEKLY"/>
+            <xs:enumeration value="MONTHLY"/>
+            <xs:enumeration value="ANNUALLY"/>
+            <xs:enumeration value="JAN"/>
+            <xs:enumeration value="FEB"/>
+            <xs:enumeration value="MAR"/>
+            <xs:enumeration value="APR"/>
+            <xs:enumeration value="MAY"/>
+            <xs:enumeration value="JUN"/>
+            <xs:enumeration value="JUL"/>
+            <xs:enumeration value="AUG"/>
+            <xs:enumeration value="SEP"/>
+            <xs:enumeration value="OCT"/>
+            <xs:enumeration value="NOV"/>
+            <xs:enumeration value="DEC"/>
+            <xs:enumeration value="BILLING_PERIOD"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="calendarMonthEnum">
@@ -1435,18 +1435,18 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:documentation>Enumeration of the 12 calendar months.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Jan"/>
-            <xs:enumeration value="Feb"/>
-            <xs:enumeration value="Mar"/>
-            <xs:enumeration value="Apr"/>
-            <xs:enumeration value="May"/>
-            <xs:enumeration value="Jun"/>
-            <xs:enumeration value="Jul"/>
-            <xs:enumeration value="Aug"/>
-            <xs:enumeration value="Sep"/>
-            <xs:enumeration value="Oct"/>
-            <xs:enumeration value="Nov"/>
-            <xs:enumeration value="Dec"/>
+            <xs:enumeration value="JAN"/>
+            <xs:enumeration value="FEB"/>
+            <xs:enumeration value="MAR"/>
+            <xs:enumeration value="APR"/>
+            <xs:enumeration value="MAY"/>
+            <xs:enumeration value="JUN"/>
+            <xs:enumeration value="JUL"/>
+            <xs:enumeration value="AUG"/>
+            <xs:enumeration value="SEP"/>
+            <xs:enumeration value="OCT"/>
+            <xs:enumeration value="NOV"/>
+            <xs:enumeration value="DEC"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="otherUnits">
@@ -1508,15 +1508,15 @@ Useful when defining energy billing periods that do not correspond to calendar m
     </xs:complexType>
     <xs:simpleType name="benefitCategoryEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="energy produced"/>
-            <xs:enumeration value="energy offset/saved"/>
-            <xs:enumeration value="emissions offset/saved"/>
-            <xs:enumeration value="incentive: rebate/buydown"/>
-            <xs:enumeration value="incentive: production-based incentive"/>
-            <xs:enumeration value="incentive: renewable energy credit"/>
-            <xs:enumeration value="incentive: feed-in tariff"/>
-            <xs:enumeration value="incentive: federal tax credit"/>
-            <xs:enumeration value="incentive: state tax credit"/>
+            <xs:enumeration value="ENERGY_PRODUCED"/>
+            <xs:enumeration value="ENERGY_OFFSET/SAVED"/>
+            <xs:enumeration value="EMISSIONS_OFFSET/SAVED"/>
+            <xs:enumeration value="INCENTIVE-REBATE/BUYDOWN"/>
+            <xs:enumeration value="INCENTIVE-PRODUCTION-BASED_INCENTIVE"/>
+            <xs:enumeration value="INCENTIVE-RENEWABLE_ENERGY_CREDIT"/>
+            <xs:enumeration value="INCENTIVE-FEED-IN_TARIFF"/>
+            <xs:enumeration value="INCENTIVE-FEDERAL_TAX_CREDIT"/>
+            <xs:enumeration value="INCENTIVE-STATE_TAX_CREDIT"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="benefit">
@@ -1589,9 +1589,9 @@ Use the Name attribute to capture optional name for the payment. For example, if
     </xs:complexType>
     <xs:simpleType name="determinationMethodEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Estimated"/>
-            <xs:enumeration value="Measured"/>
-            <xs:enumeration value="Incentive"/>
+            <xs:enumeration value="ESTIMATED"/>
+            <xs:enumeration value="MEASURED"/>
+            <xs:enumeration value="INCENTIVE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="determinationMethod">
@@ -1609,9 +1609,9 @@ Use the Name attribute to capture optional name for the payment. For example, if
             <xs:documentation/>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Daily"/>
-            <xs:enumeration value="Monthly"/>
-            <xs:enumeration value="Yearly"/>
+            <xs:enumeration value="DAILY"/>
+            <xs:enumeration value="MONTHLY"/>
+            <xs:enumeration value="YEARLY"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="periodicity">
@@ -1800,9 +1800,9 @@ Included in Common.xsd because EquipmentDefinitionType element uses it, else wou
     </xs:complexType>
     <xs:simpleType name="existenceEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Existing"/>
-            <xs:enumeration value="New"/>
-            <xs:enumeration value="Unknown"/>
+            <xs:enumeration value="EXISTING"/>
+            <xs:enumeration value="NEW"/>
+            <xs:enumeration value="UNKNOWN"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="condition">

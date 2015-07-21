@@ -17,8 +17,8 @@
 			<xs:documentation>Master metered or individually metered.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Individually Metered"/>
-			<xs:enumeration value="Master Metered"/>
+			<xs:enumeration value="INDIVIDUALLY_METERED"/>
+			<xs:enumeration value="MASTER_METERED"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="utilityTransformerConnectionTypesEnum">
@@ -26,9 +26,9 @@
 			<xs:documentation>The level at which the service connection is made to the utility's electrical services (primary, secondary, transmission).</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Secondary"/>
-			<xs:enumeration value="Transmission"/>
-			<xs:enumeration value="Primary"/>
+			<xs:enumeration value="SECONDARY"/>
+			<xs:enumeration value="TRANSMISSION"/>
+			<xs:enumeration value="PRIMARY"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="utilityService">

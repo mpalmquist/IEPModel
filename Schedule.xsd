@@ -63,22 +63,22 @@
 			<xs:element name="endTime" type="xs:time" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="dayEnum">
+	<xs:simpleType name="dayTypeEnum">
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Weekday"/>
-			<xs:enumeration value="Weekend"/>
-			<xs:enumeration value="Holiday"/>
-			<xs:enumeration value="WeekendOrHoliday"/>
-			<xs:enumeration value="HeatingDesignDay"/>
-			<xs:enumeration value="CoolingDesignDay"/>
-			<xs:enumeration value="Sun"/>
-			<xs:enumeration value="Mon"/>
-			<xs:enumeration value="Tue"/>
-			<xs:enumeration value="Wed"/>
-			<xs:enumeration value="Thu"/>
-			<xs:enumeration value="Fri"/>
-			<xs:enumeration value="Sat"/>
-			<xs:enumeration value="All"/>
+			<xs:enumeration value="WEEKDAY"/>
+			<xs:enumeration value="WEEKEND"/>
+			<xs:enumeration value="HOLIDAY"/>
+			<xs:enumeration value="WEEKEND_OR_HOLIDAY"/>
+			<xs:enumeration value="HEATING_DESIGN_DAY"/>
+			<xs:enumeration value="COOLING_DESIGN_DAY"/>
+			<xs:enumeration value="SUN"/>
+			<xs:enumeration value="MON"/>
+			<xs:enumeration value="TUE"/>
+			<xs:enumeration value="WED"/>
+			<xs:enumeration value="THU"/>
+			<xs:enumeration value="FRI"/>
+			<xs:enumeration value="SAT"/>
+			<xs:enumeration value="ALL"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="scheduleEnum">
@@ -90,17 +90,17 @@ For lighting: Fraction of the day or On/Off may be used, but not Temp
 For heating or cooling any of the three may be used to define the schedule</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Temp">
+			<xs:enumeration value="TEMP">
 				<xs:annotation>
 					<xs:documentation>This defines the a set temperature for a heating or cooling system</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
-			<xs:enumeration value="Fraction">
+			<xs:enumeration value="FRACTION">
 				<xs:annotation>
 					<xs:documentation>Defines the fraction of use. Typically used for lighting and occupancy</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
-			<xs:enumeration value="OnOff">
+			<xs:enumeration value="ON_OFF">
 				<xs:annotation>
 					<xs:documentation>Used for schedules for fans and heating and cooling availability</xs:documentation>
 				</xs:annotation>
@@ -157,24 +157,6 @@ For heating or cooling any of the three may be used to define the schedule</xs:d
 		<xs:attribute name="id" use="required" type="xs:ID"/>
 		<xs:attribute name="type" use="required" type="scheduleEnum"/>
 	</xs:complexType>
-	<xs:simpleType name="dayTypeEnum">
-		<xs:restriction base="xs:NMTOKEN">
-			<xs:enumeration value="Weekday"/>
-			<xs:enumeration value="Weekend"/>
-			<xs:enumeration value="Holiday"/>
-			<xs:enumeration value="WeekendOrHoliday"/>
-			<xs:enumeration value="HeatingDesignDay"/>
-			<xs:enumeration value="CoolingDesignDay"/>
-			<xs:enumeration value="Sun"/>
-			<xs:enumeration value="Mon"/>
-			<xs:enumeration value="Tue"/>
-			<xs:enumeration value="Wed"/>
-			<xs:enumeration value="Thu"/>
-			<xs:enumeration value="Fri"/>
-			<xs:enumeration value="Sat"/>
-			<xs:enumeration value="All"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:element name="beginDate" type="beginDate"/>
 	<xs:element name="endDate" type="endDate"/>
 	<xs:element name="hourId" type="hourId"/>

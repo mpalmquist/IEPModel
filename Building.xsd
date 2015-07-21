@@ -480,6 +480,26 @@ For example:
 			</xs:element>
 			<xs:element minOccurs="0" name="area" type="area"/>
 			<xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
+			<xs:element minOccurs="0" name="storyHeight">
+				<xs:annotation>
+					<xs:documentation>Number of stories to base of roofFace.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="surfaceType" type="roofSurfaceEnum">
+				<xs:annotation>
+					<xs:documentation>Option to use this element when roof faces differ in type of surface. In most instances, roofs share the same surfaceType which can be defined at the roof level of the model.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element default="1" minOccurs="0" name="surfaceLayers" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Number of roofing surface layers. For example, a single re-roof overlay would make 2 surface layers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="deckSheathing" type="deckSheathingEnum">
+				<xs:annotation>
+					<xs:documentation>Roofing deck material.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
 				<xs:annotation>
 					<xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
@@ -540,6 +560,12 @@ For example:
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="parapetWall" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Does roof have a parapet wall?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="parapetWallHeight" type="dimension" minOccurs="0" maxOccurs="1"/>
 			<xs:element form="unqualified" minOccurs="0" name="structure" type="roofFaceStructure">
 				<xs:annotation>
 					<xs:documentation>This element describes the roof face's structural attributes.</xs:documentation>
@@ -578,36 +604,10 @@ For example:
 			</xs:element>
 			<xs:element name="surfaceType" type="roofSurfaceEnum" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>Roof surface material.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element default="1" minOccurs="0" name="surfaceLayers" type="xs:integer">
-				<xs:annotation>
-					<xs:documentation>Number of roofing surface layers. For example, a single re-roof overlay would make 2 surface layers.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element minOccurs="0" name="deckSheathing" type="deckSheathingEnum">
-				<xs:annotation>
-					<xs:documentation>Type of roof decking material.</xs:documentation>
+					<xs:documentation>Roof surface material. In a large majority of cases, a roof has a single roofSurfaceType that is shared by all of its faces. This element satisfies that case. However, its possible for a roof to have different surface types on different roof faces. In use cases where this is important, use the surfaceType element within each roofFace element.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="color" type="xs:string" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="area" type="area" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>This is a convenience value based on the average tilt of the roof and the floor space of the building and may be overridden by the LayoutPlane dimensions</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element minOccurs="0" name="meanRoofHeight" type="xs:double">
-				<xs:annotation>
-					<xs:documentation>Mean height of roof faces (typically where PV arrays will be installed).</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="parapetWall" type="xs:boolean" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Does roof have a parapet wall?</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="parapetWallHeight" type="dimension" minOccurs="0" maxOccurs="1"/>
 			<xs:element minOccurs="0" name="evidenceOfLeaksOrDeterioration" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Are there signs of leaks, poor drainage, uneven roof surface, exessive sagging, etc. Use conditionNotes to capture details.</xs:documentation>
@@ -620,7 +620,7 @@ For example:
 			</xs:element>
 			<xs:element name="conditionNotes" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>Use as a notes field to more fully describe basic findings. Describe evidence of leaks, poor drainage (such as stains), structural decay, or fire damage.</xs:documentation>
+					<xs:documentation>Use as a notes field to more fully describe basic findings. Describe evidence of leaks, poor drainage (such as stains), structural decay, or fire damage. Refer to specific roof faces if appropriate.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="yearBuiltOrReplaced" minOccurs="0" maxOccurs="1">

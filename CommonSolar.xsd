@@ -17,9 +17,9 @@
             <xs:documentation>Enumeration of eligible tracking modes for a PV mounting structure.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="fixed"/>
-            <xs:enumeration value="single-axis"/>
-            <xs:enumeration value="dual-axis"/>
+            <xs:enumeration value="FIXED"/>
+            <xs:enumeration value="SINGLE_AXIS"/>
+            <xs:enumeration value="DUAL_AXIS"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:element default="45" name="trackingRange1Axis" nillable="true" type="xs:double">
@@ -29,12 +29,12 @@
     </xs:element>
     <xs:simpleType name="arrayInstallStyleEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="parallel to roof"/>
-            <xs:enumeration value="tilt-up roof"/>
-            <xs:enumeration value="ballasted tilt"/>
-            <xs:enumeration value="ground mount"/>
-            <xs:enumeration value="pole mount"/>
-            <xs:enumeration value="other"/>
+            <xs:enumeration value="PARALLEL_TO_ROOF"/>
+            <xs:enumeration value="TILT-UP_ROOF"/>
+            <xs:enumeration value="BALLASTED_TILT"/>
+            <xs:enumeration value="GROUND_MOUNT"/>
+            <xs:enumeration value="POLE_MOUNT"/>
+            <xs:enumeration value="OTHER"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="panelOrientationEnum">
@@ -42,8 +42,8 @@
             <xs:documentation>Panels (PvModules and potentially thermal panels) may be oriented in portrait or landscape.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="portrait"/>
-            <xs:enumeration value="landscape"/>
+            <xs:enumeration value="PORTRAIT"/>
+            <xs:enumeration value="LANDSCAPE"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="panelTiltEdgeEnum">
@@ -51,10 +51,10 @@
             <xs:documentation>When a panel (PvModule or Thermal panel) is tilted from its RoofPlane, these are the possible edges on which the tilt can occur.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="bottom"/>
-            <xs:enumeration value="top"/>
-            <xs:enumeration value="left"/>
-            <xs:enumeration value="right"/>
+            <xs:enumeration value="BOTTOM"/>
+            <xs:enumeration value="TOP"/>
+            <xs:enumeration value="LEFT"/>
+            <xs:enumeration value="RIGHT"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="dcInputEnum">
@@ -62,9 +62,9 @@
             <xs:documentation>This is the set of possible dc circuit input types to a DC device (DC devices include combiners, and maxPowerPointTrackers).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="dcStringIndividual"/>
-            <xs:enumeration value="dcStringSet"/>
-            <xs:enumeration value="dcCombiner"/>
+            <xs:enumeration value="DC_STRING_INDIVIDUAL"/>
+            <xs:enumeration value="DC_STRING_SET"/>
+            <xs:enumeration value="DC_COMBINER"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="mountingSystem">
@@ -1165,9 +1165,9 @@
     </xs:complexType>
     <xs:simpleType name="presenceOfUndergroundEntitiesEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="None"/>
-            <xs:enumeration value="Yes (location marked)"/>
-            <xs:enumeration value="Yes (location TBD)"/>
+            <xs:enumeration value="NONE"/>
+            <xs:enumeration value="YES-LOCATION_MARKED"/>
+            <xs:enumeration value="YES-LOCATION_TBD"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="roofFaceInstallArea">

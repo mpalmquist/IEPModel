@@ -41,8 +41,8 @@
 			<xs:documentation>This defines whether the project is New Construction or a Retrofit</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Retrofit"/>
-			<xs:enumeration value="New Construction"/>
+			<xs:enumeration value="RETROFIT"/>
+			<xs:enumeration value="NEW_CONSTRUCTION"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="lineItem">
@@ -413,9 +413,9 @@ If BenefitsAnalysisOrder is defined, then benefits should be incremental relativ
 			<xs:documentation>Describes what happens at the end of the finance period.  The customer may PURCHASE the asset, RENEW the lease/PPA, or RETURN the asset.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="purchase"/>
-			<xs:enumeration value="renew"/>
-			<xs:enumeration value="return"/>
+			<xs:enumeration value="PURCHASE"/>
+			<xs:enumeration value="RENEW"/>
+			<xs:enumeration value="RETURN"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="project">

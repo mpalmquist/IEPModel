@@ -11,7 +11,7 @@
     <xs:include schemaLocation="Common.xsd"/>
     <xs:include schemaLocation="CommonSolar.xsd"/>
     <xs:include schemaLocation="EnergyConsumption.xsd"/>
-    <xs:include schemaLocation="RoofPlane.xsd"/>
+    <xs:include schemaLocation="Building.xsd"/>
     <xs:simpleType name="SystemOperationEnumType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Direct Forced Circulation (DF)"/>
@@ -41,9 +41,9 @@
     </xs:simpleType>
     <xs:simpleType name="FluidOptionEnumType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Indirect, Forced Circulation Glycol"/>
-            <xs:enumeration value="Drainback, Water"/>
-            <xs:enumeration value="Indirect, Forced Circulation Water"/>
+            <xs:enumeration value="Indirect-Forced Circulation Glycol"/>
+            <xs:enumeration value="Drainback-Water"/>
+            <xs:enumeration value="Indirect-Forced Circulation Water"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="TankConfigurationEnumType">
@@ -133,7 +133,7 @@
     <xs:complexType name="SolarThermalSystemType">
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="ApplicationReferenceId"
-                type="ApplicationIdType"/>
+                type="applicationId"/>
             <xs:element name="Manufacturer" type="xs:string"/>
             <xs:element name="ModelNumber" type="xs:string"/>
             <xs:element minOccurs="0" name="SystemName" type="xs:string">
@@ -219,7 +219,7 @@
                 </xs:complexType>
             </xs:element>
             <xs:element minOccurs="0" name="CollectorStandoff" type="xs:string"/>
-            <xs:element minOccurs="0" name="CollectorOrientation" type="PanelOrientationEnumType"/>
+            <xs:element minOccurs="0" name="CollectorOrientation" type="panelOrientationEnum"/>
             <xs:element minOccurs="0" name="MountingSystem" type="mountingSystem"/>
             <xs:element minOccurs="0" name="RoofFace" type="roofFace" maxOccurs="unbounded"/>
         </xs:sequence>

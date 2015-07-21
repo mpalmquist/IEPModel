@@ -41,24 +41,24 @@
 			<xs:documentation>Enum exists to know specifically what equipment is being referenced as opposed to being a open description only.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Dishwasher"/>
-			<xs:enumeration value="Dryer"/>
-			<xs:enumeration value="Microwave"/>
-			<xs:enumeration value="Stove"/>
-			<xs:enumeration value="Range"/>
-			<xs:enumeration value="Refrigerator"/>
-			<xs:enumeration value="Stove"/>
-			<xs:enumeration value="Washer"/>
-			<xs:enumeration value="Computer"/>
-			<xs:enumeration value="FishTank"/>
-			<xs:enumeration value="Other"/>
+			<xs:enumeration value="DISHWASHER"/>
+			<xs:enumeration value="DRYER"/>
+			<xs:enumeration value="MICROWAVE"/>
+			<xs:enumeration value="STOVE"/>
+			<xs:enumeration value="RANGE"/>
+			<xs:enumeration value="REGRIGERATOR"/>
+			<xs:enumeration value="STOVE"/>
+			<xs:enumeration value="WASHER"/>
+			<xs:enumeration value="COMPUTER"/>
+			<xs:enumeration value="FISHTANK"/>
+			<xs:enumeration value="OTHER"/>
 			<xs:enumeration value="TV"/>
 			<xs:enumeration value="DVR">
 				<xs:annotation>
 					<xs:documentation>Digital Video Recorder</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
-			<xs:enumeration value="WellPump"/>
+			<xs:enumeration value="WELL_PUMP"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
