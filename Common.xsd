@@ -1888,11 +1888,6 @@ When used for site surveys, should include what types of equipment are envisione
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id"/>
-        <xs:attribute name="equipmentInstanceIdRef" type="xs:IDREF">
-            <xs:annotation>
-                <xs:documentation>The equipmentLocation type can be used for an element where specific equipment instances are referenced to this location.</xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
     </xs:complexType>
     <xs:complexType name="lastServiced">
         <xs:annotation>
@@ -1930,9 +1925,9 @@ When used for site surveys, should include what types of equipment are envisione
                     <xs:documentation>The calendar date on which the manufacturer completed manufacture of this specific piece of equipment. May be limited to the year.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="location" type="equipmentLocation">
+            <xs:element minOccurs="0" name="equipmentLocationIdRef" type="xs:IDREF">
                 <xs:annotation>
-                    <xs:documentation>A place where the equipment is located on the site or within the building.</xs:documentation>
+                    <xs:documentation>A place where the equipment is located on the site or within the building. Equipment locations are defined in a separate element so that the locations can be defined prior to equipment instances.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="condition" type="condition">

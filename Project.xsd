@@ -541,6 +541,13 @@ Included reference to Utility Service here instead of in Building since Project 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element minOccurs="0" name="equipmentLocations">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="equipmentLocation" type="equipmentLocation"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
 			<xs:element minOccurs="0" name="roofArrayInstallAreas" type="roofArrayInstallAreas">
 				<xs:annotation>
 					<xs:documentation>Collection of site areas that can be used for siting solar arrays.</xs:documentation>
