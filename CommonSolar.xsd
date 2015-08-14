@@ -89,11 +89,12 @@
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="anchorMaxHorizontalSpacing" type="xs:double"
-                form="unqualified">
+                form="qualified">
                 <xs:annotation>
                     <xs:documentation>The maximum horizontal spacing allowed between attachment points. Horizontal anchor spacing is also known as “cross-slope” or “east-west” anchor spacing. See racking product manual for maximum spacing allowed based on maximum design wind speed, and permitting guidelines for maximum spacing allowed for structural load. </xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="anchorsInAdjacentRowsStaggered" type="xs:boolean"/>
             <xs:element minOccurs="0" name="anchorFastenersMeetManufacturerGuidelines"
                 type="xs:boolean">
                 <xs:annotation>
@@ -1728,6 +1729,8 @@ If an individual module has an orientation different from the common value, that
                 <xs:documentation>ID of the PvModuleDefinition within the PvSystem instance.  The PvModuleDefintion describes the make and model of the PV module. The PvArray is assumed to use the same module for the entire array.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="roofArrayInstallAreaIdRef" type="xs:IDREF"/>
+        <xs:attribute name="groundArrayInstallAreaIdRef" type="xs:IDREF"/>
     </xs:complexType>
     <xs:element name="holes">
         <xs:annotation>

@@ -308,40 +308,40 @@ For example:
 	</xs:complexType>
 	<xs:simpleType name="foundationBaseEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Crawlspace"/>
-			<xs:enumeration value="Finished Basement"/>
-			<xs:enumeration value="Unfinished Basement"/>
-			<xs:enumeration value="SlabOnGrade"/>
-			<xs:enumeration value="Raised Floor"/>
+			<xs:enumeration value="CRAWLSPACE"/>
+			<xs:enumeration value="FINISHED_BASEMENT"/>
+			<xs:enumeration value="UNFINISHED_BASEMENT"/>
+			<xs:enumeration value="SLAB_ON_GRADE"/>
+			<xs:enumeration value="RAISED_FLOOR"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="roofLookEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Butterfly"/>
-			<xs:enumeration value="Combination"/>
-			<xs:enumeration value="Flat"/>
-			<xs:enumeration value="Gable"/>
-			<xs:enumeration value="Gambrel"/>
-			<xs:enumeration value="Hip"/>
-			<xs:enumeration value="Mansard"/>
-			<xs:enumeration value="Shed"/>
+			<xs:enumeration value="BUTTERFLY"/>
+			<xs:enumeration value="COMBINATION"/>
+			<xs:enumeration value="FLAT"/>
+			<xs:enumeration value="GABLE"/>
+			<xs:enumeration value="GAMBREL"/>
+			<xs:enumeration value="HIP"/>
+			<xs:enumeration value="MANSARD"/>
+			<xs:enumeration value="SHED"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="roofSurfaceEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="CalPac metal"/>
-			<xs:enumeration value="composition roll"/>
-			<xs:enumeration value="composition shingle"/>
-			<xs:enumeration value="foam"/>
-			<xs:enumeration value="heavy concrete tile"/>
-			<xs:enumeration value="high-definition comp shingle"/>
-			<xs:enumeration value="light weight concrete tile"/>
-			<xs:enumeration value="single-ply membrane"/>
-			<xs:enumeration value="slate"/>
-			<xs:enumeration value="spanish barrel tile"/>
-			<xs:enumeration value="standing seam metal"/>
-			<xs:enumeration value="tar &amp; gravel"/>
-			<xs:enumeration value="wood shake"/>
+			<xs:enumeration value="CALPAC_METAL"/>
+			<xs:enumeration value="COMPOSITION_ROLL"/>
+			<xs:enumeration value="COMPOSITION_SHINGLE"/>
+			<xs:enumeration value="FOAM"/>
+			<xs:enumeration value="HEAVY_CONCRETE_TILE"/>
+			<xs:enumeration value="HIGH-DEFINITION_COMP_SHINGLE"/>
+			<xs:enumeration value="LIGHT_WEIGHT_CONCRETE_TILE"/>
+			<xs:enumeration value="SINGLE-PLY_MEMBRANE"/>
+			<xs:enumeration value="SLATE"/>
+			<xs:enumeration value="SPANISH_BARREL_TILE"/>
+			<xs:enumeration value="STANDING_SEAM_METAL"/>
+			<xs:enumeration value="TAR_AND_GRAVEL"/>
+			<xs:enumeration value="WOOD_SHAKE"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="roofConstructionEnum">
@@ -352,14 +352,24 @@ For example:
 			<xs:enumeration value="VAULTED_BEAMS"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="rafterCrossSectionEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2x4_PRE_1960"/>
+			<xs:enumeration value="2x6_PRE_1960"/>
+			<xs:enumeration value="2x8_PRE_1960"/>
+			<xs:enumeration value="2x4_POST_1960"/>
+			<xs:enumeration value="2x6_POST_1960"/>
+			<xs:enumeration value="2x8_POST_1960"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="deckSheathingEnum">
 		<xs:annotation>
 			<xs:documentation>ENUM of roof deck sheathing types.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_>=_7/16&quot;_THICK"/>
-			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_&lt;_7/16&quot;_THICK"/>
-			<xs:enumeration value="1X_SKIP_SHEATHING"/>
+			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_GT_OR_EQ2_7_16_INCH_THICK"/>
+			<xs:enumeration value="ORIENTED_STRAND_BOARD_OR_PLYWOOD_LT_THAN_7_16_INCH_THICK"/>
+			<xs:enumeration value="SKIP_SHEATHING_1X"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="roofFaceStructure">
@@ -367,13 +377,16 @@ For example:
 			<xs:documentation>Describes a roof face's structural attributes important to knowing whether the roof can support the additional weight of added equipment, such as solar panels.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element maxOccurs="1" minOccurs="0" name="rafters" type="xs:string">
+			<xs:element maxOccurs="1" minOccurs="0" name="structuralSupportType" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Type of structural support for the roofing deck. Example values might include: "Wood 2byX, Fir#2 Or Better", "Wood 2byX", "Wood I-beam", "Steel I-beam", "Steel C-channel", etc</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="1" minOccurs="0" name="rafterCrossSectionWidth" type="xs:double"/>
-			<xs:element minOccurs="0" name="rafterCrossSectionDepth" type="xs:double"/>
+			<xs:element minOccurs="0" name="rafterCrossSection" type="rafterCrossSectionEnum">
+				<xs:annotation>
+					<xs:documentation>Nominal rafter size. Nominal rafter sizing changed around 1960. A post-1960 2x4 measures 1.5" x 3.5", while a pre-1960 2x4 measures 1.75" x 3.75". The rafter's cross section affects the maximum span.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element maxOccurs="1" minOccurs="0" name="rafterSpacing" type="xs:double">
 				<xs:annotation>
 					<xs:documentation>Spacing center to center of adjacent rafters (or other structural members). Expedited permit process steps through a check of rafter beam spacing.</xs:documentation>
@@ -500,6 +513,12 @@ For example:
 					<xs:documentation>Roofing deck material.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="constructionStyle" type="roofConstructionEnum" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Describes the roof structure design.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
 				<xs:annotation>
 					<xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
@@ -594,12 +613,6 @@ For example:
 			<xs:element name="look" type="roofLookEnum" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The type of roof design.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="constructionStyle" type="roofConstructionEnum" minOccurs="0"
-				maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Describes the roof structure design.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="surfaceType" type="roofSurfaceEnum" minOccurs="0" maxOccurs="1">

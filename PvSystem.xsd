@@ -17,7 +17,7 @@
         <xs:sequence>
             <xs:element minOccurs="0" name="name" type="xs:string" maxOccurs="1"/>
             <xs:element minOccurs="0" name="description" type="xs:string" maxOccurs="1"/>
-            <xs:element minOccurs="0" name="Status" type="xs:string">
+            <xs:element minOccurs="0" name="status" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Element used to define the current status of the pvSystem.</xs:documentation>
                 </xs:annotation>
