@@ -1718,7 +1718,7 @@ Included in Common.xsd because EquipmentDefinitionType element uses it, else wou
             </xs:element>
             <xs:element minOccurs="0" name="mountingStyle" type="xs:string">
                 <xs:annotation>
-                    <xs:documentation>Describes how the equipment/box is installed (or designed to be installed). This is important for determining components required for interfacing with it.  Suggested values include: Wall Mount, Wall Mount-Surface, Wall Mount-Flush, Pad Mount.</xs:documentation>
+                    <xs:documentation>Describes how the equipment/box is installed (or designed to be installed). This is important for determining components required for interfacing with it.  Suggested values include: Wall Mount, Wall Mount-Surface, Wall Mount-Flush, Pad Mount, Rack Mount, Panel Mount.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="length" type="xs:double">

@@ -344,9 +344,9 @@
                             <xs:documentation>Is the inverter based on a transformer architecture?  TRUE indicates there is a transformer.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="positiveGroundOption" type="xs:boolean">
+                    <xs:element minOccurs="0" name="polarityOfGround" type="xs:boolean">
                         <xs:annotation>
-                            <xs:documentation>Does the inverter have an option to make the positive end grounded?</xs:documentation>
+                            <xs:documentation>Options could be options of negative, positive, either, or floating.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="cooling" type="xs:string">
