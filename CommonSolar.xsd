@@ -67,6 +67,17 @@
             <xs:enumeration value="DC_COMBINER"/>
         </xs:restriction>
     </xs:simpleType>
+    <xs:simpleType name="polarityOfGroundEnum">
+        <xs:annotation>
+            <xs:documentation>Possible values for ground polarity of an inverter. Used in iverterDefinition. </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="POSITIVE"/>
+            <xs:enumeration value="NEGATIVE"/>
+            <xs:enumeration value="EITHER"/>
+            <xs:enumeration value="FLOATING"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="mountingSystem">
         <xs:annotation>
             <xs:documentation>Describes the physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
@@ -344,9 +355,9 @@
                             <xs:documentation>Is the inverter based on a transformer architecture?  TRUE indicates there is a transformer.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element minOccurs="0" name="polarityOfGround" type="xs:boolean">
+                    <xs:element minOccurs="0" name="polarityOfGround" type="polarityOfGroundEnum">
                         <xs:annotation>
-                            <xs:documentation>Options could be options of negative, positive, either, or floating.</xs:documentation>
+                            <xs:documentation/>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" name="cooling" type="xs:string">
