@@ -7,7 +7,7 @@
     Description: Schema includes elements for defining an electrical system on a site.  Includes elements that describe the distribution of circuits, such as electric panels, wiring, wireways (conduit), over-current protection devices (OCPD), and disconnects.
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
-    targetNamespace="http://www.iepmodel.net" version="1.0">
+    targetNamespace="http://www.iepmodel.net" version="1.0" elementFormDefault="qualified">
     <xs:include schemaLocation="Common.xsd"/>
     <xs:simpleType name="wireTypeEnum">
         <xs:annotation>

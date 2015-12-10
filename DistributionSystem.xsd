@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:include schemaLocation="Common.xsd"/>
 	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
 	<xs:include schemaLocation="Building.xsd"/>
@@ -84,7 +84,7 @@ Heat Transfer Fluid</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="DistributionEquipmentDefinition"
-				type="EquipmentDefinitionType"/>
+				type="equipmentDefinition"/>
 			<xs:element name="PrimeMover" type="PrimeMoverSystemType" minOccurs="0"
 				maxOccurs="unbounded">
 				<xs:annotation>
@@ -115,14 +115,14 @@ Heat Transfer Fluid</xs:documentation>
 					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DesignFlow" type="FlowType" minOccurs="0" maxOccurs="1">
+			<xs:element name="DesignFlow" type="flow" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The volumetric flow that the pump/fan was designed to provide. This correspondes to the Design Pressure.  
 
 Typically, the design pressure and design flow represent the maximum efficiency point on the manufacturer fan/pump curve. Typically, this is not the maximum flow that the device can provide.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DesignPressure" type="PressureType" minOccurs="0" maxOccurs="1">
+			<xs:element name="DesignPressure" type="pressure" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The pressure across the pump/fan (P_outlet - P_inlet) that it was designed to provide. This corresponds to the the Design Flow.  
 
@@ -156,13 +156,13 @@ Inlet Guide Vane
 Outlet Damper</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"
+			<xs:element name="SystemProperties" type="commonSystemProperties" minOccurs="0"
 				maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Characteristics of the system are captured here.  Note that this reflects the system (pump/fan, motor, VFD, etc.).  Properties of the individual components may be captured in equipment attributes.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="PrimeMoverEquipment" type="EquipmentInstanceType" minOccurs="0"
+			<xs:element name="PrimeMoverEquipment" type="equipmentInstance" minOccurs="0"
 				maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Details of the hardware are captured here.</xs:documentation>
@@ -197,20 +197,20 @@ If a complex system of segments is to be defined, it would be useful to describe
 Other quantities or features may also be described here, such as the loss coefficient (i.e. pressure drop due to fluid friction).</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SegmentEquipment" type="EquipmentInstanceType" minOccurs="0"
+			<xs:element name="SegmentEquipment" type="equipmentInstance" minOccurs="0"
 				maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Characteristics of the segment (pipe/duct/etc.) hardware are captured here.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element maxOccurs="unbounded" minOccurs="0" name="Insulation" type="InsulationType"/>
-			<xs:element minOccurs="0" name="Leakage" type="LeakageType"/>
-			<xs:element name="PressureRated" type="PressureType" minOccurs="0" maxOccurs="1">
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Insulation" type="insulation"/>
+			<xs:element minOccurs="0" name="Leakage" type="flow"/>
+			<xs:element name="PressureRated" type="pressure" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The maximum or design pressure for which the pipe/duct segment is rated.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FlowRated" type="FlowType" minOccurs="0" maxOccurs="1">
+			<xs:element name="FlowRated" type="flow" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The maximum or design flow rate for which the pipe/duct segment is rated.</xs:documentation>
 				</xs:annotation>

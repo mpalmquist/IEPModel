@@ -1726,7 +1726,7 @@ Use the Name attribute to capture optional name for the payment. For example, if
         <xs:annotation>
             <xs:documentation>NEMA provides ratings on equipment enclosures that describe its protection from weather/elements.
 
-Included in Common.xsd because EquipmentDefinitionType element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
+Included in Common.xsd because equipmentDefinition element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="3"/>

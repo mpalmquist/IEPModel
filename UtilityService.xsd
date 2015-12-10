@@ -6,7 +6,7 @@
 	v 1.x  Michael Palmquist, SolarNexus Inc
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>Defines a utility service for a site.</xs:documentation>
 	</xs:annotation>
