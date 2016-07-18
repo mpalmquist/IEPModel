@@ -1167,10 +1167,22 @@
             <xs:element minOccurs="0" name="siteWeatherData" type="siteWeatherData"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="exclusionArea2dOrthoProjection">
+    <xs:complexType name="exclusionArea">
+        <xs:annotation>
+            <xs:documentation>For a module layout, this defines any area within a given scene that may contain multiple roofFaces and groundAreas that modules cannot be placed. The coordinates used in this element apply to the whole scene of roofFaces and groundAreas where moduleLayouts are placed (may contain more than one area).</xs:documentation>
+        </xs:annotation>
         <xs:all>
-            <xs:element maxOccurs="1" minOccurs="1" name="polygon2dSceneOrthoProjection"
+            <xs:element minOccurs="0" name="polygon2dSceneCameraView" type="polygon2d"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="polygon2dSceneOrthoProjection"
                 type="polygon2d"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="exclusionArea2dLocal">
+        <xs:annotation>
+            <xs:documentation>For a module layout, this defines any area within a given area that modules cannot be placed. This defines actual dimensions, not a projection. The coordinates used in this element are unique to the roofFace or groundArea where the moduleLayout is placed (does not contain more than one area).</xs:documentation>
+        </xs:annotation>
+        <xs:all>
             <xs:element maxOccurs="1" minOccurs="0" name="polygon2dLocal" type="polygon2d"/>
         </xs:all>
         <xs:attribute name="id" type="xs:ID"/>
@@ -1182,11 +1194,6 @@
             <xs:enumeration value="YES-LOCATION_TBD"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="roofFaceInstallArea">
-        <xs:complexContent>
-            <xs:extension base="roofFace"/>
-        </xs:complexContent>
-    </xs:complexType>
     <xs:complexType name="groundArrayInstallArea">
         <xs:annotation>
             <xs:documentation>A description of the ground area of a site that may be used for ground mount PV Systems.</xs:documentation>
@@ -1209,14 +1216,20 @@
             </xs:element>
             <xs:element minOccurs="0" name="area" type="area"/>
             <xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
-            <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
+            <xs:element minOccurs="0" name="polygon2dSceneCameraView" type="polygon2d">
                 <xs:annotation>
-                    <xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+                    <xs:documentation>An array area as defined from an aerial source such as a satellite or airplane. These views are rarely orthographic (straight down), the angles at which the camera has taken the image can result in skewed polygon shapes.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+            <xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
                 <xs:annotation>
-                    <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+                    <xs:documentation>Describes the geometry of the area from an orthographic view straight down.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="groundAreaPolygon2dLocal"
+                type="installAreaPolygon2dLocal">
+                <xs:annotation>
+                    <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions, not a projection. Also includes any obstructions that may be included in the ground area.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
@@ -1283,14 +1296,13 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" name="groundArrayInstallArea"
                 type="groundArrayInstallArea"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="roofArrayInstallAreas">
-        <xs:annotation>
-            <xs:documentation>Collection of roof Faces at the site that can be used for siting solar arrays.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="roofArrayInstallArea" maxOccurs="unbounded" type="roofFace"/>
+            <xs:element minOccurs="0" name="obstructions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="obstruction" type="obstruction"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="moduleLayout">
@@ -1317,17 +1329,57 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+        <xs:attribute name="roofFaceIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>If the array is located on a defined roof face, then this refers to that roofFace element in the XML doc.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="groundArrayInstallAreaIdRef" type="xs:IDREF">
+            <xs:annotation>
+                <xs:documentation>If the array is located on a defined ground installArea, then this refers to that groundArea element in the XML doc.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="moduleLayout2dLocal">
+        <xs:annotation>
+            <xs:documentation>A module layout where all of the element's coordinates are defined by the extents of the single roof or ground area. Because the coordinate system is limited to a single groundArea or roofFace, this element also contains any relevant exclusionArea polygons.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="setbacks">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="setback">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="distance" type="xs:double"/>
+                                </xs:sequence>
+                                <xs:attribute name="edgeIdRef" type="xs:string"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
             <xs:element minOccurs="0" name="exclusionAreas">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="exclusionArea"
-                            type="exclusionArea2dOrthoProjection"/>
+                        <xs:element maxOccurs="unbounded" name="exclusionArea2dLocal"
+                            type="exclusionArea2dLocal"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="moduleSpaces">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="moduleSpace"
+                            type="equipmentLocation"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
-        <xs:attribute name="roofArrayInstallAreaIdRef" type="xs:IDREF">
+        <xs:attribute name="roofFaceIdRef" type="xs:IDREF">
             <xs:annotation>
                 <xs:documentation>If the array is located on a defined roof face installArea, then this refers to that RoofFace element in the XML doc.</xs:documentation>
             </xs:annotation>
@@ -1728,6 +1780,7 @@ If an individual module has an orientation different from the common value, that
                     <xs:documentation>Physical layout positions of the modules within the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="moduleLayout2dLocal" type="moduleLayout2dLocal"/>
             <xs:element minOccurs="0" name="modulesOverhangRoofEdges" type="xs:boolean">
                 <xs:annotation>
                     <xs:documentation>Expedited permit processes dictate that modules be fully contained within the perimeter of the roof edges on which it is installed.</xs:documentation>
@@ -1791,5 +1844,12 @@ If an individual module has an orientation different from the common value, that
             </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="shadowSource">
+        <xs:complexContent>
+            <xs:extension base="obstruction">
+                <xs:all/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 </xs:schema>

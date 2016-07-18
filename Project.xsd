@@ -541,17 +541,23 @@ Included reference to Utility Service here instead of in Building since Project 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element minOccurs="0" name="shadowSources">
+				<xs:annotation>
+					<xs:documentation>Collection of objects on or nearby the site that may cast shadows upon the site areas where solar arrays may be installed.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="shadowSource"
+							type="shadowSource"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:element minOccurs="0" name="equipmentLocations">
 				<xs:complexType>
 					<xs:all>
 						<xs:element name="equipmentLocation" type="equipmentLocation"/>
 					</xs:all>
 				</xs:complexType>
-			</xs:element>
-			<xs:element minOccurs="0" name="roofArrayInstallAreas" type="roofArrayInstallAreas">
-				<xs:annotation>
-					<xs:documentation>Collection of site areas that can be used for siting solar arrays.</xs:documentation>
-				</xs:annotation>
 			</xs:element>
 			<xs:element minOccurs="0" name="groundArrayInstallAreas" type="groundArrayInstallAreas"/>
 			<xs:element minOccurs="0" name="measures">

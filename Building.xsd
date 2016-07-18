@@ -495,7 +495,7 @@ For example:
 			<xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
 			<xs:element minOccurs="0" name="storyHeight">
 				<xs:annotation>
-					<xs:documentation>Number of stories to base of roofFace.</xs:documentation>
+					<xs:documentation>Number of stories from ground level to base of roofFace.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element minOccurs="0" name="surfaceType" type="roofSurfaceEnum">
@@ -519,14 +519,19 @@ For example:
 					<xs:documentation>Describes the roof structure design.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
+			<xs:element minOccurs="0" name="polygon2dSceneCameraView" type="polygon2d">
 				<xs:annotation>
-					<xs:documentation>Describes the geometry of the area from an orthographic view straight down (typical of satellite imagery).</xs:documentation>
+					<xs:documentation>An array area as defined from an aerial source such as a satellite or airplane. These views are rarely orthographic (straight down), the angles at which the camera has taken the image can result in skewed polygon shapes. </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+			<xs:element minOccurs="0" name="polygon2dSceneOrthoProjection" type="polygon2d">
 				<xs:annotation>
-					<xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+					<xs:documentation>Describes the geometry of the area from an orthographic view straight down.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="roofAreaPolygon2dLocal" type="installAreaPolygon2dLocal">
+				<xs:annotation>
+					<xs:documentation>Reference ID to the this roof face's polygon definition using a coordinate system whose scope is limited to only this roof face. This defines actual dimensions, not a projection. It may also include any obstructions contained within this same roofFace using the same local coordinate scope.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element minOccurs="0" name="polygon3dScene" type="polygon3d">
@@ -662,6 +667,17 @@ For example:
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element maxOccurs="unbounded" name="roofFace" type="roofFace"/>
+						<xs:element minOccurs="0" name="obstructions">
+							<xs:annotation>
+								<xs:documentation>A collection of rooftop obstructions, typically equipment, such as air handlers.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="obstruction"
+										type="obstruction"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>

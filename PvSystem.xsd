@@ -95,18 +95,19 @@
             <xs:element minOccurs="0" name="fuseDefintions" type="fuseDefinitions"> </xs:element>
             <xs:element minOccurs="0" name="conductorDefinitions" type="conductorDefinitions"/>
             <xs:element minOccurs="0" name="conduitDefinitions" type="conduitDefinitions"/>
-            <xs:element minOccurs="0" name="moduleLayouts">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="moduleLayout" type="moduleLayout"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
             <xs:element minOccurs="0" name="pvArrays">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded" minOccurs="1" name="pvArray"
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="pvArray"
                             type="pvArray"/>
+                        <xs:element minOccurs="0" name="exclusionAreas">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="1"
+                                        name="exclusionArea" type="exclusionArea"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -210,23 +211,12 @@ NOTE: An AC Module is assumed to be either:
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID" use="optional"/>
     </xs:complexType>
-    <xs:element name="pvSystem" type="pvSystem"/>
-    <xs:complexType name="pvSystemsWithArrayInstallAreas">
-        <xs:sequence>
-            <xs:element minOccurs="0" name="roofArrayInstallAreas" type="roofArrayInstallAreas"/>
-            <xs:element minOccurs="0" name="groundArrayInstallAreas" type="groundArrayInstallAreas"/>
-            <xs:element name="pvSystems">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="pvSystem" type="pvSystem"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:element name="pvSystemsWithArrayInstallAreas" type="pvSystemsWithArrayInstallAreas">
-        <xs:annotation>
-            <xs:documentation>Use when describing one or more PV systems that refer to specifically defined array install areas, for example, if array layouts are included.</xs:documentation>
-        </xs:annotation>
+    <xs:element name="roofExclusionAreas">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="roofExclusionArea" type="polygon2d"/>
+            </xs:all>
+        </xs:complexType>
     </xs:element>
+    <xs:element name="pvSystem" type="pvSystem"/>
 </xs:schema>

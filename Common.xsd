@@ -699,6 +699,50 @@ ISSUES / TO DO:
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
+    <xs:complexType name="obstruction">
+        <xs:annotation>
+            <xs:documentation>Any object within a single area, or spanning multiple areas, that obstructs new equipment from being installed within the given area. For example, a rooftop air handler obstructs installation of a new solar array. The coordinate system used to describe the obstruction's footprint is global to the scene of areas described.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element minOccurs="0" name="footprint2dSceneCameraView" type="polygon2d"/>
+            <xs:element minOccurs="0" name="footprint2dSceneOrthoProjection" type="polygon2d"/>
+            <xs:element minOccurs="0" name="height" type="xs:double"/>
+            <xs:element minOccurs="0" name="setback" type="xs:double"/>
+        </xs:all>
+        <xs:attribute name="id"/>
+    </xs:complexType>
+    <xs:complexType name="obstruction2dLocal">
+        <xs:annotation>
+            <xs:documentation>Any object within a single area that obstructs new equipment from being installed within the given area. For example, a rooftop air handler obstructs installation of a new solar array. The coordinate system used to describe this obstruction is unique to the single area that is is contained within.</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element minOccurs="0" name="footprint2dLocal" type="polygon2d"/>
+            <xs:element minOccurs="0" name="height" type="xs:double"/>
+            <xs:element minOccurs="0" name="setback" type="xs:double"/>
+        </xs:all>
+        <xs:attribute name="id"/>
+    </xs:complexType>
+    <xs:complexType name="installAreaPolygon2dLocal">
+        <xs:annotation>
+            <xs:documentation>A 2D representation of an area on a site where equipment, most likely a PV array will be installed. Its coordinate system is limited in scope to only representing this single area and any obstructions that may be contained within it.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="polygon2dLocal" type="polygon2d">
+                <xs:annotation>
+                    <xs:documentation>A 2 dimensional array area polygon whose point coordinate system is local to only this polygon. This defines actual dimensions of the roof face or ground area, not a projection.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="obstructions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="obstruction2dLocal" type="obstruction2dLocal"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="polygon3d">
         <xs:annotation>
             <xs:documentation>A set of points defining a polygon in 3 dimensional space.  When used to create an element, that element's name should describe the geometric context for the polygon element. For example, if the polygon3dType is used to define a sloped roof face as one of several roof faces in a larger scene, then the element should be named polygon3dScene, for example.</xs:documentation>
