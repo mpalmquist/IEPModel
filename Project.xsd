@@ -580,7 +580,7 @@ Included reference to Utility Service here instead of in Building since Project 
 					<xs:sequence>
 						<xs:element maxOccurs="unbounded" name="solution" type="solution">
 							<xs:annotation>
-								<xs:documentation>A solution is a definition of the proposed work to be done, inlcuding one or more measures, labor and materials items, schedule, pricing, financing, etc. Each solution may be from a specific service provider.</xs:documentation>
+								<xs:documentation>A solution is a definition of the proposed work to be done, including one or more measures, labor and materials items, schedule, pricing, financing, etc. Each solution may be from a specific service provider.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
