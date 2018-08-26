@@ -884,7 +884,7 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
     </xs:complexType>
     <xs:complexType name="electricDistributionSystem">
         <xs:annotation>
-            <xs:documentation>Defintion of a physical electric service distribution system.</xs:documentation>
+            <xs:documentation>Definition of a physical electric service distribution system.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element minOccurs="0" name="utilityServiceIdRef" type="xs:IDREF">

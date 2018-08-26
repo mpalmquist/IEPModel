@@ -586,11 +586,10 @@ Included reference to Utility Service here instead of in Building since Project 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element minOccurs="0" name="electricDIstributionSystems">
+			<xs:element name="electricDistributionSystems" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element maxOccurs="unbounded" name="electricDIstributionSystem"
-							type="electricDistributionSystem"/>
+						<xs:element name="electricDistributionSystem" type="electricDistributionSystem" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
