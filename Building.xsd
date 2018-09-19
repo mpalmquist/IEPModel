@@ -749,6 +749,11 @@ Note that if a single Building has more than one street address, only one is req
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
+            <xs:element name="automaticFireSprinklerSystemInstalled" type="xs:boolean" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Defines whether automatic fire sprinkler system is installed in the building.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="grossFloorArea" type="area" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Total floor area, including conditioned (heated/ cooled/ ventilated) and unconditioned spaces.</xs:documentation>
