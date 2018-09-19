@@ -2004,17 +2004,17 @@ When used for site surveys, should include what types of equipment are envisione
             <xs:documentation>Describes what weather data to use in an analysis.  Provides a means to specify a location and type of weather file dataset to use in an analysis.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element form="unqualified" name="stationCategory" type="xs:string" minOccurs="0">
+            <xs:element name="stationCategory" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Describes the set of weather stations, or geographic cells used to specify the site's weather.  Examples include: WBAN, WMO, NREL 40km Monthly Grid Cell, etc. </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element form="unqualified" minOccurs="0" name="stationId" type="xs:string">
+            <xs:element minOccurs="0" name="stationId" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>The ID number used within the associated Station Category system.  If the Station Category is "WBAN," then this element would contain the WBAN number for the desired station.  For example, San Francisco, CA is WBAN "23234."  And Cairo, Egypt is WMO "623660."</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element form="unqualified" minOccurs="0" name="weatherDataset" type="xs:string">
+            <xs:element minOccurs="0" name="weatherDataset" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Type of weather dataset, such as TMY, TMY2, IWEC, etc.</xs:documentation>
                 </xs:annotation>
