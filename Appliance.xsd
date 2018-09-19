@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
 	<xs:element name="appliance" type="appliance"/>
 	<xs:complexType name="appliance">

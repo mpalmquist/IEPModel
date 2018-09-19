@@ -1100,9 +1100,7 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
     </xs:complexType>
     <xs:simpleType name="energyClassEnum">
         <xs:annotation>
-            <xs:documentation>This is an enumeration of fuels and energy transport media.
-
-"Fuel Oil (No. 2)" is the diesel fuel that trucks and some cars run on, leading to the name "road diesel". It is the same thing as heating oil.</xs:documentation>
+            <xs:documentation>This is an enumeration of fuels and energy transport media.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="COAL_ANTHRACITE"/>
@@ -1116,10 +1114,14 @@ http://www.sanfranciscosolar.com/stc4.html</xs:documentation>
             <xs:enumeration value="FUEL_OIL"/>
             <xs:enumeration value="FUEL_OIL_(NO_1)">
                 <xs:annotation>
-                    <xs:documentation>Number 1 is similar to kerosene and is the fraction that boils off right after gasoline.</xs:documentation>
+                    <xs:documentation>Number 1 fuel oil is similar to kerosene and is the fraction that boils off right after gasoline.</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="FUEL_OIL_(NO_2)"/>
+            <xs:enumeration value="FUEL_OIL_(NO_2)">
+                <xs:annotation>
+                    <xs:documentation>Number 2 fuel oil is the diesel fuel that trucks and some cars run on, leading to the name "road diesel". It is the same thing as heating oil.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="FUEL_OIL_(NO_4)">
                 <xs:annotation>
                     <xs:documentation>Number 4 fuel oil is usually a blend of distillate and residual fuel oils, such as No. 2 and 6; however, sometimes it is just a heavy distillate. No. 4 may be classified as diesel, distillate or residual fuel oil.</xs:documentation>
@@ -1726,7 +1728,7 @@ Use the Name attribute to capture optional name for the payment. For example, if
         <xs:annotation>
             <xs:documentation>NEMA provides ratings on equipment enclosures that describe its protection from weather/elements.
 
-Included in Common.xsd because EquipmentDefinitionType element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
+Included in Common.xsd because equipmentDefinition element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="3"/>

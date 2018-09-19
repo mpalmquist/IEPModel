@@ -6,7 +6,7 @@
 	1.x Michael Palmquist, SolarNexus Inc, with contributors: Devan Johnson, kW Engineering; Paul Cobb, SaveEnergy123
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>&lt;xs:include schemaLocation="\CommonQuantities.xsd"/&gt;
 

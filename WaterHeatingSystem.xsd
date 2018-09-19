@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:include schemaLocation="Common.xsd"/>
 	<xs:include schemaLocation="CommonSystemProperties.xsd"/>
 	<xs:include schemaLocation="Schedule.xsd"/>
@@ -27,7 +27,7 @@ Attributes from Title24 WaterHeating</xs:documentation>
 					<xs:documentation>Place for user to include additional notes/description of the system.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="Fuel" type="EnergyClassEnumType"/>
+			<xs:element minOccurs="0" name="Fuel" type="energyClassEnum"/>
 			<xs:element name="HeatingMethod" type="xs:string" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Describe here what method is used to heat the water.
@@ -48,7 +48,7 @@ Note, that some of the examples above require additional objects to be defined. 
 - If solar, then additional details regarding the solar heating system are needed. This may simply be a reference to the distribution system that transfers heat from the solar panels to the water heating system. It may be an instance of Equipment Properties.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TankVolume" type="VolumeType" minOccurs="0" maxOccurs="1">
+			<xs:element name="TankVolume" type="volume" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>This element indicates the volume of water that the tank associated with the water-heating system can hold. If there is no tank, then this should have the value zero. Water heating systems wtih zero volume (no) tanks are commonly referred to as:
 - tankless
@@ -59,7 +59,7 @@ Note, that some of the examples above require additional objects to be defined. 
 Note that a hot water tank is not necessarily and does not have to be integrated with the water heating equipment. The water heater and the storage tank may be separate entities.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="TankInsulation" type="InsulationType"/>
+			<xs:element minOccurs="0" name="TankInsulation" type="insulation"/>
 			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemHeatSource"
 				type="xs:IDREF">
 				<xs:annotation>
@@ -72,12 +72,12 @@ Another use case is when multiple water heaters are used in series. The first he
 Multiple hot water loops are often advantageous when the end uses are very far apart. The less distance that the hotter water has to travel, the less heat that will lost through the piping into the environment. It is then advantageous to boost the water temperature nearby the end use.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"
+			<xs:element name="SystemProperties" type="commonSystemProperties" minOccurs="0"
 				maxOccurs="1"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="WaterHeatingEquipmentDefinition"
-				type="EquipmentDefinitionType"/>
+				type="equipmentDefinition"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="WaterHeatingEquipment"
-				nillable="false" type="EquipmentInstanceType">
+				nillable="false" type="equipmentInstance">
 				<xs:annotation>
 					<xs:documentation>User may define any number of components of the system. 
 
@@ -123,7 +123,7 @@ This "capacity" is commonly used with domestic tankless (instantaneous) water he
 Systems in the U.S. are often rated in a maximum gpm (flow rate) with a 35 degree Fahrenheit temperature rise. Detailed manufacturer specifications often also list the temperature rise at various flow rates.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence minOccurs="0" maxOccurs="1">
-			<xs:element name="RatedTemperatureRise" type="TemperatureType" minOccurs="1"
+			<xs:element name="RatedTemperatureRise" type="temperature" minOccurs="1"
 				maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The change in temperature of the water between the inlet and outlet of the water heating system when it is operating at full load (maximum heat output or firing rate).
@@ -131,7 +131,7 @@ Systems in the U.S. are often rated in a maximum gpm (flow rate) with a 35 degre
 This Rated Temperature Rise corresponds to the Rated Flow Rate.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="RatedFlowRate" type="FlowType" minOccurs="1" maxOccurs="1">
+			<xs:element name="RatedFlowRate" type="flow" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>The flow rate through the water heating system that corresponds to the Rated Temperature Rise when the system is operating at full load (maximum heat output or firing rate).</xs:documentation>
 				</xs:annotation>

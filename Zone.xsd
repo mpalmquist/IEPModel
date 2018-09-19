@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>A Zone should point to systems that condition it.  (Systems point to a zone to indicate location - where the equipment resides).</xs:documentation>
 	</xs:annotation>

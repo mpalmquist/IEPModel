@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>&lt;xs:include schemaLocation="\CommonQuantities.xsd"/&gt;
 &lt;xs:include schemaLocation="\Equipment.xsd"/&gt;
@@ -53,7 +53,7 @@ This object may represent a collection of different types of lighting or it may 
 			<xs:documentation>This object defines a single type of light fixture. A light fixture consists of a combination of a lamps and ballasts (optional) as well as the container and mounting accessories.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="EquipmentDefinitionType">
+			<xs:extension base="equipmentDefinition">
 				<xs:sequence minOccurs="1" maxOccurs="1">
 					<xs:element minOccurs="0" name="FixtureEfficiency">
 						<xs:annotation>
@@ -143,7 +143,7 @@ In the future, this element may contain the actual IES file converted to a suita
 					<xs:documentation>This is a reference to a defined/instanced lighting zone.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element minOccurs="0" name="SystemProperties" type="CommonSystemPropertiesType"/>
+			<xs:element minOccurs="0" name="SystemProperties" type="commonSystemProperties"/>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="LightingFixture"
 				type="LightingFixtureGroupType">
 				<xs:annotation>
@@ -168,7 +168,7 @@ In the future, this element may contain the actual IES file converted to a suita
 			<xs:documentation>This is a collection of common lamp attributes. Note that the lamp type is known from the LightingTypeEnum which is used in the LightingSystem element Type.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="EquipmentDefinitionType">
+			<xs:extension base="equipmentDefinition">
 				<xs:sequence minOccurs="1" maxOccurs="1">
 					<xs:element name="CRI" type="xs:float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
@@ -244,7 +244,7 @@ In the future, this element may contain the actual IES file converted to a suita
 			<xs:documentation>A set of typical attributes associated with ballasts.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="EquipmentDefinitionType">
+			<xs:extension base="equipmentDefinition">
 				<xs:sequence minOccurs="1">
 					<xs:element name="BallastTechnology" type="xs:string" minOccurs="0"
 						maxOccurs="1">
@@ -371,7 +371,7 @@ The IESNA publishes a category set that describes the use case for lighting in a
 			<xs:documentation>This object defines a type of light fixture and the quantity of them.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-			<xs:extension base="EquipmentInstanceType">
+			<xs:extension base="equipmentInstance">
 				<xs:sequence>
 					<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
 						<xs:annotation>

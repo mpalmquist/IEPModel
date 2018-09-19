@@ -205,7 +205,7 @@
                     <xs:documentation>Describes the installation style used for the array. The installation style categorizes the type of racking and mounting equipment used.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ArrayLocation" type="ArrayLocationType">
+            <xs:element minOccurs="0" name="ArrayLocation" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Describes where on the site that the array is located. It is a choice between referencing an existing RoofPlane element, an existing GroundArea element, or a text description.</xs:documentation>
                 </xs:annotation>
@@ -213,7 +213,7 @@
             <xs:element name="SolarExposure" minOccurs="0">
                 <xs:complexType>
                     <xs:choice>
-                        <xs:element name="ArraySpecificSolarExposure" type="SolarExposureType"/>
+                        <xs:element name="ArraySpecificSolarExposure" type="xs:string"/>
                         <xs:element name="InheritRoofPlaneSolarExposure" type="xs:IDREF"/>
                     </xs:choice>
                 </xs:complexType>

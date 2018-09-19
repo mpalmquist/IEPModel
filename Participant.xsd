@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>Schema defines project participants. It is intended to cover all types of participants, including consumers, service providers, etc.
 		</xs:documentation>
@@ -39,7 +39,7 @@ mailing addresses are closely associated with the role of the participant, not t
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element minOccurs="0" name="adresses">
+			<xs:element minOccurs="0" name="addresses">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="address" type="address" minOccurs="1"

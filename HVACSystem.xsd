@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.iepmodel.net"
-	xmlns="http://www.iepmodel.net">
+	xmlns="http://www.iepmodel.net" elementFormDefault="qualified">
 	<xs:annotation>
 		<xs:documentation>This schema defines the parameters associated with an HVAC system.  
 
@@ -71,7 +71,7 @@ Note that parameters associated with the transport and movement of air and water
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="HVACEquipmentDefinition"
-				type="EquipmentDefinitionType"/>
+				type="equipmentDefinition"/>
 			<xs:element minOccurs="0" name="DeliverySystem" type="DeliverySystemType">
 				<xs:annotation>
 					<xs:documentation>This describes the details of the way in which the HVAC system delivers conditioning to the space it conditions. This allows the user to define ducting or piping etc. This includes an optional reference to a distribution system.</xs:documentation>
@@ -109,7 +109,7 @@ Hydronic Coils
 Refrigerant (Direct Expansion, DX) Coils</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"/>
+			<xs:element name="SystemProperties" type="commonSystemProperties" minOccurs="0"/>
 			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemCoolSource"
 				type="xs:IDREF">
 				<xs:annotation>
@@ -121,7 +121,7 @@ Examples:
 				</xs:annotation>
 			</xs:element>
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="CoolingInstance" nillable="false"
-				type="EquipmentInstanceType"/>
+				type="equipmentInstance"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="HeatingSystemType">
@@ -150,7 +150,7 @@ Refrigeration – Water-Source
 Hydronic Coils</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="SystemProperties" type="CommonSystemPropertiesType" minOccurs="0"/>
+			<xs:element name="SystemProperties" type="commonSystemProperties" minOccurs="0"/>
 			<xs:element maxOccurs="1" minOccurs="0" name="RefDistributionSystemHeatSource"
 				type="xs:IDREF">
 				<xs:annotation>
@@ -162,7 +162,7 @@ Examples:
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="HeatingEquipment" maxOccurs="unbounded" minOccurs="0" nillable="false"
-				type="EquipmentInstanceType"/>
+				type="equipmentInstance"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="DeliverySystemType">
