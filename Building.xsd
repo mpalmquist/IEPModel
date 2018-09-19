@@ -711,7 +711,45 @@ For example:
 Note that if a single Building has more than one street address, only one is required to identify the location.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="grossFloorArea" type="area" minOccurs="0" maxOccurs="1">
+            <xs:element name="useAndOccupancyClassification" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Building's use and occupancy classification.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Use and occupancy classification, as defined in 2018 International Building Code (https://codes.iccsafe.org/public/document/IBC2018/chapter-3-occupancy-classification-and-use).</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="A1"/>
+                        <xs:enumeration value="A2"/>
+                        <xs:enumeration value="A3"/>
+                        <xs:enumeration value="A4"/>
+                        <xs:enumeration value="A5"/>
+                        <xs:enumeration value="B"/>
+                        <xs:enumeration value="E"/>
+                        <xs:enumeration value="F1"/>
+                        <xs:enumeration value="F2"/>
+                        <xs:enumeration value="H1"/>
+                        <xs:enumeration value="H2"/>
+                        <xs:enumeration value="H3"/>
+                        <xs:enumeration value="H4"/>
+                        <xs:enumeration value="H5"/>
+                        <xs:enumeration value="I1"/>
+                        <xs:enumeration value="I2"/>
+                        <xs:enumeration value="I3"/>
+                        <xs:enumeration value="I4"/>
+                        <xs:enumeration value="M"/>
+                        <xs:enumeration value="R1"/>
+                        <xs:enumeration value="R2"/>
+                        <xs:enumeration value="R3"/>
+                        <xs:enumeration value="R4"/>
+                        <xs:enumeration value="S1"/>
+                        <xs:enumeration value="S2"/>
+                        <xs:enumeration value="U"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="grossFloorArea" type="area" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Total floor area, including conditioned (heated/ cooled/ ventilated) and unconditioned spaces.</xs:documentation>
 				</xs:annotation>
