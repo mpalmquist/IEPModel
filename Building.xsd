@@ -495,7 +495,12 @@ For example:
 			<xs:element minOccurs="0" name="solarAccessPercentage" type="solarAccessPercentage"/>
 			<xs:element minOccurs="0" name="storyHeight">
 				<xs:annotation>
-					<xs:documentation>Number of stories from ground level to base of roofFace.</xs:documentation>
+					<xs:documentation>Number of stories from ground level to base of roof face.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="meanHeight" type="dimension">
+				<xs:annotation>
+					<xs:documentation>Height in meters from ground level to base of roof face.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element minOccurs="0" name="surfaceType" type="roofSurfaceEnum">
