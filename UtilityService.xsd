@@ -41,6 +41,11 @@
 					<xs:documentation>Names the energy fuel type.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="utilityId" type="xs:positiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EIA Utility ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element minOccurs="0" name="utilityName" type="xs:string"/>
 			<xs:element maxOccurs="1" minOccurs="0" name="hostCustomerName" type="xs:string">
 				<xs:annotation>

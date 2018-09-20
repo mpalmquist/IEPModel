@@ -1488,7 +1488,7 @@ If circuit connections vary between strings, this element should not be used.  I
             <xs:element name="pvModules">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded" name="pvModuleIdRef"/>
+                        <xs:element maxOccurs="unbounded" name="pvModuleIdRef" type="xs:IDREF"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>

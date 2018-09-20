@@ -92,7 +92,7 @@
                 type="electricalPanelDefinitions"/>
             <xs:element minOccurs="0" name="circuitBreakerDefinitions"
                 type="circuitBreakerDefinitions"> </xs:element>
-            <xs:element minOccurs="0" name="fuseDefintions" type="fuseDefinitions"> </xs:element>
+            <xs:element minOccurs="0" name="fuseDefinitions" type="fuseDefinitions" />
             <xs:element minOccurs="0" name="conductorDefinitions" type="conductorDefinitions"/>
             <xs:element minOccurs="0" name="conduitDefinitions" type="conduitDefinitions"/>
             <xs:element minOccurs="0" name="pvArrays">

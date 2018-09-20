@@ -188,6 +188,18 @@
                             <xs:documentation>Rating of the bus, in Amps.</xs:documentation>
                         </xs:annotation>
                     </xs:element>
+                    <xs:element name="busbarFeedLocation" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Describes the busbar point of connection. Busbars can be either top-, center-, or bottom-fed.</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="TOP"/>
+                                <xs:enumeration value="CENTER"/>
+                                <xs:enumeration value="BOTTOM"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -872,7 +884,7 @@ Circuit connections have two ends. One is defined by the sourceComponentIdRef, t
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
-        <xs:attribute name="id"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
     <xs:complexType name="circuitConnections">
         <xs:annotation>
