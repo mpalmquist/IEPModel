@@ -4,7 +4,7 @@
     Author(s):
     v 2.0 Michael Palmquist (SolarNexus Inc). Input From: Derek Mitchell (Verdiseno, SolarDesignTool.com)
     v 1.x Michael Palmquist (SolarNexus Inc). Input From: Mark Galli (Solmetric)
-    Description: This schema defines complete PV systems. It is modular. It can define any system architiecture at
+    Description: This schema defines complete PV systems. It is modular. It can define any system architecture at
     various levels of detail.
 **************************************************************************** -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iepmodel.net"
@@ -28,7 +28,7 @@
                         <xs:element minOccurs="1" name="applicationReferenceId" type="applicationId"
                             maxOccurs="unbounded">
                             <xs:annotation>
-                                <xs:documentation>ID of the object represented by this XML rewithin a  corresponding software application. Used by the software to identify its corresponding record within the application's database. AKA a primary key. Important if the data is passed from one application back to an originating application, for example. </xs:documentation>
+                                <xs:documentation>ID of the object represented by this XML within a  corresponding software application. Used by the software to identify its corresponding record within the application's database. AKA a primary key. Important if the data is passed from one application back to an originating application, for example. </xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
@@ -203,9 +203,9 @@ NOTE: An AC Module is assumed to be either:
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="acPointOfConnection" type="acPointOfConnection"/>
-            <xs:element name="sceneOriginGeoTag" type="geoLocation" minOccurs="0" maxOccurs="1">
+            <xs:element name="sceneOriginGeoTag" type="geoLocationWithAltitude" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
-                    <xs:documentation>Coordinate system geo reference origin for the system.  All child components that specify 3D coordinates are in units meters relative to this location.  The 3D coordinate of this origin is (0,0,0).</xs:documentation>
+                    <xs:documentation>Coordinate system geo reference origin for the system. All child components that specify 3D coordinates are in units meters relative to this location. The 3D coordinate of this origin is (0,0,0).</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
