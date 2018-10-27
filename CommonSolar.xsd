@@ -78,7 +78,15 @@
             <xs:enumeration value="FLOATING"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:complexType name="mountingSystem">
+    <xs:complexType name="mountingSystemDefinitions">
+        <xs:annotation>
+            <xs:documentation>A collection of mounting system definitions in the associated system.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="mountingSystemDefinition" type="mountingSystemDefinition" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="mountingSystemDefinition">
         <xs:annotation>
             <xs:documentation>Describes the physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
         </xs:annotation>
@@ -89,32 +97,40 @@
                     <xs:documentation>Include model numbers and descriptions of mounting system components.  Note, if there is more than one manufacturer's parts used, list the secondary mfr's name here with its component.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="numberOfRowsPerRack" type="xs:int" default="1">
+            <xs:element minOccurs="0" name="anchorFastenerDiameter" type="xs:double">
                 <xs:annotation>
-                    <xs:documentation>Describes the quantity of module rows within a single rack structure. Ground mount tilted racks typically have multiple module rows.</xs:documentation>
+                    <xs:documentation>For expedited permitting, if cannot verify that proposed anchor fasteners suit racking manufacturer guidelines, then need to specify the diameter of lag screw, hanger bolt, or self-drilling screw used to fasten anchors.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="roofPenetrationWeatherProofing" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Description of the method used to weatherproof roof penetrations (e.g. flashing, caulk) </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="mountingSystem">
+        <xs:annotation>
+            <xs:documentation>Describes the instance of a physical mounting structure used to secure an array of solar panels (may be photovoltaic or thermal).</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
             <xs:element minOccurs="0" name="anchorTotal" type="xs:integer">
                 <xs:annotation>
                     <xs:documentation>Total number of attachment points for the array. Anchors are also known as “stand-offs”, “feet”, “mounts” or “points of attachment.”</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="anchorsInAdjacentRowsStaggered" type="xs:boolean"/>
             <xs:element minOccurs="0" name="anchorMaxHorizontalSpacing" type="xs:double"
-                form="qualified">
+                        form="qualified">
                 <xs:annotation>
                     <xs:documentation>The maximum horizontal spacing allowed between attachment points. Horizontal anchor spacing is also known as “cross-slope” or “east-west” anchor spacing. See racking product manual for maximum spacing allowed based on maximum design wind speed, and permitting guidelines for maximum spacing allowed for structural load. </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="anchorsInAdjacentRowsStaggered" type="xs:boolean"/>
             <xs:element minOccurs="0" name="anchorFastenersMeetManufacturerGuidelines"
-                type="xs:boolean">
+                        type="xs:boolean">
                 <xs:annotation>
                     <xs:documentation>Do the proposed anchor fasteners meet the manufacturer’s guidelines, if provided? If yes, may be suitable enough to not require defining anchor fastener diameter and embedment.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element minOccurs="0" name="anchorFastenerDiameter" type="xs:double">
-                <xs:annotation>
-                    <xs:documentation>For expedited permitting, if cannot verify that proposed anchor fasteners suit racking manufacturer guidelines, then need to specify the diameter of lag screw, hanger bolt, or self-drilling screw used to fasten anchors.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element minOccurs="0" name="anchorFastenerEmbedmentDepth" type="xs:double">
@@ -127,6 +143,11 @@
                     <xs:documentation>Typically one screw per anchor.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="numberOfRowsPerRack" type="xs:int" default="1">
+                <xs:annotation>
+                    <xs:documentation>Describes the quantity of module rows within a single rack structure. Ground mount tilted racks typically have multiple module rows.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element minOccurs="0" name="totalArrayWeight" type="xs:double">
                 <xs:annotation>
                     <xs:documentation>Total weight in pounds (lbs) of the array's panels and its mounting structure components.</xs:documentation>
@@ -137,12 +158,12 @@
                     <xs:documentation>The total surface area (in square feet) of all the panels in the array.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="roofPenetrationWeatherProofing" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Description of the method used to weatherproof roof penetrations (e.g. flashing, caulk) </xs:documentation>
-                </xs:annotation>
-            </xs:element>
         </xs:sequence>
+        <xs:attribute name="mountingSystemDefinitionIdRef" type="xs:IDREF" use="required">
+            <xs:annotation>
+                <xs:documentation>A reference to a mounting system definition.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
     <xs:complexType name="inverterDefinition">
         <xs:annotation>

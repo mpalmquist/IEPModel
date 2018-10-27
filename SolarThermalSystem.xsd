@@ -220,6 +220,7 @@
             </xs:element>
             <xs:element minOccurs="0" name="CollectorStandoff" type="xs:string"/>
             <xs:element minOccurs="0" name="CollectorOrientation" type="panelOrientationEnum"/>
+            <xs:element minOccurs="0" name="MountingSystemDefinition" type="mountingSystemDefinition"/>
             <xs:element minOccurs="0" name="MountingSystem" type="mountingSystem"/>
             <xs:element minOccurs="0" name="RoofFace" type="roofFace" maxOccurs="unbounded"/>
         </xs:sequence>
