@@ -1742,10 +1742,27 @@ Use the Name attribute to capture optional name for the payment. For example, if
 Included in Common.xsd because equipmentDefinition element uses it, else would be in CommonElectrical.xsd.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
             <xs:enumeration value="3"/>
             <xs:enumeration value="3R"/>
+            <xs:enumeration value="3S"/>
+            <xs:enumeration value="3X"/>
+            <xs:enumeration value="3RX"/>
+            <xs:enumeration value="3SX"/>
             <xs:enumeration value="4"/>
             <xs:enumeration value="4X"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="6P"/>
+            <xs:enumeration value="7"/>
+            <xs:enumeration value="8"/>
+            <xs:enumeration value="9"/>
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="11"/>
+            <xs:enumeration value="12"/>
+            <xs:enumeration value="12K"/>
+            <xs:enumeration value="13"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType abstract="true" name="equipmentDefinition">
