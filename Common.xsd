@@ -111,6 +111,11 @@ This is also used for PowerClerk/CSI program</xs:documentation>
 Note that if there are more than one street address, the model forces these to be separate Sites/Projects. If a Building on the project site has more than one street address, only one is required to identify the location.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="siteMapCoordinateSystemOrigin" type="geoLocation" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>All site geometry coordinates are in meters relative to this origin. The coordinate of this origin is (0;0).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="siteDefinitionMethod" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Describes how the site was originally defined. Was it a trace over aerial imagery, or was it an import a 3D model?</xs:documentation>
@@ -637,36 +642,47 @@ ISSUES / TO DO:
         <xs:sequence>
             <xs:element name="latitude" type="xs:double"/>
             <xs:element name="longitude" type="xs:double"/>
-            <xs:element name="altitude" type="xs:double"/>
-            <xs:element name="altitudeReference" default="Ground">
-                <xs:annotation>
-                    <xs:documentation>Reference for 'altitude' element.</xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="Ground">
-                            <xs:annotation>
-                                <xs:documentation>The altitude is measured from the ground.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="Ellipsoid">
-                            <xs:annotation>
-                                <xs:documentation>The altitude is measured from the ellipsoid.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="SeaLevel">
-                            <xs:annotation>
-                                <xs:documentation>The altitude is measured from sea level.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
         </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="geoLocationWithAltitude">
+        <xs:annotation>
+            <xs:documentation>Geographic location that also considers altitude.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="geoLocation">
+                <xs:sequence>
+                    <xs:element name="altitude" type="xs:double"/>
+                    <xs:element name="altitudeReference" default="Ground">
+                        <xs:annotation>
+                            <xs:documentation>Reference for 'altitude' element.</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="Ground">
+                                    <xs:annotation>
+                                        <xs:documentation>The altitude is measured from the ground.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="Ellipsoid">
+                                    <xs:annotation>
+                                        <xs:documentation>The altitude is measured from the ellipsoid.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="SeaLevel">
+                                    <xs:annotation>
+                                        <xs:documentation>The altitude is measured from sea level.</xs:documentation>
+                                    </xs:annotation>
+                                </xs:enumeration>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="point2d">
         <xs:annotation>
-            <xs:documentation>A ccordinate location in 2 dimensional space.</xs:documentation>
+            <xs:documentation>A coordinate location in 2 dimensional space.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="x" type="xs:double"/>
@@ -680,7 +696,7 @@ ISSUES / TO DO:
     </xs:complexType>
     <xs:complexType name="point3d">
         <xs:annotation>
-            <xs:documentation>A ccordinate location in 3 dimensional space.</xs:documentation>
+            <xs:documentation>A coordinate location in 3 dimensional space.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="x" type="xs:double"/>
