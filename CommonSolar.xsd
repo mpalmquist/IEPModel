@@ -97,6 +97,20 @@
                     <xs:documentation>Include model numbers and descriptions of mounting system components.  Note, if there is more than one manufacturer's parts used, list the secondary mfr's name here with its component.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element minOccurs="0" name="railManufacturer" type="xs:string"/>
+            <xs:element minOccurs="0" name="railProductFamily" type="xs:string"/>
+            <xs:element minOccurs="0" name="anchorManufacturer" type="xs:string"/>
+            <xs:element minOccurs="0" name="anchorModel" type="xs:string"/>
+            <xs:element minOccurs="0" name="minAnchorFastenersPerAnchor" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Minimum number of anchor fasteners per anchor. Usually one, but sometimes two.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="maxAnchorFastenersPerAnchor" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>Maximum number of anchor fasteners per anchor. Usually one, but sometimes up to eight.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element minOccurs="0" name="anchorFastenerDiameter" type="xs:double">
                 <xs:annotation>
                     <xs:documentation>For expedited permitting, if cannot verify that proposed anchor fasteners suit racking manufacturer guidelines, then need to specify the diameter of lag screw, hanger bolt, or self-drilling screw used to fasten anchors.</xs:documentation>
