@@ -34,6 +34,7 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element minOccurs="0" name="mountingSystemDefinitions" type="mountingSystemDefinitions"/>
             <xs:element minOccurs="0" name="pvModuleDefinitions">
                 <xs:annotation>
                     <xs:documentation>A collection of the specifications of each PV module make/model used in the PV system.</xs:documentation>
