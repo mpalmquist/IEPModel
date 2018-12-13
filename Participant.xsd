@@ -142,6 +142,7 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:documentation>Inspector - "A inspector for any of the work done."</xs:documentation>
 			<xs:documentation>Engineer - "An engineer providing designs documents and specifications"</xs:documentation>
 			<xs:documentation>Program Administrator - "A party who oversees any incentive or regulatory work."</xs:documentation>
+			<xs:documentation>Authority Having Jurisdiction - "Also known as AHJ. This is the city, county, or other authority with jurisdiction over building permits and inspections."</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="HOST_CUSTOMER"/>
@@ -161,6 +162,7 @@ mailing addresses are closely associated with the role of the participant, not t
 			<xs:enumeration value="INSPECTOR"/>
 			<xs:enumeration value="ENGINEER"/>
 			<xs:enumeration value="PROGRAM_ADMINISTRATOR"/>
+			<xs:enumeration value="AUTHORITY_HAVING_JURISDICTION"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="credential">

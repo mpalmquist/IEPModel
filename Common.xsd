@@ -130,11 +130,25 @@ Note that if there are more than one street address, the model forces these to b
             <xs:element minOccurs="0" name="realEstateClassification"
                 type="realEstateClassificationEnum"/>
             <xs:element maxOccurs="1" minOccurs="0" name="assessorsParcelNumber" type="xs:string"/>
-            <xs:element maxOccurs="1" minOccurs="0" name="authorityHavingJurisdiction"
-                type="xs:string">
+            <xs:element maxOccurs="1" minOccurs="0" name="jurisdiction">
                 <xs:annotation>
-                    <xs:documentation>Also known as "AHJ."  This is the city, county, or other authority with jurisdiction over building permits and inspections.</xs:documentation>
+                    <xs:documentation>Describes the jurisdiction of participant with 'AUTHORITY_HAVING_JURISDICTION' role.</xs:documentation>
                 </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="name" type="xs:string"/>
+                        <xs:element minOccurs="0" name="state" type="xs:string"/>
+                        <xs:element minOccurs="0" name="type">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="STATE"/>
+                                    <xs:enumeration value="COUNTY"/>
+                                    <xs:enumeration value="CITY"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
             <xs:element maxOccurs="1" minOccurs="0" name="customerOwnsProperty" type="xs:boolean">
                 <xs:annotation>
